@@ -1,5 +1,7 @@
 package org.tywrapstudios.ctd.platform.services;
 
+import java.io.File;
+
 public interface IPlatformHelper {
 
     /**
@@ -8,6 +10,13 @@ public interface IPlatformHelper {
      * @return The name of the current platform.
      */
     String getPlatformName();
+
+    /**
+     * Gets the version of a mod.
+     *
+     * @return The version of a mod.
+     */
+    String getModVersion(String modId);
 
     /**
      * Checks if a mod with the given id is loaded.
@@ -25,12 +34,18 @@ public interface IPlatformHelper {
     boolean isDevelopmentEnvironment();
 
     /**
+     * Gets the Config Directory in the form of a File.
+     *
+     * @return The Config Directory.
+     */
+    File getConfigDirectory();
+
+    /**
      * Gets the name of the environment type as a string.
      *
      * @return The name of the environment type.
      */
     default String getEnvironmentName() {
-
         return isDevelopmentEnvironment() ? "development" : "production";
     }
 }
