@@ -10,24 +10,23 @@ But that's not all this mod does! It has a few other features that other mods li
 - Sending a Start and Stop message for the respective server lifecycle events.
 - The `/ctd` command, which displays info about your current settings and the mod!
 - Alongside that, `/ctd reload` reloads your config without the need of a laggy vanilla /reload!
-- Before your message is sent, it goes through some needed Compatibility handlers, which most mods lack:
+- Before your message is sent, it goes through some necessary Compatibility handlers, which most mods lack:
   - Your message is modified to negate global pings (e.g. `@everyone`).
   - Your message is modified to negate invite links.
   - Your message is modified to negate any role pings that you don't allow in Config.
   - Your message and player names in it are modified to bypass Discord's native Markdown features (such as _Cursive text_).
-  - When sharing a waypoint using Xaero's Mini-/Worldmap it displays a very "weird" message, this message can actually be deciphered using some smart Java magic and this mod rewrites your message to be more legible.
-- A fully fletched way to send stuff to a Webhook, for addon Creators.
-- A more robust way of handling logging, falling in line with options in Config.
+  - When sharing a waypoint using Xaero's Mini-/Worldmap, it displays a very "weird" message, this message can actually be deciphered using some smart Java magic, and this mod rewrites your message to be more legible.
+- A fully fletched way to send stuff to a Webhook for addon Creators.
 - The Config gets reloaded even when the vanilla /reload command is run.
-- If the server crashes, a specialized embed will be sent, displaying the main cause, and also linking to an automatically made Mclogs Site!
+- If the server crashes, a specialised embed will be sent, displaying the main cause, and also linking to an automatically made Mclogs Site!
 ---
-### A very simple Config System is also included!:
+### A basic Config System is also included!:
 ```json5
 {
   "format_version": "2.0",
   // All configurations for the Discord integration.
   "discord_config": {
-    // A list of webhooks in Strings that the mod will send messages to. eg: "https://discord.com/api/webhooks/..."
+    // A list of webhooks in Strings that the mod will send messages to. e.g.: "https://discord.com/api/webhooks/..."
     "discord_webhooks": [],
     // Whether to only send player messages to Discord, and not game related messages (e.g. join/leave messages, deaths, etc.).
     "only_send_messages": false,
@@ -56,9 +55,7 @@ But that's not all this mod does! It has a few other features that other mods li
 ### Extra info:
 > [!IMPORTANT]
 > It is suggested to completely whitelist the Webhook for your Auto-Moderation bots.  
-> Why whitelist? For starters, most bots will flag it as "spamming" since the playername is always included in the message, and thus repeated a few times, whitelisting the Webhook solves the hassle of having to remake it every time your bot deletes it.  
+> Why whitelist? For starters, most bots will flag it as "spamming" since the player name is always included in the message, and thus repeated a few times, whitelisting the Webhook solves the hassle of having to remake it every time your bot deletes it.
 
 > [!NOTE]
-> All the code and other stuff in this repository is licensed under the MIT License.  
-> The only Exceptions are everything that can be found in `/main/resources/assets/ctd/*`, such as the Mod icon, this is all licensed under **ARR, All Rights Reserved Unless Explicitly stated.**  
-> A separate LICENSE file can be found in there as well.
+> CTD is published under the TYSPAL Licence, which can be viewed [here](./LICENSE).
