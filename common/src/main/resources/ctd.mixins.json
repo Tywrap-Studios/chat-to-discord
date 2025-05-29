@@ -4,7 +4,11 @@
   "package": "org.tywrapstudios.ctd.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [],
+  "mixins": [
+    "AsyncWorldInfoProviderMixin",
+    "ReloadCommandMixin",
+    "CrashReportMixin"
+  ],
   "client": [],
   "server": [],
   "injectors": {
