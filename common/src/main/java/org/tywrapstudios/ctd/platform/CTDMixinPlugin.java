@@ -1,4 +1,4 @@
-package org.tywrapstudios.ctd.compat;
+package org.tywrapstudios.ctd.platform;
 
 import com.google.common.collect.ImmutableMap;
 import org.objectweb.asm.tree.ClassNode;
@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import org.tywrapstudios.ctd.platform.CTDServices;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class CTDMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        LOGGER.debug("Checking if mixin {} should be applied to {}", mixinClassName, targetClassName);
+        LOGGER.debug("Checking if mixin {} should be applied to {} ({})", mixinClassName, targetClassName, CTDServices.PLATFORM.getPlatformName());
         return CONDITIONS.getOrDefault(mixinClassName, TRUE).get();
     }
 

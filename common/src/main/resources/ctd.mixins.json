@@ -5,12 +5,11 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
   "mixins": [
-    "CrashReportMixin",
-    "ReloadCommandMixin"
+    "CrashReportMixin"
   ],
   "client": [],
   "server": [],
-  "plugin": "org.tywrapstudios.ctd.compat.CTDMixinPlugin",
+  "plugin": "org.tywrapstudios.ctd.platform.CTDMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }
