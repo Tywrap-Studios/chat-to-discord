@@ -1,16 +1,14 @@
 package org.tywrapstudios.ctd.discord.webhook;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tywrapstudios.ctd.CTDCommon;
 import org.tywrapstudios.ctd.discord.messagetypes.Embed;
 import org.tywrapstudios.ctd.discord.messagetypes.PlainMessage;
 import org.tywrapstudios.ctd.discord.webhook.WebhookClient.Callback;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.logging.Level;
 
 public class WebhookConnector {
 

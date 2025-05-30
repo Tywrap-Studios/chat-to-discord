@@ -10,6 +10,7 @@
   ],
   "client": [],
   "server": [],
+  "plugin": "org.tywrapstudios.ctd.compat.CTDMixinPlugin",
   "injectors": {
     "defaultRequire": 1
   }

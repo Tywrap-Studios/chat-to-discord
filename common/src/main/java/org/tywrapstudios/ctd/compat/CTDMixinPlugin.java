@@ -1,10 +1,10 @@
 package org.tywrapstudios.ctd.compat;
 
 import com.google.common.collect.ImmutableMap;
-import org.tywrapstudios.ctd.platform.Services;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import org.tywrapstudios.ctd.platform.Services;
 
 import java.util.List;
 import java.util.Map;

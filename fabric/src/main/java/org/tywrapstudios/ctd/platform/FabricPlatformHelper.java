@@ -1,7 +1,7 @@
 package org.tywrapstudios.ctd.platform;
 
-import org.tywrapstudios.ctd.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
+import org.tywrapstudios.ctd.platform.services.IPlatformHelper;
 
 import java.io.File;
 

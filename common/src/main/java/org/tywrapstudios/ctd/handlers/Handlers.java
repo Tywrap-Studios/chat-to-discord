@@ -10,11 +10,9 @@ import org.tywrapstudios.ctd.compat.DiscordSafety;
 import org.tywrapstudios.ctd.config.CTDConfig;
 import org.tywrapstudios.ctd.discord.Discord;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 public class Handlers {
     public static void handleChatMessage(String messageStr, String authorUUID, String authorName) {

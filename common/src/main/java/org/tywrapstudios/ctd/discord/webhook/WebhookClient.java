@@ -6,9 +6,12 @@ import org.tywrapstudios.ctd.CTDCommon;
 import org.tywrapstudios.ctd.platform.Services;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 

@@ -1,8 +1,8 @@
 package org.tywrapstudios.ctd.platform;
 
-import org.tywrapstudios.ctd.platform.services.IPlatformHelper;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
+import org.tywrapstudios.ctd.platform.services.IPlatformHelper;
 
 import java.io.File;
 

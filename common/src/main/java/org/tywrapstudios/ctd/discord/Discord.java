@@ -10,7 +10,6 @@ import org.tywrapstudios.ctd.discord.webhook.WebhookClient;
 import org.tywrapstudios.ctd.discord.webhook.WebhookConnector;
 import org.tywrapstudios.ctd.platform.Services;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.concurrent.ExecutionException;

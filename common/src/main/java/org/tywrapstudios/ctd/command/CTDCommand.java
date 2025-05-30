@@ -13,7 +13,6 @@ import org.tywrapstudios.ctd.handlers.Handlers;
 import org.tywrapstudios.ctd.platform.Services;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -48,9 +47,7 @@ public class CTDCommand {
     }
 
     private static int forceCrashMessage(CommandContext<CommandSourceStack> context) {
-        try {
-            Handlers.handleCrash("DEBUG CAUSE", "~~DEBUG CAUSE~~");
-        } catch (ExecutionException | InterruptedException ignored) {}
+        Handlers.handleCrash("DEBUG CAUSE", null);
         return 1;
     }
 

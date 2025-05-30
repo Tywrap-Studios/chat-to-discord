@@ -3,7 +3,6 @@ package org.tywrapstudios.ctd.config;
 import blue.endless.jankson.Comment;
 import org.tywrapstudios.blossombridge.api.config.BasicConfigClass;
 import org.tywrapstudios.blossombridge.api.config.InvalidConfigVersionException;
-import org.tywrapstudios.ctd.CTDCommon;
 
 import java.util.ArrayList;
 import java.util.List;

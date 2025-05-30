@@ -1,16 +1,12 @@
 package org.tywrapstudios.ctd;
 
-import java.io.File;
-import java.util.List;
-import java.util.Objects;
 import gs.mclo.api.MclogsClient;
-
 import org.tywrapstudios.blossombridge.api.config.ConfigManager;
-import org.tywrapstudios.blossombridge.api.config.InvalidConfigVersionException;
 import org.tywrapstudios.blossombridge.api.logging.LoggingHandler;
-import org.tywrapstudios.ctd.command.CTDCommand;
 import org.tywrapstudios.ctd.config.CTDConfig;
 import org.tywrapstudios.ctd.platform.Services;
+
+import java.io.File;
 
 public class CTDCommon {
     public static final ConfigManager<CTDConfig> CONFIG_MANAGER =

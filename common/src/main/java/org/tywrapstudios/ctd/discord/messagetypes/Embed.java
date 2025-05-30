@@ -1,12 +1,12 @@
 package org.tywrapstudios.ctd.discord.messagetypes;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.tywrapstudios.ctd.discord.resources.Author;
 import org.tywrapstudios.ctd.discord.resources.Field;
 import org.tywrapstudios.ctd.discord.resources.Footer;
 import org.tywrapstudios.ctd.discord.resources.Image;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Embed {
     private String title;
