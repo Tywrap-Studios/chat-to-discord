@@ -10,10 +10,9 @@ import org.tywrapstudios.ctd.CTDCommon;
 import org.tywrapstudios.ctd.compat.Spark;
 import org.tywrapstudios.ctd.config.CTDConfig;
 import org.tywrapstudios.ctd.handlers.Handlers;
-import org.tywrapstudios.ctd.platform.Services;
+import org.tywrapstudios.ctd.platform.CTDServices;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 public class CTDCommand {
@@ -90,7 +89,7 @@ public class CTDCommand {
                     > Embed Mode: %s
                     > Only Messages Mode: %s
                     > Webhooks Defined: %s%s
-                    -----------------------""", CTDCommon.MOD_V, Services.PLATFORM.getPlatformName(), CTDCommon.CONFIG_MANAGER.getConfig().format_version, config.discord_config.embed_mode, config.discord_config.only_send_messages, webhooks.size(), whenDebug);
+                    -----------------------""", CTDCommon.MOD_V, CTDServices.PLATFORM.getPlatformName(), CTDCommon.CONFIG_MANAGER.getConfig().format_version, config.discord_config.embed_mode, config.discord_config.only_send_messages, webhooks.size(), whenDebug);
         source.sendSuccess(() -> Component.literal(message).withStyle(ChatFormatting.BLUE), false);
         return 1;
     }

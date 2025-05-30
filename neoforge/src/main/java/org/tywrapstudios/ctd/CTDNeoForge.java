@@ -8,7 +8,6 @@ import net.neoforged.fml.common.Mod;
 public class CTDNeoForge {
 
     public CTDNeoForge(IEventBus eventBus) {
-
         CTDCommon.init();
     }
 }

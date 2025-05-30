@@ -4,14 +4,14 @@ import gs.mclo.api.MclogsClient;
 import org.tywrapstudios.blossombridge.api.config.ConfigManager;
 import org.tywrapstudios.blossombridge.api.logging.LoggingHandler;
 import org.tywrapstudios.ctd.config.CTDConfig;
-import org.tywrapstudios.ctd.platform.Services;
+import org.tywrapstudios.ctd.platform.CTDServices;
 
 import java.io.File;
 
 public class CTDCommon {
     public static final ConfigManager<CTDConfig> CONFIG_MANAGER =
-            new ConfigManager<>(CTDConfig.class, new File(Services.PLATFORM.getConfigDirectory(), "ctd.json5"));
-    public static final String MOD_V = Services.PLATFORM.getModVersion("ctd");
+            new ConfigManager<>(CTDConfig.class, new File(CTDServices.PLATFORM.getConfigDirectory(), "ctd.json5"));
+    public static final String MOD_V = CTDServices.PLATFORM.getModVersion("ctd");
     public static MclogsClient MCL;
     public static LoggingHandler<CTDConfig> LOGGING = new LoggingHandler<>("CTD", CONFIG_MANAGER);
 
@@ -25,7 +25,7 @@ public class CTDCommon {
 
         LOGGING.info("Loading up.");
 
-        Services.EVENTS.registerAll();
+        CTDServices.EVENTS.registerAll();
 
         LOGGING.debug("Debug mode enabled.");
         if (CONFIG_MANAGER.getConfig().discord_config.embed_mode) LOGGING.info("Embed mode enabled.");

@@ -8,10 +8,11 @@ import org.tywrapstudios.ctd.discord.messagetypes.PlainMessage;
 import org.tywrapstudios.ctd.discord.resources.Footer;
 import org.tywrapstudios.ctd.discord.webhook.WebhookClient;
 import org.tywrapstudios.ctd.discord.webhook.WebhookConnector;
-import org.tywrapstudios.ctd.platform.Services;
+import org.tywrapstudios.ctd.platform.CTDServices;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import static org.tywrapstudios.ctd.CTDCommon.MCL;
@@ -107,12 +108,12 @@ public class Discord {
     }
 
     public static void sendCrashEmbed(String cause, int embedColor, String webhookUrl, Path log) {
-        MCL.setMinecraftVersion(Services.PLATFORM.getModVersion("minecraft"));
+        MCL.setMinecraftVersion(CTDServices.PLATFORM.getModVersion("minecraft"));
         UploadLogResponse response = null;
         boolean canSend = true;
 
         try {
-            Log stack = new Log(log);
+            Log stack = log != null ? new Log(log) : new Log(Arrays.toString(new Exception("CTD Debug").getStackTrace()));
             response = MCL.uploadLog(stack).get().setClient(MCL);
         } catch (ExecutionException | InterruptedException | IOException e) {
             sendLiteralToDiscord("Minecraft experienced an exception, but CTD could not add an accompanying crash message. Please check your logs.", CTDCommon.CONFIG_MANAGER.getConfig().discord_config.embed_mode, webhookUrl);

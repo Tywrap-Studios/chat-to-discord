@@ -10,14 +10,14 @@ import org.tywrapstudios.ctd.platform.services.IEventHelper;
 public class FabricEventHelper implements IEventHelper {
     @Override
     public void registerServerStarted() {
-        ServerLifecycleEvents.SERVER_STARTED.register(event -> {
+        ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> {
             Handlers.handleChatMessage("Server started.","console","Console");
         });
     }
 
     @Override
     public void registerServerStopped() {
-        ServerLifecycleEvents.SERVER_STOPPED.register(event -> {
+        ServerLifecycleEvents.SERVER_STOPPED.register(minecraftServer -> {
             Handlers.handleChatMessage("Server stopped.","console","Console");
         });
     }

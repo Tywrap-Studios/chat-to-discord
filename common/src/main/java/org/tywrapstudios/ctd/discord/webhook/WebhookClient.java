@@ -3,7 +3,7 @@ package org.tywrapstudios.ctd.discord.webhook;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.tywrapstudios.ctd.CTDCommon;
-import org.tywrapstudios.ctd.platform.Services;
+import org.tywrapstudios.ctd.platform.CTDServices;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -69,7 +69,7 @@ public class WebhookClient {
         Properties p = System.getProperties();
         String userAgent = String.format(
                 "Minecraft* (%s; %s %s) - Chat To Discord %s",
-                Services.PLATFORM.getPlatformName(),
+                CTDServices.PLATFORM.getPlatformName(),
                 p.get("os.arch"),
                 p.get("os.version"),
                 CTDCommon.MOD_V

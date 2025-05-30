@@ -2,6 +2,7 @@ package org.tywrapstudios.ctd.platform;
 
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.fml.loading.moddiscovery.ModFileInfo;
 import org.tywrapstudios.ctd.platform.services.IPlatformHelper;
 
 import java.io.File;
@@ -20,7 +21,12 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public boolean isModLoaded(String modId) {
-        return ModList.get().isLoaded(modId);
+        ModList list = ModList.get();
+        if (list == null) {
+            ModFileInfo modFileInfo = FMLLoader.getLoadingModList().getModFileById(modId);
+            return modFileInfo != null;
+        }
+        return list.isLoaded(modId);
     }
 
     @Override
