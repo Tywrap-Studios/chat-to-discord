@@ -8,6 +8,10 @@ repositories {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
     }
+    maven {
+        name = 'JitPack'
+        url = 'https://jitpack.io'
+    }
 }
 
 dependencies {
@@ -21,6 +25,14 @@ dependencies {
 
     // Spark
     compileOnly "maven.modrinth:spark:${project.spark_version}-fabric"
+    // JSON
+    implementation include("org.json:json:${project.json_version}")
+    // Mclogs Java
+    implementation include("gs.mclo:api:${project.mclogs_version}")
+    // Jankson
+    implementation include("blue.endless:jankson:${project.jankson_version}")
+    // BlossomBridge
+    implementation include("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
 }
 
 loom {
