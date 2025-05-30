@@ -21,6 +21,10 @@ repositories {
         name = 'JitPack'
         url = 'https://jitpack.io'
     }
+    maven {
+        name = 'Sonatype'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
 }
 
 dependencies {
@@ -29,21 +33,14 @@ dependencies {
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
 
-//    // JSON Stuff
-//    implementation include("org.json:json:${project.json_version}")
-//    // Mclogs Java - Library to read, list and share logs to mclogs
-//    implementation include("gs.mclo:api:${project.mclogs_version}")
-//    // Jankson
-//    implementation include("blue.endless:jankson:${project.jankson_version}")
     // JSON
-    implementation "org.json:json:${project.json_version}"
+    api("org.json:json:${project.json_version}")
     // Mclogs Java
-    implementation "gs.mclo:api:${project.mclogs_version}"
+    api("gs.mclo:api:${project.mclogs_version}")
     // Jankson
-    implementation "blue.endless:jankson:${project.jankson_version}"
+    api("blue.endless:jankson:${project.jankson_version}")
     // BlossomBridge
-    implementation("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
-    // TODO: Add Spark for AsyncWorldInfoProviderMixin
+    api("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
 }
 
 configurations {
