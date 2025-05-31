@@ -4,7 +4,12 @@
   "package": "org.tywrapstudios.ctd.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AsyncWorldInfoProviderMixin"
+    "AdvancementMixin",
+    "AsyncWorldInfoProviderMixin",
+    "CommandManagerMixin",
+    "PlayerListMixin",
+    "ServerGamePacketListenerMixin",
+    "ServerPlayerMixin"
   ],
   "client": [],
   "server": [],

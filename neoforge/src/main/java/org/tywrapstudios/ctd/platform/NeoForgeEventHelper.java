@@ -1,6 +1,5 @@
 package org.tywrapstudios.ctd.platform;
 
-import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.ServerChatEvent;
@@ -36,6 +35,8 @@ public class NeoForgeEventHelper implements IEventHelper {
         });
     }
 
+    // TODO: Find a way to add both of these
+    //  NeoForge Events my beloathed
     @Override
     public void registerGameMessage() {
 

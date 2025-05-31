@@ -24,7 +24,7 @@ public abstract class CrashReportMixin {
     @Shadow @Final private static Logger LOGGER;
 
     @Inject(method = "saveToFile(Ljava/nio/file/Path;Lnet/minecraft/ReportType;Ljava/util/List;)Z",
-            at = @At(value = "TAIL"))
+            at = @At(value = "HEAD"))
     private void ctd$sendWebhookOnCrash(Path path, ReportType type, List<String> links, CallbackInfoReturnable<Boolean> cir) {
         String cause = getExceptionMessage();
         try {
