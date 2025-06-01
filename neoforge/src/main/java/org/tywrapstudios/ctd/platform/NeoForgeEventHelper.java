@@ -35,8 +35,9 @@ public class NeoForgeEventHelper implements IEventHelper {
         });
     }
 
-    // TODO: Find a way to add both of these
-    //  NeoForge Events my beloathed
+    // DO NOT IMPLEMENT EITHER OF THESE!!!
+    // These "events" are handled with Mixins!
+    // NeoForge events my beloathed
     @Override
     public void registerGameMessage() {
 
