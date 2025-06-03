@@ -9,9 +9,6 @@ Tywrap Studios Protected Art License 1.0
         generated/data/ or resources/data/.
     "Art" includes (BUT IS NOT LIMITED TO) all (source) files located in generated/assets/,
         resources/assets/ or docs/assets/, as well as resources/ctd.png.
-    "Non-direct contribution" implies contribution/addition to the software that was not specifically meant
-        to be for this software, but is still present in the software, be it according to copyright
-        law and respective licensing.
     Parts of the license encapsuled by "/** **/" or "<>" are meant to assist people who use the license to
         write and edit the license for their needs. If any of these texts reference "you," it refers to the
         person writing/editing the license.
@@ -40,54 +37,25 @@ Tywrap Studios Protected Art License 1.0
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
-2. All our Art is ARR:
+2. All our Art is All Rights Reserved:
 
     Copyright (c) Tywrap Studios; All Rights Reserved unless explicitly stated otherwise.
 
-3. Contributions
+3. Forking
 
-    Any code contributions made to the software are purely voluntarily and you will grant us
-    without any limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of your contributed code, similar to the beforementioned MIT
-    license.
+    Due to these terms, you are fully permitted to fork and copy over the code from any part of the software,
+    unless explicitly stated otherwise. To be clear; this does not include any art. You are required to 
+    remove any art you don't own from your fork, whether it's for private or public use.
 
-    With any art contributions made to the software, you reserve all remaining rights to your contributed art,
-    you grant only us limitless permission to use, modify, fork and/or publish and distribute your
-    contributed art as part of the software.
+4. Removal
 
-4. Non-direct Contribution
+    We reserve the right to request the removal of our software if we determine that you are 
+    violating the license terms or harming the reputation of the software through your use case.
 
-    Any content added by non-direct contribution will have its respective license stay intact, even if the
-    license specifies we may sub- and relicense the content. Said respective license will be included and/or
-    properly specified within that part of the software and all rights will remain the same as normal.
-    This goes for code, art and/or any other type of content.
-
-5. Forking
-
-    You are fully permitted to fork and copy over the code from any part of the software,
-    unless explicitly stated otherwise. To be clear; this does not include any art, unless you hold
-    part of the rights to it, or it is explicitly stated you may use it. If you make a hard fork of the
-    software source, you are required to remove any of said art from your fork, whether it's for private or
-    public use.
-
-6. Revocation
-
-    We reserve the right to revoke your access to the software in whatever way possible if we deem necessary.
-    We will do this through non-malicious means, including but certainly not limited to using methods such as
-    hard blacklists or requiring you to authenticate yourself in whatever way possible. If you hold rights
-    to any part of the software, we will still continue to use that part if the beforementioned terms apply
-    correctly. If not, your contribution, be it direct or not, will be removed from the software.
-
-    /** This article may be seen as vague, optional and/or badly formatted. It is suggested to review this
-    article for your use case and properly edit it to suit your intentions. You are, however, required to leave
-    in this notice. (see also: article 7) **/
-
-7. License Squared
-
-    "You" refers to someone using/editing this license.
+5. License Squared
 
     You may use this license for any software. But if you modify any part of the license, you must make the
-    user aware of this, either by changing the title by adding "Modified", and/or explicitly defining and
-    explaining the modification at the place it was made. The only exception to this term is if you need to
-    leave out parts of the "Code" and "Art" definitions and of course replacing the mock values in between
-    "<>". Again, a copy of the raw, unedited license can be found at https://tiazzz.me/licensing/tyspal.
+    user aware of this, for example by changing the title by adding "Modified", and/or explicitly defining and
+    explaining the modification at the place it was made. Again, a copy of the raw, unedited license can 
+    be found at https://tiazzz.me/licensing/tyspal.
+
