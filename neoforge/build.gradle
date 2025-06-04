@@ -1,39 +1,46 @@
 plugins {
-    id 'multiloader-loader'
-    id 'net.neoforged.moddev'
+    id("multiloader-loader")
+    id("net.neoforged.moddev")
 }
 
 repositories {
     maven {
-        name = 'Modrinth'
-        url = 'https://api.modrinth.com/maven'
+        name = "Modrinth"
+        url = uri("https://api.modrinth.com/maven")
     }
     maven {
-        name = 'JitPack'
-        url = 'https://jitpack.io'
+        name = "JitPack"
+        url = uri("https://jitpack.io")
     }
 }
 
 dependencies {
     // Spark
-    compileOnly "maven.modrinth:spark:${project.spark_version}-neoforge"
+    compileOnly("maven.modrinth:spark:${project.spark_version}-neoforge")
 
-    // JSON
-    jarJar (implementation (additionalRuntimeClasspath "org.json:json:${project.json_version}"))
-    // Mclogs Java
-    jarJar (implementation (additionalRuntimeClasspath "gs.mclo:api:${project.mclogs_version}")) {
-        exclude group: 'com.google.code.gson', module: 'gson'
+    for (dep in libs.bundles.jijs.get()) {
+        implementation(dep) {
+            exclude group: "org.slf4j", module: "slf4j-api"
+            exclude group: "com.google.code.gson", module: "gson"
+        }
     }
-    // Jankson
-    jarJar (implementation (additionalRuntimeClasspath "blue.endless:jankson:${project.jankson_version}"))
-    // BlossomBridge
-    jarJar (implementation (additionalRuntimeClasspath "com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")) {
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
+
+//    // JSON
+//    jarJar (implementation (additionalRuntimeClasspath libs.json.get()))
+//    // Mclogs Java
+//    jarJar (implementation (additionalRuntimeClasspath libs.mclogs.get())) {
+//        exclude(group = "com.google.code.gson",) module = "gson"
+//    }
+//    // Jankson
+//    jarJar (implementation (additionalRuntimeClasspath libs.jankson.get()))
+//    // BlossomBridge
+//    jarJar (implementation (additionalRuntimeClasspath libs.bbapi.get())) {
+//        exclude(group = "org.slf4j",) module = "slf4j-api"
+//    }
 
     // Explicit dependencies with compatible versions
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.slf4j:slf4j-api:2.0.9")
 }
 
 neoForge {
@@ -49,7 +56,7 @@ neoForge {
     }
     runs {
         configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+            systemProperty("neoforge.enabledGameTestNamespaces", mod_id)
             ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
         }
         client {
@@ -69,4 +76,4 @@ neoForge {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources { srcDir "src/generated/resources" }

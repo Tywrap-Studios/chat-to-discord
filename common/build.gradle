@@ -1,6 +1,6 @@
 plugins {
-    id 'multiloader-common'
-    id 'net.neoforged.moddev'
+    id("multiloader-common")
+    id("net.neoforged.moddev")
 }
 
 neoForge {
@@ -18,28 +18,23 @@ neoForge {
 
 repositories {
     maven {
-        name = 'JitPack'
-        url = 'https://jitpack.io'
+        name = "JitPack"
+        url = uri("https://jitpack.io")
     }
 }
 
 dependencies {
-    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    compileOnly("org.spongepowered:mixin:0.8.5")
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
-    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
-    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
+    compileOnly("io.github.llamalad7:mixinextras-common:0.3.5")
+    annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5")
     // ASM tree
-    compileOnly 'org.ow2.asm:asm-tree:9.7.1'
-    compileOnly 'org.ow2.asm:asm:9.7'
+    compileOnly("org.ow2.asm:asm-tree:9.7.1")
+    compileOnly("org.ow2.asm:asm:9.7")
 
-    // JSON
-    implementation("org.json:json:${project.json_version}")
-    // Mclogs Java
-    implementation("gs.mclo:api:${project.mclogs_version}")
-    // Jankson
-    implementation("blue.endless:jankson:${project.jankson_version}")
-    // BlossomBridge
-    implementation("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    for (dep in libs.bundles.jijs.get()) {
+        implementation(dep)
+    }
 }
 
 configurations {
