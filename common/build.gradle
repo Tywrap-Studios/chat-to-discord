@@ -4,15 +4,15 @@ plugins {
 }
 
 neoForge {
-    neoFormVersion = neo_form_version
+    neoFormVersion.set(neo_form_version)
     // Automatically enable AccessTransformers if the file exists
     def at = file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
     parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
+        minecraftVersion.set(parchment_minecraft)
+        mappingsVersion.set(parchment_version)
     }
 }
 
@@ -39,17 +39,17 @@ dependencies {
 
 configurations {
     commonJava {
-        canBeResolved = false
-        canBeConsumed = true
+        setCanBeResolved(false)
+        setCanBeConsumed(true)
     }
     commonResources {
-        canBeResolved = false
-        canBeConsumed = true
+        setCanBeResolved(false)
+        setCanBeConsumed(true)
     }
 }
 
 artifacts {
-    commonJava sourceSets.main.java.sourceDirectories.singleFile
-    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+    add("commonJava", sourceSets.main.java.sourceDirectories.singleFile)
+    add("commonResources", sourceSets.main.resources.sourceDirectories.singleFile)
 }
 

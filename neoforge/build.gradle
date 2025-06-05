@@ -51,13 +51,13 @@ neoForge {
         accessTransformers.from(at.absolutePath)
     }
     parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
+        minecraftVersion.set(parchment_minecraft)
+        mappingsVersion.set(parchment_version)
     }
     runs {
         configureEach {
             systemProperty("neoforge.enabledGameTestNamespaces", mod_id)
-            ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
+            ideName.set("NeoForge ${it.name.capitalize()} (${project.path})") // Unify the run config names with fabric
         }
         client {
             client()
@@ -76,4 +76,4 @@ neoForge {
     }
 }
 
-sourceSets.main.resources { srcDir "src/generated/resources" }
+sourceSets.main.resources { srcDir("src/generated/resources") }
