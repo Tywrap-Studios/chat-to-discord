@@ -17,6 +17,18 @@ json = "20231013"
 mclogs = "5.0.2"
 jankson = "1.2.3"
 bbapi = "master-SNAPSHOT"
+spark = "1.10.109"
+
+minecraft = "1.21.1" 
+fabric = "0.109.0+1.21.1"
+fabric-loader = "0.16.9"
+forge = "52.0.28"
+forge-loader-range = "[52,)"
+neoforge = "21.1.80"
+neoforge-loader-range = "[4,)"
+parchment = "2024.11.10"
+parchment-minecraft = "1.21"
+neoform = "1.21.1-20240808.144430"
 
 [libraries]
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }

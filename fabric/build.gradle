@@ -15,16 +15,16 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${minecraft_version}")
+    minecraft("com.mojang:minecraft:${libs.versions.minecraft}")
     mappings (loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${project.parchment_minecraft}:${project.parchment_version}@zip")
+        parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.asProvider().get()}@zip")
     })
-    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
+    modImplementation("net.fabricmc:fabric-loader:${libs.versions.fabric.loader}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${libs.versions.fabric}")
 
     // Spark
-    compileOnly("maven.modrinth:spark:${project.spark_version}-fabric")
+    compileOnly("maven.modrinth:spark:${libs.versions.spark}-fabric")
 
     for (dep in libs.bundles.jijs.get()) {
         implementation(include(dep))
@@ -40,7 +40,7 @@ dependencies {
 }
 
 loom {
-    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    var aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }

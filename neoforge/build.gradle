@@ -16,12 +16,18 @@ repositories {
 
 dependencies {
     // Spark
-    compileOnly("maven.modrinth:spark:${project.spark_version}-neoforge")
+    compileOnly("maven.modrinth:spark:${libs.versions.spark}-neoforge")
 
     for (dep in libs.bundles.jijs.get()) {
         implementation(dep) {
-            exclude group: "org.slf4j", module: "slf4j-api"
-            exclude group: "com.google.code.gson", module: "gson"
+            var map = new HashMap<>()
+            map.put("group", "org.slf4j")
+            map.put("module", "slf4j-api")
+            exclude(map as Map<String, String>)
+            var map2 = new HashMap<>()
+            map2.put("group", "com.google.code.gson")
+            map2.put("module", "gson")
+            exclude(map2 as Map<String, String>)
         }
     }
 
@@ -44,9 +50,9 @@ dependencies {
 }
 
 neoForge {
-    version = neoforge_version
+    version.set(libs.versions.neoforge.asProvider())
     // Automatically enable neoforge AccessTransformers if the file exists
-    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    var at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
@@ -56,7 +62,7 @@ neoForge {
     }
     runs {
         configureEach {
-            systemProperty("neoforge.enabledGameTestNamespaces", mod_id)
+            systemProperty("neoforge.enabledGameTestNamespaces", "${mod_id}")
             ideName.set("NeoForge ${it.name.capitalize()} (${project.path})") // Unify the run config names with fabric
         }
         client {
@@ -71,9 +77,11 @@ neoForge {
     }
     mods {
         "${mod_id}" {
-            sourceSet sourceSets.main
+            sourceSet(sourceSets.main)
         }
     }
 }
 
-sourceSets.main.resources { srcDir("src/generated/resources") }
+sourceSets.main.resources {
+    srcDir("src/generated/resources")
+}
