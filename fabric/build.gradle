@@ -15,13 +15,13 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${libs.versions.minecraft}")
+    minecraft("com.mojang:minecraft:${rootProject.property("minecraft_version").toString()}")
     mappings (loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.asProvider().get()}@zip")
+        parchment("org.parchmentmc.data:parchment-${rootProject.property("parchment_minecraft").toString()}:${rootProject.property("parchment_version").toString()}@zip")
     })
-    modImplementation("net.fabricmc:fabric-loader:${libs.versions.fabric.loader}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${libs.versions.fabric}")
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.property("fabric_loader_version").toString()}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${rootProject.property("fabric_version").toString()}")
 
     // Spark
     compileOnly("maven.modrinth:spark:${libs.versions.spark}-fabric")
@@ -40,12 +40,12 @@ dependencies {
 }
 
 loom {
-    var aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    var aw = project(':common').file("src/main/resources/${rootProject.property("mod_id").toString()}.accesswidener")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }
     mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
+        defaultRefmapName.set("${rootProject.property("mod_id").toString()}.refmap.json")
     }
     runs {
         client {

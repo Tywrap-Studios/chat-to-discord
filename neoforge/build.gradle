@@ -3,6 +3,8 @@ plugins {
     id("net.neoforged.moddev")
 }
 
+var mod_id = rootProject.property("mod_id").toString()
+
 repositories {
     maven {
         name = "Modrinth"
@@ -50,7 +52,7 @@ dependencies {
 }
 
 neoForge {
-    version.set(libs.versions.neoforge.asProvider())
+    version.set(rootProject.property("neoforge_version").toString())
     // Automatically enable neoforge AccessTransformers if the file exists
     var at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
@@ -62,7 +64,7 @@ neoForge {
     }
     runs {
         configureEach {
-            systemProperty("neoforge.enabledGameTestNamespaces", "${mod_id}")
+            syste.property("neoforge.enabledGameTestNamespaces", "${mod_id}").toString()
             ideName.set("NeoForge ${it.name.capitalize()} (${project.path})") // Unify the run config names with fabric
         }
         client {

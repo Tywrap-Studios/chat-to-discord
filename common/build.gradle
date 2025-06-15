@@ -4,7 +4,7 @@ plugins {
 }
 
 neoForge {
-    neoFormVersion.set(libs.versions.neoform)
+    neoFormVersion.set(rootProject.property("neo_form_version").toString())
     // Automatically enable AccessTransformers if the file exists
     var at = file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
