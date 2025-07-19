@@ -12,6 +12,30 @@ repositories {
         name = 'JitPack'
         url = 'https://jitpack.io'
     }
+    maven {
+        name = "KordEx (Snapshots)"
+        url = uri("https://snapshots-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Releases)"
+        url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "Kord (Snapshots)"
+        url = uri("https://repo.kord.dev/snapshots/")
+    }
+    maven {
+        name = "Fabric"
+        url = uri("https://maven.fabricmc.net")
+    }
+    maven {
+        name = "QuiltMC (Releases)"
+        url = uri("https://maven.quiltmc.org/repository/release/")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
+    }
 }
 
 dependencies {
@@ -24,16 +48,17 @@ dependencies {
     jarJar (implementation (additionalRuntimeClasspath "gs.mclo:api:${project.mclogs_version}")) {
         exclude group: 'com.google.code.gson', module: 'gson'
     }
-    // Jankson
-    jarJar (implementation (additionalRuntimeClasspath "blue.endless:jankson:${project.jankson_version}"))
     // BlossomBridge
-    jarJar (implementation (additionalRuntimeClasspath "com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")) {
+    jarJar (api (additionalRuntimeClasspath "com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")) {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
-
-    // Explicit dependencies with compatible versions
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.slf4j:slf4j-api:2.0.9'
+    // Krafter
+//    jarJar (additionalRuntimeClasspath project(":krafter")) {
+//        exclude module: 'slf4j-api'
+//        exclude module: 'icu4j'
+//        exclude module: 'oshi-core'
+//        exclude module: 'commons-logging'
+//    }
 }
 
 neoForge {

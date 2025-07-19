@@ -12,6 +12,26 @@ repositories {
         name = 'JitPack'
         url = 'https://jitpack.io'
     }
+    maven {
+        name = "KordEx (Snapshots)"
+        url = uri("https://snapshots-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Releases)"
+        url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "Kord (Snapshots)"
+        url = uri("https://repo.kord.dev/snapshots/")
+    }
+    maven {
+        name = "QuiltMC (Releases)"
+        url = uri("https://maven.quiltmc.org/repository/release/")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
+    }
 }
 
 dependencies {
@@ -29,10 +49,10 @@ dependencies {
     implementation include("org.json:json:${project.json_version}")
     // Mclogs Java
     implementation include("gs.mclo:api:${project.mclogs_version}")
-    // Jankson
-    implementation include("blue.endless:jankson:${project.jankson_version}")
     // BlossomBridge
-    implementation include("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    api include("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    // Krafter
+    include(project(":krafter"))
 }
 
 loom {

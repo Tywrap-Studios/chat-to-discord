@@ -3,6 +3,8 @@ detekt = "1.23.8"
 kotlin = "2.1.21"
 ksp = "2.1.21-2.0.1"
 
+bbapi = "master-SNAPSHOT"
+cozy-modules = "1.1.0-SNAPSHOT"
 groovy = "3.0.23"
 jansi = "2.4.1"
 kx-ser = "1.8.1"
@@ -13,6 +15,12 @@ kordex-gradle = "1.7.1"
 kordex = "2.3.3-SNAPSHOT"
 
 [libraries]
+bbapi = { module = "com.github.Tywrap-Studios:BlossomBridge", version.ref = "bbapi" }
+cozy-log-parser = { module = "org.quiltmc.community:module-log-parser", version.ref = "cozy-modules" }
+cozy-moderation = { module = "org.quiltmc.community:module-moderation", version.ref = "cozy-modules" }
+cozy-tags = { module = "org.quiltmc.community:module-tags", version.ref = "cozy-modules" }
+cozy-user-cleanup = { module = "org.quiltmc.community:module-user-cleanup", version.ref = "cozy-modules" }
+cozy-welcome = { module = "org.quiltmc.community:module-welcome", version.ref = "cozy-modules" }
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 groovy = { module = "org.codehaus.groovy:groovy", version.ref = "groovy" }
 jansi = { module = "org.fusesource.jansi:jansi", version.ref = "jansi" }
@@ -28,6 +36,14 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-kordex-docker = { id = "dev.kordex.gradle.docker", version.ref = "kordex-gradle" }
 kordex-plugin = { id = "dev.kordex.gradle.kordex", version.ref = "kordex-gradle" }
 ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+cozy-modules = [
+    "cozy-log-parser",
+    "cozy-moderation",
+    "cozy-tags",
+    "cozy-user-cleanup",
+    "cozy-welcome"
+]

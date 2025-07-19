@@ -21,6 +21,34 @@ repositories {
         name = 'JitPack'
         url = 'https://jitpack.io'
     }
+    maven {
+        name = "Sonatype Snapshots"
+        url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
+    }
+    maven {
+        name = "KordEx (Snapshots)"
+        url = uri("https://snapshots-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Releases)"
+        url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "Kord (Snapshots)"
+        url = uri("https://repo.kord.dev/snapshots/")
+    }
+    maven {
+        name = "Fabric"
+        url = uri("https://maven.fabricmc.net")
+    }
+    maven {
+        name = "QuiltMC (Releases)"
+        url = uri("https://maven.quiltmc.org/repository/release/")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
+    }
 }
 
 dependencies {
@@ -36,10 +64,10 @@ dependencies {
     implementation("org.json:json:${project.json_version}")
     // Mclogs Java
     implementation("gs.mclo:api:${project.mclogs_version}")
-    // Jankson
-    implementation("blue.endless:jankson:${project.jankson_version}")
     // BlossomBridge
-    implementation("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    api("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    // Krafter
+    implementation(project(":krafter"))
 }
 
 configurations {
