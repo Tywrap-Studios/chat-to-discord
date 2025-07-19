@@ -13,6 +13,8 @@ public interface IEventHelper {
 
     void registerCommand();
 
+    void registerPlayerJoin();
+
     default void registerAll() {
         registerServerStarted();
         registerServerStopped();
@@ -20,5 +22,6 @@ public interface IEventHelper {
         registerGameMessage();
         registerCommandMessage();
         registerCommand();
+        registerPlayerJoin();
     }
 }

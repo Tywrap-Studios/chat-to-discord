@@ -16,6 +16,7 @@ kordex = "2.3.3-SNAPSHOT"
 
 [libraries]
 bbapi = { module = "com.github.Tywrap-Studios:BlossomBridge", version.ref = "bbapi" }
+cozy-ama = {  module = "org.quiltmc.community:module-ama", version.ref = "cozy-modules" }
 cozy-log-parser = { module = "org.quiltmc.community:module-log-parser", version.ref = "cozy-modules" }
 cozy-moderation = { module = "org.quiltmc.community:module-moderation", version.ref = "cozy-modules" }
 cozy-tags = { module = "org.quiltmc.community:module-tags", version.ref = "cozy-modules" }
@@ -41,6 +42,7 @@ ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 cozy-modules = [
+    "cozy-ama",
     "cozy-log-parser",
     "cozy-moderation",
     "cozy-tags",

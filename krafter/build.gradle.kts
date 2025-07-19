@@ -1,4 +1,5 @@
 import dev.kordex.gradle.plugins.kordex.DataCollection
+import dev.kordex.gradle.plugins.kordex.base.latestKordMetadata
 
 plugins {
     distribution
@@ -12,28 +13,26 @@ plugins {
     alias(libs.plugins.ksp.plugin)
 }
 
-allprojects {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        google()
+repositories {
+    mavenLocal()
+    mavenCentral()
+    google()
 
-        maven {
-            name = "KordEx (Snapshots)"
-            url = uri("https://snapshots-repo.kordex.dev")
-        }
-        maven {
-            name = "KordEx (Releases)"
-            url = uri("https://releases-repo.kordex.dev")
-        }
-        maven {
-            name = "QuiltMC (Snapshots)"
-            url = uri("https://maven.quiltmc.org/repository/snapshot/")
-        }
-        maven {
-            name = "JitPack"
-            url = uri("https://jitpack.io")
-        }
+    maven {
+        name = "KordEx (Snapshots)"
+        url = uri("https://snapshots-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Releases)"
+        url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
+    }
+    maven {
+        name = "JitPack"
+        url = uri("https://jitpack.io")
     }
 }
 
@@ -52,7 +51,7 @@ dependencies {
 
     // Other dependencies
     implementation(libs.bbapi)
-    // We need 1.1.0 Cozy Modules but Gradle is a bitch
+    // We need 1.1.0 Cozy Modules but Gradle is in a love-hate relationship with Quilt's Maven
     implementation(libs.bundles.cozy.modules)
 
     compileOnly(project(":common"))
@@ -81,9 +80,16 @@ kordEx {
 
     module("pluralkit")
     module("func-phishing")
-    module("func-mappings")
+    module("func-tags")
+    module("func-welcome")
     // Currently unavailable
 //    module("func-minecraft")
+
+    i18n {
+        classPackage = "org.tywrapstudios.krafter.i18n"
+        translationBundle = "krafter.strings"
+        outputDirectory = File("${project.projectDir}/src/main/kotlin")
+    }
 }
 
 detekt {
