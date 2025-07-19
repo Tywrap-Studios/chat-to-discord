@@ -25,6 +25,6 @@ public class Xaero {
 
     private static String getDimension(List<String> vars) {
         String[] parts = vars.get(9).split("-");
-        return parts[parts.length - 1];
+        return parts[parts.length - 2];
     }
 }
