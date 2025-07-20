@@ -67,7 +67,7 @@ dependencies {
     // BlossomBridge
     api("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
     // Krafter
-    implementation(project(":krafter"))
+    api(project(":krafter"))
 }
 
 configurations {

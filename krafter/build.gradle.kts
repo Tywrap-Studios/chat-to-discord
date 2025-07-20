@@ -34,6 +34,9 @@ repositories {
         name = "JitPack"
         url = uri("https://jitpack.io")
     }
+    flatDir {
+        dirs("${rootProject.projectDir}/.gradle/localLibs")
+    }
 }
 
 dependencies {
@@ -54,7 +57,7 @@ dependencies {
     // We need 1.1.0 Cozy Modules but Gradle is in a love-hate relationship with Quilt's Maven
     implementation(libs.bundles.cozy.modules)
 
-    compileOnly(project(":common"))
+//    implementation(project(":common"))
 }
 
 // Configure distributions plugin

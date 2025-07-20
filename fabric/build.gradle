@@ -32,6 +32,9 @@ repositories {
         name = "QuiltMC (Snapshots)"
         url = uri("https://maven.quiltmc.org/repository/snapshot/")
     }
+    flatDir {
+        dirs("${rootProject.projectDir}/.gradle/localLibs")
+    }
 }
 
 dependencies {
@@ -52,7 +55,7 @@ dependencies {
     // BlossomBridge
     api include("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
     // Krafter
-    include(project(":krafter"))
+    api include(project(":krafter"))
 }
 
 loom {

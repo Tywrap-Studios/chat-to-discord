@@ -53,7 +53,7 @@ dependencies {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
     // Krafter
-//    jarJar (additionalRuntimeClasspath project(":krafter")) {
+//    jarJar (implementation additionalRuntimeClasspath (project(":krafter"))) {
 //        exclude module: 'slf4j-api'
 //        exclude module: 'icu4j'
 //        exclude module: 'oshi-core'
