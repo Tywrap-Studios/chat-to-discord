@@ -1,3 +1,13 @@
+/*
+ * The Krafter Suggestion Extension was adapted from the Cozy Discord Bot.
+ * The below is the license notice provided, but the latest version should always be available at the following
+ * link: https://github.com/QuiltMC/cozy-discord/blob/root/LICENSE
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package org.tywrapstudios.krafter.extensions.suggestion
 
 import kotlinx.serialization.KSerializer

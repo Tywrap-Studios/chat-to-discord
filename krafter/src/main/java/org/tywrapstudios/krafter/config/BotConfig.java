@@ -1,14 +1,14 @@
 package org.tywrapstudios.krafter.config;
 
 import blue.endless.jankson.Comment;
-import org.tywrapstudios.blossombridge.api.config.ConfigClass;
+import org.tywrapstudios.blossombridge.api.config.BasicConfigClass;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-public class BotConfig implements ConfigClass {
+public class BotConfig extends BasicConfigClass {
     @Comment("Whether the bot should be run altogether.")
     public boolean enabled = true;
     @Comment("""
@@ -23,7 +23,7 @@ public class BotConfig implements ConfigClass {
         @Comment("Whether Discord messages should be sent to the MC Chat altogether.")
         public boolean enabled = true;
         @Comment("""
-                A channel id in which the bot will watch for messages to send. e.g. "374564737364728294"
+                A channel name in which the bot will watch for messages to send. e.g. "mc-chat"
                 Set to "new" to have one made automatically.""")
         public String watch_channel = "";
     }
@@ -37,7 +37,7 @@ public class BotConfig implements ConfigClass {
         public boolean reflect = true;
         @Comment("The name of your server to use in the status message.")
         public String server_name = "The Epic Server";
-        @Comment("Override the status text completely. Leave empty to let the mod handle it.")
+        @Comment("Override the status text completely. Leave empty to let the mod handle it. Set to \"motd\" to have your MOTD used instead.")
         public String status_override = "";
         @Comment("Have the bot maintain an online players channel, which displays the amount of people online.")
         public boolean online_players_channel = false;
@@ -47,7 +47,7 @@ public class BotConfig implements ConfigClass {
     public SafetyAndAbuse safety_and_abuse = new SafetyAndAbuse();
     public static class SafetyAndAbuse {
         @Comment("""
-                A channel id in which the bot will post SAB related messages. Not required! e.g. "192475857272837483"
+                A channel name in which the bot will post SAB related messages. Not required! e.g. "moderation"
                 Set to "new" to have one made automatically.""")
         public String dump_channel = "";
         @Comment("Role and user ids that are considered administrators for SAB functionality.")
@@ -61,28 +61,26 @@ public class BotConfig implements ConfigClass {
                 For more information on what data the bot collects, how to get at it, and how it's stored,
                 please see here: https://docs.kordex.dev/data-collection.html""")
         public String data_collection = "standard";
-        @Comment("Whether operators should receive the General Use warning every time they join.")
+        @Comment("Whether operators should receive the General Use warning every time they join. Only works if run on a Minecraft server.")
         public boolean operator_warning = true;
-        @Comment("Whether the bot should block, report and keep your server clean of phishing links.")
-        public boolean block_phishing = true;
-        @Comment("Additional domains you want removed. Only works if block_phishing is true.")
-        public List<String> banned_domains = new ArrayList<>();
-        @Comment("Whether the bot's user cleanup function should be enabled.")
-        public boolean user_cleanup = false;
+        public Moderation moderation = new Moderation();
+        public static class Moderation {
+            @Comment("Whether the bot should block, report and keep your server clean of phishing links.")
+            public boolean block_phishing = true;
+            @Comment("Additional domains you want removed. Only works if block_phishing is true.")
+            public List<String> banned_domains = new ArrayList<>();
+        }
     }
 
     @Comment("Miscellaneous features for the bot to run on your server. All of these are off by default.")
     public Miscellaneous miscellaneous = new Miscellaneous();
     public static class Miscellaneous {
-        @Comment("The crash analysing module will analyse crash logs and output a helpful message to help fix the crash.")
+        @Comment("""
+                The crash analysing module will analyse crash logs and output a helpful message to help fix the crash.
+                Note: this feature is currently limited to analysing Quilt and Fabric loader logs.""")
         public CrashAnalysing crash_analysing = new CrashAnalysing();
         public static class CrashAnalysing {
             public boolean enabled = false;
-            @Comment("""
-                    A channel id in which the bot will watch for logs to analyse. e.g. "349292736585738273"
-                    Note: this feature is currently limited to analysing Quilt and Fabric loader logs.
-                    Set to "new" to have one made automatically.""")
-            public String watch_channel = "";
         }
 
         @Comment("""
@@ -94,7 +92,7 @@ public class BotConfig implements ConfigClass {
             @Comment("Role and user ids that are considered administrators for Suggestion Forums.")
             public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
             @Comment("""
-                    A channel id in which the bot will use to host the suggestion forum. e.g. "102945758282738473"
+                    A channel name in which the bot will use to host the suggestion forum. e.g. "suggestions"
                     Contrary to what you'd believe, this is still a regular text channel! Do not feed a Forum channel id
                     into this setting!
                     Set to "new" to have one made automatically.""")
@@ -180,7 +178,6 @@ public class BotConfig implements ConfigClass {
         };
         discord_to_chat.watch_channel = watch.apply(discord_to_chat.watch_channel);
         safety_and_abuse.dump_channel = watch.apply(safety_and_abuse.dump_channel);
-        miscellaneous.crash_analysing.watch_channel = watch.apply(miscellaneous.crash_analysing.watch_channel);
         miscellaneous.suggestion_forum.forum_channel = watch.apply(miscellaneous.suggestion_forum.forum_channel);
 
         if (!List.of("none", "minimal", "standard", "extra").contains(safety_and_abuse.data_collection)) safety_and_abuse.data_collection = "standard";
