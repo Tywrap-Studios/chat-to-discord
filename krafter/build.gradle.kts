@@ -56,6 +56,11 @@ dependencies {
     implementation(libs.bbapi)
     // We need 1.1.0 Cozy Modules but Gradle is in a love-hate relationship with Quilt's Maven
     implementation(libs.bundles.cozy.modules)
+    // I guess we're going the way of the flatDir *sigh*
+//    implementation(":module-ama:1.1.0-SNAPSHOT")
+//    implementation(":module-log-parser:1.1.0-SNAPSHOT")
+//    implementation(":module-moderation:1.1.0-SNAPSHOT")
+    api(libs.bundles.database)
 
 //    implementation(project(":common"))
 }

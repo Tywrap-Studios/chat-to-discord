@@ -5,6 +5,7 @@ ksp = "2.1.21-2.0.1"
 
 bbapi = "master-SNAPSHOT"
 cozy-modules = "1.1.0-SNAPSHOT"
+exposed = "0.58.0" # Trying to match this as closely to Quiltservertool's Ledger Exposed version to retain compatibility
 groovy = "3.0.23"
 jansi = "2.4.1"
 kx-ser = "1.8.1"
@@ -13,6 +14,7 @@ logback-groovy = "1.14.5"
 logging = "7.0.7"
 kordex-gradle = "1.7.1"
 kordex = "2.3.3-SNAPSHOT"
+sqlite-jdbc = "3.47.2.0"
 
 [libraries]
 bbapi = { module = "com.github.Tywrap-Studios:BlossomBridge", version.ref = "bbapi" }
@@ -23,6 +25,11 @@ cozy-tags = { module = "org.quiltmc.community:module-tags", version.ref = "cozy-
 cozy-user-cleanup = { module = "org.quiltmc.community:module-user-cleanup", version.ref = "cozy-modules" }
 cozy-welcome = { module = "org.quiltmc.community:module-welcome", version.ref = "cozy-modules" }
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-migration = { module = "org.jetbrains.exposed:exposed-migration", version.ref = "exposed" }
 groovy = { module = "org.codehaus.groovy:groovy", version.ref = "groovy" }
 jansi = { module = "org.fusesource.jansi:jansi", version.ref = "jansi" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
@@ -30,6 +37,7 @@ kx-ser = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logback-groovy = { module = "io.github.virtualdogbert:logback-groovy-config", version.ref = "logback-groovy" }
 logging = { module = "io.github.oshai:kotlin-logging", version.ref = "logging" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
@@ -45,7 +53,15 @@ cozy-modules = [
     "cozy-ama",
     "cozy-log-parser",
     "cozy-moderation",
-    "cozy-tags",
-    "cozy-user-cleanup",
-    "cozy-welcome"
+#    "cozy-tags",
+#    "cozy-user-cleanup",
+#    "cozy-welcome"
+]
+database = [
+    "exposed-core",
+    "exposed-dao",
+    "exposed-java-time",
+    "exposed-jdbc",
+    "exposed-migration",
+    "sqlite-jdbc"
 ]
