@@ -133,3 +133,4 @@ data/
 
 # Env vars - don't commit this!
 .env
+*krafter.json5
