@@ -6,6 +6,7 @@ import net.neoforged.fml.loading.moddiscovery.ModFileInfo;
 import org.tywrapstudios.ctd.platform.services.IPlatformHelper;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
 
@@ -17,6 +18,11 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public String getModVersion(String modId) {
         return ModList.get().getModContainerById(modId).orElseThrow().getModInfo().getVersion().toString();
+    }
+
+    @Override
+    public Path getGamePath() {
+        return FMLLoader.getGamePath();
     }
 
     @Override
