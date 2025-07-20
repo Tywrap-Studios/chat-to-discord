@@ -20,7 +20,7 @@ import java.util.Objects;
 public class Handlers {
     public static void handleChatMessage(String messageStr, String authorUUID, String authorName) {
         CTDConfig config = CTDCommon.CONFIG_MANAGER.getConfig();
-        List<String> webhookUrls = config.discord_config.discord_webhooks;
+        List<String> webhookUrls = CTDCommon.WEBHOOKS;
 
         messageStr = CompatHandlers.handleCompat(messageStr);
         if (!config.discord_config.embed_mode) {
@@ -47,7 +47,7 @@ public class Handlers {
     public static void handleGameMessage(String message) {
         CTDConfig config = CTDCommon.CONFIG_MANAGER.getConfig();
         boolean embedMode = config.discord_config.embed_mode;
-        List<String> webhookUrls = config.discord_config.discord_webhooks;
+        List<String> webhookUrls = CTDCommon.WEBHOOKS;
 
         message = CompatHandlers.handleCompat(message);
         if (!config.discord_config.only_send_messages) {
@@ -65,8 +65,7 @@ public class Handlers {
     }
 
     public static void handleCrash(String cause, Path report) {
-        CTDConfig config = CTDCommon.CONFIG_MANAGER.getConfig();
-        List<String> webhookUrls = config.discord_config.discord_webhooks;
+        List<String> webhookUrls = CTDCommon.WEBHOOKS;
         for (String url : webhookUrls) {
             Discord.sendCrashEmbed(cause, 7864320, url, report);
         }
@@ -80,7 +79,7 @@ public class Handlers {
             CTDCommon.WEBHOOKS.clear();
             CTDCommon.CONFIG_MANAGER.loadConfig();
 
-            for (String potentialWebhook : CTDCommon.CONFIG_MANAGER.getConfig().discord_config.discord_webhooks) {
+            for (String potentialWebhook : CTDCommon.WEBHOOKS) {
                 if (potentialWebhook.matches("https://discord\\.com/api/webhooks/[0-9]+/[A-Za-z0-9_\\-]+")) {
                     CTDCommon.WEBHOOKS.add(potentialWebhook);
                 }
@@ -100,6 +99,9 @@ public class Handlers {
     }
 
     public static void warnOperator(ServerPlayer player) {
+        if (AppKt.CFG == null || !AppKt.CFG.getConfig().safety_and_abuse.operator_warning) {
+            return;
+        }
         MutableComponent warning0 = Component.literal("""
                           !!! WARNING !!!
                           Chat To Discord is currently running in BOT or DYNAMIC mode.""").withStyle(ChatFormatting.GOLD);

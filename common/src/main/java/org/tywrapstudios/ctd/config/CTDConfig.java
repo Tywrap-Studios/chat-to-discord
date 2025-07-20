@@ -4,7 +4,6 @@ import blue.endless.jankson.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tywrapstudios.blossombridge.api.config.BasicConfigClass;
-import org.tywrapstudios.blossombridge.api.config.InvalidConfigVersionException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,12 @@ public class CTDConfig extends BasicConfigClass {
     @Comment("All configurations for the Discord integration.")
     public DiscordConfig discord_config = new DiscordConfig();
     public static class DiscordConfig {
+        /**
+         * Hello there! Please do not access this field directly, as it may contain sensitive information (duh) but most importantly,
+         * bot tokens. Instead of this, use the respective {@code CTDCommon.WEBHOOKS} and {@code CTDCommon.TOKEN} values,
+         * which are populated from this list.
+         * @implNote TOKEN is set to the last token value in this list if it matches the regex for a bot token. It can be null or empty.
+         */
         @Comment("""
                 A list of webhooks in Strings that the mod will send messages to: "https://discord.com/api/webhooks/..."
                 

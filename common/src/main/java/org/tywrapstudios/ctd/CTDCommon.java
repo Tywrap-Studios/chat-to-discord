@@ -4,10 +4,10 @@ import gs.mclo.api.MclogsClient;
 import org.tywrapstudios.blossombridge.api.config.ConfigManager;
 import org.tywrapstudios.blossombridge.api.logging.LoggingHandler;
 import org.tywrapstudios.ctd.compat.krafter.RunMode;
-import org.tywrapstudios.krafter.config.BotConfig;
 import org.tywrapstudios.ctd.config.CTDConfig;
 import org.tywrapstudios.ctd.platform.CTDServices;
 import org.tywrapstudios.krafter.AppKt;
+import org.tywrapstudios.krafter.config.BotConfig;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,22 +35,28 @@ public class CTDCommon {
         }
 
         for (String potentialWebhook : CONFIG_MANAGER.getConfig().discord_config.discord_webhooks) {
-            if (potentialWebhook.matches("https://discord\\.com/api/webhooks/[0-9]+/[A-Za-z0-9_\\-]+")) {
+            LOGGING.debug("Found " + potentialWebhook);
+            var webhook = potentialWebhook.matches("https://discord\\.com/api/webhooks/[0-9]+/[A-Za-z0-9_\\-]+");
+            if (webhook) {
                 WEBHOOKS.add(potentialWebhook);
                 MODE = MODE == RunMode.BOT || MODE == RunMode.DYNAMIC ? RunMode.DYNAMIC : RunMode.WEBHOOK;
+                LOGGING.debug("  Webhook");
             }
+            var token = potentialWebhook.matches("\\.[A-Za-z0-9_-]{20,}|[A-Za-z0-9_-]{23,28}\\.[A-Za-z0-9_-]{6,7}\\.[A-Za-z0-9_-]{27,}");
             // Note that only the last token in the list will be set as the final token
-            if (potentialWebhook.matches("[A-Za-z0-9.]+")) {
+            if (token) {
                 TOKEN = potentialWebhook;
                 MODE = MODE == RunMode.WEBHOOK || MODE == RunMode.DYNAMIC ? RunMode.DYNAMIC : RunMode.BOT;
+                LOGGING.debug("  Token");
             }
+            LOGGING.debug("" + webhook + token);
         }
 
-        if (!TOKEN.isEmpty()) AppKt.run(TOKEN, BOT_CFG);
+        if (!TOKEN.isEmpty()) AppKt.runAsync(TOKEN, BOT_CFG, CTDServices.PLATFORM.getGamePath());
 
         MCL = new MclogsClient("Chat To Discord", MOD_V);
 
-        LOGGING.info("Loading up.");
+        LOGGING.info(String.format("Loading up. In %s mode.", MODE.name()));
 
         CTDServices.EVENTS.registerAll();
 
