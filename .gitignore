@@ -134,4 +134,4 @@ data/
 # Env stuff - don't commit this!
 .env
 *krafter.json5
-*.sqlite
+*.sqlite*
