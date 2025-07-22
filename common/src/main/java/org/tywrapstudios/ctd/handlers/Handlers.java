@@ -12,6 +12,7 @@ import org.tywrapstudios.ctd.compat.DiscordSafety;
 import org.tywrapstudios.ctd.config.CTDConfig;
 import org.tywrapstudios.ctd.discord.Discord;
 import org.tywrapstudios.krafter.AppKt;
+import org.tywrapstudios.krafter._UtilsKt;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -99,7 +100,7 @@ public class Handlers {
     }
 
     public static void warnOperator(ServerPlayer player) {
-        if (AppKt.CFG == null || !AppKt.CFG.getConfig().safety_and_abuse.operator_warning) {
+        if (AppKt.CFG == null || !AppKt.getBotConfig().safety_and_abuse.operator_warning) {
             return;
         }
         MutableComponent warning0 = Component.literal("""
@@ -110,7 +111,7 @@ public class Handlers {
         MutableComponent warning2 = Component.literal(String.format("""
                           - The bot is collecting data at the %s level;
                           - The bot might be maintaining a connection from your Discord to the MC Chat."""
-                , AppKt.CFG.getConfig().safety_and_abuse.data_collection)).withStyle(ChatFormatting.DARK_AQUA);
+                , _UtilsKt.config().safety_and_abuse.data_collection)).withStyle(ChatFormatting.DARK_AQUA);
         MutableComponent warning3 = Component.literal("""
                           View your bot config file to review these settings, in there you can:""").withStyle(ChatFormatting.GRAY);
         MutableComponent warning4 = Component.literal("""

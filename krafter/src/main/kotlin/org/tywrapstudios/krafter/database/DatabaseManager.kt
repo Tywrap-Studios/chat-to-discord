@@ -1,19 +1,19 @@
 package org.tywrapstudios.krafter.database
 
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.SqlLogger
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.statements.StatementContext
 import org.jetbrains.exposed.sql.statements.expandArgs
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.sqlite.SQLiteConfig
 import org.sqlite.SQLiteDataSource
 import org.tywrapstudios.krafter.LOGGING
 import org.tywrapstudios.krafter.RUN_PATH
+import org.tywrapstudios.krafter.database.tables.AmaConfigTable
+import org.tywrapstudios.krafter.database.tables.TagsTable
 import javax.sql.DataSource
 import kotlin.io.path.pathString
 
@@ -26,9 +26,9 @@ object DatabaseManager {
         get() = database.dialect.name
 
     private var databaseContext = Dispatchers.IO + CoroutineName("Krafter Database")
-    private val sqlLogger = object : SqlLogger {
+    val krafterSqlLogger = object : SqlLogger {
         override fun log(context: StatementContext, transaction: Transaction) {
-            LOGGING.info("SQL: ${context.expandArgs(transaction)}")
+            LOGGING.debug("[SQL]: ${context.expandArgs(transaction)}")
         }
     }
 
@@ -40,6 +40,9 @@ object DatabaseManager {
         } else {
             database = Database.connect(dataSource)
         }
+
+        TransactionManager.defaultDatabase = database
+        SchemaUtils.create(TagsTable, AmaConfigTable)
     }
 
     private fun getDefaultDatasource(): DataSource {

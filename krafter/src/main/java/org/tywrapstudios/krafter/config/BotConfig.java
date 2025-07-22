@@ -3,27 +3,25 @@ package org.tywrapstudios.krafter.config;
 import blue.endless.jankson.Comment;
 import org.tywrapstudios.blossombridge.api.config.BasicConfigClass;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 
 public class BotConfig extends BasicConfigClass {
+    public record AdministratorList(List<String> users, List<String> roles){}
     @Comment("Whether the bot should be run altogether.")
     public boolean enabled = true;
     @Comment("""
             Role and user ids that are considered global administrators for the bot.
             They most notably have full permission over most of the SAB and Misc functionality.
             Don't worry though, you can set separate admins for separate functions in their respective configs.""")
-    public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
-    public record AdministratorList(List<String> users, List<String> roles){}
+    public AdministratorList global_administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
     @Comment("Discord to MC Chat functionality specifics.")
     public DiscordToChat discord_to_chat = new DiscordToChat();
     public static class DiscordToChat {
         @Comment("Whether Discord messages should be sent to the MC Chat altogether.")
         public boolean enabled = true;
         @Comment("""
-                A channel name in which the bot will watch for messages to send. e.g. "mc-chat"
+                The name of the channel which the bot will watch for messages to send. e.g. "mc-chat"
                 Set to "new" to have one made automatically.""")
         public String watch_channel = "";
     }
@@ -47,7 +45,7 @@ public class BotConfig extends BasicConfigClass {
     public SafetyAndAbuse safety_and_abuse = new SafetyAndAbuse();
     public static class SafetyAndAbuse {
         @Comment("""
-                A channel name in which the bot will post SAB related messages. Not required! e.g. "moderation"
+                The name of the channel in which the bot will post SAB related messages. (And sometimes other ones) e.g. "moderation"
                 Set to "new" to have one made automatically.""")
         public String dump_channel = "";
         @Comment("Role and user ids that are considered administrators for SAB functionality.")
@@ -61,7 +59,7 @@ public class BotConfig extends BasicConfigClass {
                 For more information on what data the bot collects, how to get at it, and how it's stored,
                 please see here: https://docs.kordex.dev/data-collection.html""")
         public String data_collection = "standard";
-        @Comment("Whether operators should receive the General Use warning every time they join. Only works if run on a Minecraft server.")
+        @Comment("Whether operators should receive the General Use warning every time they join. Only used if run on a Minecraft server.")
         public boolean operator_warning = true;
         public Moderation moderation = new Moderation();
         public static class Moderation {
@@ -81,6 +79,16 @@ public class BotConfig extends BasicConfigClass {
         public CrashAnalysing crash_analysing = new CrashAnalysing();
         public static class CrashAnalysing {
             public boolean enabled = false;
+            @Comment("""
+                The name of the channel which the bot will watch for logs. ) e.g. "moderation"
+                Set to "new" to have one made automatically.
+                Leave empty to allow log parsing everywhere""")
+            public String watch_channel = "";
+            @Comment("""
+                    A list of mod ids to watch out for when parsing, that go against the rules of your server.
+                    This has a few mods in here already that are considered cheat mods globally.
+                    May be a regular expression or wildcard.""")
+            public List<String> bad_mods = new ArrayList<>();
         }
 
         @Comment("""
@@ -92,7 +100,7 @@ public class BotConfig extends BasicConfigClass {
             @Comment("Role and user ids that are considered administrators for Suggestion Forums.")
             public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
             @Comment("""
-                    A channel name in which the bot will use to host the suggestion forum. e.g. "suggestions"
+                    The name of the channel in which the bot will use to host the suggestion forum. e.g. "suggestions"
                     Contrary to what you'd believe, this is still a regular text channel! Do not feed a Forum channel id
                     into this setting!
                     Set to "new" to have one made automatically.""")
@@ -138,10 +146,12 @@ public class BotConfig extends BasicConfigClass {
 
         @Comment("""
                 The PluralKit software allows you to add accessibility to the bot for Plural people and Systems.
-                No idea what being Plural means? No worries! There are enough sources online that can explain it neatly.
+                No idea what plurality is? No worries! There are enough sources online that can explain it neatly.
                 We personally recommend reading the following one: https://quiltmc.org/en/community/pluralkit/, as it also
-                nicely explains how the PluralKit software works and how to use it. Note that you also need the
-                PluralKit bot in your server for this to work, as it's not a standalone feature of this mod.""")
+                nicely explains how the PluralKit software works and how to use it.
+                
+                Enabling this module is non-invasive, purely helpful, and will only fully work once you add the PluralKit
+                bot to your server yourself.""")
         public PluralKit plural_kit = new PluralKit();
         public static class PluralKit {
             public boolean enabled = false;
@@ -149,7 +159,9 @@ public class BotConfig extends BasicConfigClass {
 
         @Comment("""
                 Using this module you can host an AMA (Ask Me Anything) in your server, which enables your community
-                to ask you questions about a certain topic related to your server, like upcoming changes or recent updates.""")
+                to ask you questions about a certain topic related to your server, like upcoming changes or recent updates.
+                
+                More settings can be configured in Discord.""")
         public AMA ama = new AMA();
         public static class AMA {
             public boolean enabled = false;
@@ -163,22 +175,44 @@ public class BotConfig extends BasicConfigClass {
         public Tags tags = new Tags();
         public static class Tags {
             public boolean enabled = false;
-            @Comment("Role and user ids that are considered administrators for an AMA.")
+            @Comment("Role and user ids that are considered administrators for managing tags.")
             public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
             @Comment("Whether to automatically reply to a message with a tag if it fits certain triggers.")
             public boolean auto_tag = true;
+        }
+        
+        @Comment("""
+                Set up channels with flush embeds using this module! Simple, yet effective. And uh swag I guess.
+                """)
+        public EmbedChannels embed_channels = new EmbedChannels();
+        public static class EmbedChannels {
+            public boolean enabled = false;
+            @Comment("Role and user ids that are considered administrators for managing the embed channels.")
+            public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
+            @Comment("""
+                    A list of channel ids and their channel links.
+                    Note that for this module, the bot is unable to make new channels automatically.
+                    Why is this a map and not a list, or even better, a singular entry? Well, the external library used to handle these
+                    channels works on top of a map like this, for their respective reasons, we just follow. Don't fret though!
+                    This is one of the least hard setups out here, just simply put the id in the first parentheses, and the full link in the second!
+                    e.g.: "3848576687382457654": "https://discord.com/channels/4837388485758686865/3848576687382457654
+                    
+                    Note: after you run this channel stuff, the id numbers might become a little messed up. No worries, this is normal!
+                    For the technical people out there: read our blog about "F*cked up number configs\"""")
+            public Map<String, String> channels = new HashMap<>();
         }
     }
 
     @Override
     public void validate() {
         Function<String, String> watch = (t) -> {
-            if(!Objects.equals(t, "new") && !t.matches("[0-9]+") && !t.isEmpty()) return "";
+            if(!Objects.equals(t, "new") && !t.matches("[a-z]+") && !t.isEmpty()) return "";
             return t;
         };
         discord_to_chat.watch_channel = watch.apply(discord_to_chat.watch_channel);
         safety_and_abuse.dump_channel = watch.apply(safety_and_abuse.dump_channel);
         miscellaneous.suggestion_forum.forum_channel = watch.apply(miscellaneous.suggestion_forum.forum_channel);
+        miscellaneous.crash_analysing.watch_channel = watch.apply(miscellaneous.crash_analysing.watch_channel);
 
         if (!List.of("none", "minimal", "standard", "extra").contains(safety_and_abuse.data_collection)) safety_and_abuse.data_collection = "standard";
     }

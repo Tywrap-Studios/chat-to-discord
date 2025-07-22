@@ -15,7 +15,7 @@ import dev.kordex.core.*
 import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
 import dev.kordex.core.i18n.types.Key
 import kotlinx.serialization.Serializable
-import org.tywrapstudios.krafter.i18n.Translations.Enum.Suggestions.Status
+import org.tywrapstudios.krafter.i18n.Translations.Enum.SuggestionStatus.Status
 
 @Serializable
 enum class SuggestionStatus(override val readableName: Key, val color: Color) : ChoiceEnum {
