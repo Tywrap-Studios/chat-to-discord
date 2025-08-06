@@ -42,7 +42,6 @@ object DatabaseManager {
         }
 
         TransactionManager.defaultDatabase = database
-        SchemaUtils.create(TagsTable, AmaConfigTable)
     }
 
     private fun getDefaultDatasource(): DataSource {

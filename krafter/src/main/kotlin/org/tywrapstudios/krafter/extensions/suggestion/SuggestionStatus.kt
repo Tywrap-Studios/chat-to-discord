@@ -15,22 +15,22 @@ import dev.kordex.core.*
 import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
 import dev.kordex.core.i18n.types.Key
 import kotlinx.serialization.Serializable
-import org.tywrapstudios.krafter.i18n.Translations.Enum.SuggestionStatus.Status
+import org.tywrapstudios.krafter.i18n.Translations.Enum.SuggestionStatus
 
 @Serializable
 enum class SuggestionStatus(override val readableName: Key, val color: Color) : ChoiceEnum {
-    Open(Status.open, DISCORD_BLURPLE),
-    RequiresName(Status.requiresName, DISCORD_FUCHSIA),
+    Open(SuggestionStatus.open, DISCORD_BLURPLE),
+    RequiresName(SuggestionStatus.requiresName, DISCORD_FUCHSIA),
 
-    Approved(Status.approved, DISCORD_FUCHSIA),
+    Approved(SuggestionStatus.approved, DISCORD_FUCHSIA),
 
-    Denied(Status.denied, DISCORD_RED),
-    Invalid(Status.invalid, DISCORD_RED),
-    Spam(Status.spam, DISCORD_RED),
+    Denied(SuggestionStatus.denied, DISCORD_RED),
+    Invalid(SuggestionStatus.invalid, DISCORD_RED),
+    Spam(SuggestionStatus.spam, DISCORD_RED),
 
-    Future(Status.future, DISCORD_YELLOW),
-    Stale(Status.stale, DISCORD_YELLOW),
+    Future(SuggestionStatus.future, DISCORD_YELLOW),
+    Stale(SuggestionStatus.stale, DISCORD_YELLOW),
 
-    Duplicate(Status.duplicate, DISCORD_BLACK),
-    Implemented(Status.implemented, DISCORD_GREEN),
+    Duplicate(SuggestionStatus.duplicate, DISCORD_BLACK),
+    Implemented(SuggestionStatus.implemented, DISCORD_GREEN),
 }

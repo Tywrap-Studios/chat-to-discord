@@ -103,7 +103,7 @@ package org.tywrapstudios.krafter.extensions.suggestion
 //private val CLEAR_WORDS = arrayOf("clear", "null")
 //
 //class SuggestionsExtension : Extension() {
-//    override val name: String = "suggestions"
+//    override val name: String = "krafter.suggestions"
 //    private val logger = KotlinLogging.logger {}
 //
 //    val suggestions: SuggestionsCollection by inject()
