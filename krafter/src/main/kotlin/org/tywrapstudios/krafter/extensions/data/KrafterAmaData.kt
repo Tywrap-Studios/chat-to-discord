@@ -13,6 +13,7 @@ import org.quiltmc.community.cozy.modules.ama.data.AmaConfig
 import org.quiltmc.community.cozy.modules.ama.data.AmaData
 import org.tywrapstudios.krafter.checks.hasId
 import org.tywrapstudios.krafter.config
+import org.tywrapstudios.krafter.createSchemas
 import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable.fromRow
@@ -21,6 +22,7 @@ class KrafterAmaData : AmaData {
     override suspend fun getConfig(guildId: Snowflake): AmaConfig? {
         var cfg: AmaConfig? = null
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             AmaConfigTable.select(AmaConfigTable.id).where { AmaConfigTable.id eq guildId.value }.forEach {
@@ -36,6 +38,7 @@ class KrafterAmaData : AmaData {
 
     override suspend fun modifyButton(guildId: Snowflake, enabled: Boolean) {
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             AmaConfigTable.update({ AmaConfigTable.id eq guildId.value }) {
@@ -46,6 +49,7 @@ class KrafterAmaData : AmaData {
 
     override suspend fun setConfig(config: AmaConfig) {
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             AmaConfigTable.replace {

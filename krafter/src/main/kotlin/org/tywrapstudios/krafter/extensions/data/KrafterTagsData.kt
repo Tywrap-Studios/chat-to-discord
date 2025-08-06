@@ -5,6 +5,7 @@ import dev.kordex.modules.func.tags.data.Tag
 import dev.kordex.modules.func.tags.data.TagsData
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.tywrapstudios.krafter.createSchemas
 import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
 import org.tywrapstudios.krafter.database.tables.TagsTable
 import org.tywrapstudios.krafter.database.tables.TagsTable.category
@@ -19,6 +20,7 @@ class KrafterTagsData : TagsData {
     ): Tag? {
         var tag: Tag? = null
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.select(TagsTable.key).where { (TagsTable.key eq key) and (TagsTable.guildId eq guildId?.value) }
@@ -33,6 +35,7 @@ class KrafterTagsData : TagsData {
     ): List<Tag> {
         val tags = ArrayList<Tag>()
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.select(TagsTable.category)
@@ -48,6 +51,7 @@ class KrafterTagsData : TagsData {
     ): List<Tag> {
         val tags = ArrayList<Tag>()
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.select(key).forEach {
@@ -63,6 +67,7 @@ class KrafterTagsData : TagsData {
     ): List<Tag> {
         val tags = ArrayList<Tag>()
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.select(title).forEach {
@@ -75,6 +80,7 @@ class KrafterTagsData : TagsData {
     override suspend fun getAllCategories(guildId: Snowflake?): Set<String> {
         val categories = HashSet<String>()
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.select(category).where { (TagsTable.guildId eq guildId?.value) or (TagsTable.guildId eq null) }
@@ -94,6 +100,7 @@ class KrafterTagsData : TagsData {
         var keyBool = false
 
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.select(TagsTable.id).forEach {
@@ -110,6 +117,7 @@ class KrafterTagsData : TagsData {
 
     override suspend fun setTag(tag: Tag) {
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.update {
@@ -132,6 +140,7 @@ class KrafterTagsData : TagsData {
     ): Tag? {
         var tag: Tag? = null
         transaction {
+            createSchemas()
             addLogger(krafterSqlLogger)
 
             TagsTable.deleteReturning { (TagsTable.key eq key) and (TagsTable.guildId eq guildId?.value) }.forEach {
