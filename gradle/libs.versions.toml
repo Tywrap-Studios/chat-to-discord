@@ -3,7 +3,7 @@ detekt = "1.23.8"
 kotlin = "2.1.21"
 ksp = "2.1.21-2.0.1"
 
-bbapi = "master-SNAPSHOT"
+bbapi = "2.1.0"
 cozy-modules = "1.1.0-SNAPSHOT"
 exposed = "0.58.0" # Trying to match this as closely to Quiltservertool's Ledger Exposed version to retain compatibility
 groovy = "3.0.23"
