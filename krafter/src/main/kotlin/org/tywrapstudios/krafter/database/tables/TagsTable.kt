@@ -10,7 +10,8 @@ import org.tywrapstudios.krafter.database.tables.TagsTable.guildId
 /**
  * Based on [dev.kordex.modules.func.tags.data.Tag].
  *
- * Doesn't extend [org.tywrapstudios.krafter.database.sql.GuildIdTable] because [guildId] may be `null`.
+ * Doesn't extend [org.tywrapstudios.krafter.database.sql.SnowflakeIdTable] because [guildId] may be `null`
+ * for global tags.
  */
 object TagsTable : IntIdTable() {
     val category = text("category")

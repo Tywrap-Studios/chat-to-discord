@@ -5,7 +5,6 @@ import dev.kord.common.entity.Snowflake
 import dev.kordex.core.checks.hasPermission
 import dev.kordex.core.checks.hasRole
 import dev.kordex.core.checks.types.CheckContextWithCache
-import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.replace
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
@@ -13,17 +12,15 @@ import org.quiltmc.community.cozy.modules.ama.data.AmaConfig
 import org.quiltmc.community.cozy.modules.ama.data.AmaData
 import org.tywrapstudios.krafter.checks.hasId
 import org.tywrapstudios.krafter.config
-import org.tywrapstudios.krafter.createSchemas
-import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable.fromRow
+import org.tywrapstudios.krafter.setup
 
 class KrafterAmaData : AmaData {
     override suspend fun getConfig(guildId: Snowflake): AmaConfig? {
         var cfg: AmaConfig? = null
         transaction {
-            createSchemas()
-            addLogger(krafterSqlLogger)
+            setup()
 
             AmaConfigTable.select(AmaConfigTable.id).where { AmaConfigTable.id eq guildId.value }.forEach {
                 cfg = fromRow(it)
@@ -38,8 +35,7 @@ class KrafterAmaData : AmaData {
 
     override suspend fun modifyButton(guildId: Snowflake, enabled: Boolean) {
         transaction {
-            createSchemas()
-            addLogger(krafterSqlLogger)
+            setup()
 
             AmaConfigTable.update({ AmaConfigTable.id eq guildId.value }) {
                 it[AmaConfigTable.enabled] = enabled
@@ -49,8 +45,7 @@ class KrafterAmaData : AmaData {
 
     override suspend fun setConfig(config: AmaConfig) {
         transaction {
-            createSchemas()
-            addLogger(krafterSqlLogger)
+            setup()
 
             AmaConfigTable.replace {
                 it[id] = config.guildId.value

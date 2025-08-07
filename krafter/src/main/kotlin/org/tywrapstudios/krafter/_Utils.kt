@@ -4,13 +4,16 @@ import dev.kord.common.Color
 import dev.kord.core.behavior.createTextChannel
 import dev.kord.core.entity.Guild
 import dev.kord.core.entity.channel.TextChannel
-import dev.kordex.core.extensions.Extension
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.lastOrNull
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.Transaction
+import org.jetbrains.exposed.sql.addLogger
 import org.tywrapstudios.krafter.config.BotConfig
+import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable
+import org.tywrapstudios.krafter.database.tables.MinecraftLinkTable
 import org.tywrapstudios.krafter.database.tables.TagsTable
 
 const val CFG_CHANNEL_REASON = "Config prompted for an automatic new channel creation."
@@ -21,11 +24,12 @@ fun config(): BotConfig = CFG.getConfig()
 
 fun saveConfig() = CFG.saveConfig()
 
-fun createSchemas() {
-    SchemaUtils.create(TagsTable, AmaConfigTable)
+fun Transaction.setup() {
+    SchemaUtils.create(TagsTable, AmaConfigTable, MinecraftLinkTable)
+    addLogger(krafterSqlLogger)
 }
 
-suspend fun Extension.getOrCreateChannel(
+suspend fun getOrCreateChannel(
     providedName: String,
     defaultName: String,
     channelTopic: String = "A channel automatically created by Krafter.",

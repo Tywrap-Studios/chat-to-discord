@@ -4,9 +4,12 @@ import dev.kord.common.entity.Snowflake
 import org.jetbrains.exposed.sql.ResultRow
 import org.quiltmc.community.cozy.modules.ama.data.AmaConfig
 import org.quiltmc.community.cozy.modules.ama.data.AmaEmbedConfig
-import org.tywrapstudios.krafter.database.sql.GuildIdTable
+import org.tywrapstudios.krafter.database.sql.SnowflakeIdTable
 
-object AmaConfigTable : GuildIdTable() {
+/**
+ * Based on [org.quiltmc.community.cozy.modules.ama.data.AmaConfig].
+ */
+object AmaConfigTable : SnowflakeIdTable() {
     val answerQueueChannel = ulong("answer-queue-channel")
     val liveChatChannel = ulong("live-chat-channel")
     val buttonChannel = ulong("button-channel")
