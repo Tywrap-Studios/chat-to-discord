@@ -25,7 +25,7 @@ import org.tywrapstudios.krafter.database.DatabaseManager
 import org.tywrapstudios.krafter.extensions.data.KrafterAmaData
 import org.tywrapstudios.krafter.extensions.data.KrafterTagsData
 import org.tywrapstudios.krafter.extensions.data.KrafterWelcomeChannelData
-import org.tywrapstudios.krafter.extensions.minecraft.DiscordToChatExtension
+import org.tywrapstudios.krafter.extensions.minecraft.MinecraftExtension
 import org.tywrapstudios.krafter.extensions.logs.RuleBreakingModProcessor
 import org.tywrapstudios.krafter.extensions.logs.WrongLocationMessageSender
 import org.tywrapstudios.krafter.extensions.sab.SafetyAndAbuseExtension
@@ -75,7 +75,7 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
         if (config.miscellaneous.plural_kit.enabled) extPluralKit()
 
         add(::SafetyAndAbuseExtension)
-        add(::DiscordToChatExtension)
+        add(::MinecraftExtension)
 
         if (config.safety_and_abuse.moderation.block_phishing) extPhishing {
             for (domain in config.safety_and_abuse.moderation.banned_domains) badDomain(domain)

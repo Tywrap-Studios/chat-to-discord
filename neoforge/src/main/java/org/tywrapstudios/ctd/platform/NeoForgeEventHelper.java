@@ -1,8 +1,6 @@
 package org.tywrapstudios.ctd.platform;
 
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.players.ServerOpList;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -12,12 +10,14 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import org.tywrapstudios.ctd.command.CTDCommand;
 import org.tywrapstudios.ctd.handlers.Handlers;
+import org.tywrapstudios.ctd.platform.impl.MinecraftServerConnection;
 import org.tywrapstudios.ctd.platform.services.IEventHelper;
 
 public class NeoForgeEventHelper implements IEventHelper {
     @Override
     public void registerServerStarted() {
         NeoForge.EVENT_BUS.addListener((ServerStartedEvent event) -> {
+            MinecraftServerConnection.init(event.getServer());
             Handlers.handleChatMessage("Server started.","console","Console");
         });
     }

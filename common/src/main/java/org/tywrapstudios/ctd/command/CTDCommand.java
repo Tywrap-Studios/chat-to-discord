@@ -51,7 +51,7 @@ public class CTDCommand {
     }
 
     private static int forceGameMessage(CommandContext<CommandSourceStack> context) {
-        Handlers.handleGameMessage("Debug message");
+        Handlers.handleGameMessage(Component.literal("Debug message"));
         return 1;
     }
 

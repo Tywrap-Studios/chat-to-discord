@@ -17,6 +17,6 @@ public abstract class PlayerListMixin {
 
     @Inject(method = "placeNewPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"))
     private void ctd$handleGameMessage$PLAYER_JOIN(Connection connection, ServerPlayer player, CommonListenerCookie cookie, CallbackInfo ci, @Local MutableComponent mutableComponent) {
-        Handlers.handleGameMessage(mutableComponent.getString());
+        Handlers.handleGameMessage(mutableComponent);
     }
 }

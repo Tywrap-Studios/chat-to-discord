@@ -21,6 +21,6 @@ public abstract class AdvancementMixin {
 
     @Inject(method = "lambda$award$2", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"))
     private void ctd$handleGameMessage$ADVANCEMENT(AdvancementHolder advancement, DisplayInfo p_352686_, CallbackInfo ci) {
-        Handlers.handleGameMessage(p_352686_.getType().createAnnouncement(advancement, this.player).getString());
+        Handlers.handleGameMessage(p_352686_.getType().createAnnouncement(advancement, this.player));
     }
 }

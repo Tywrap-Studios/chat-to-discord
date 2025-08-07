@@ -4,6 +4,7 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import org.tywrapstudios.blossombridge.api.config.InvalidConfigVersionException;
@@ -45,19 +46,27 @@ public class Handlers {
         }
     }
 
-    public static void handleGameMessage(String message) {
+    public static void handleGameMessage(Component message) {
         CTDConfig config = CTDCommon.CONFIG_MANAGER.getConfig();
         boolean embedMode = config.discord_config.embed_mode;
         List<String> webhookUrls = CTDCommon.WEBHOOKS;
 
-        message = CompatHandlers.handleCompat(message);
+        HoverEvent hoverEvent = message.getStyle().getHoverEvent();
+        if (hoverEvent != null) {
+            Component hoverText = hoverEvent.getValue(HoverEvent.Action.SHOW_TEXT);
+            if (hoverText != null && !hoverText.getString().contains("Discord")) {
+                return;
+            }
+        }
+
+        String str = CompatHandlers.handleCompat(message.getString());
         if (!config.discord_config.only_send_messages) {
             if (!embedMode) {
-                message = "**" + message + "**";
+                str = "**" + str + "**";
             }
             if (!webhookUrls.isEmpty()) {
                 for (String url : webhookUrls) {
-                    Discord.sendLiteralToDiscord(message, embedMode, url);
+                    Discord.sendLiteralToDiscord(str, embedMode, url);
                 }
             } else {
                 CTDCommon.LOGGING.error("[Discord] No webhooks configured! Please configure your webhooks in the Config file: ctd.json");
@@ -100,24 +109,29 @@ public class Handlers {
     }
 
     public static void warnOperator(ServerPlayer player) {
-        if (AppKt.CFG == null || !AppKt.getBotConfig().safety_and_abuse.operator_warning) {
+        if (!_UtilsKt.config().safety_and_abuse.operator_warning) {
             return;
         }
         MutableComponent warning0 = Component.literal("""
                           !!! WARNING !!!
-                          Chat To Discord is currently running in BOT or DYNAMIC mode.""").withStyle(ChatFormatting.GOLD);
+                          Chat To Discord is currently running in BOT or DYNAMIC mode.
+                          """).withStyle(ChatFormatting.GOLD);
         MutableComponent warning1 = Component.literal("""
-                          This means the following:""").withStyle(ChatFormatting.GRAY);
+                          This means the following:
+                          """).withStyle(ChatFormatting.GRAY);
         MutableComponent warning2 = Component.literal(String.format("""
                           - The bot is collecting data at the %s level;
-                          - The bot might be maintaining a connection from your Discord to the MC Chat."""
+                          - The bot might be maintaining a connection from your Discord to the MC Chat.
+                          """
                 , _UtilsKt.config().safety_and_abuse.data_collection)).withStyle(ChatFormatting.DARK_AQUA);
         MutableComponent warning3 = Component.literal("""
-                          View your bot config file to review these settings, in there you can:""").withStyle(ChatFormatting.GRAY);
+                          View your bot config file to review these settings, in there you can:
+                          """).withStyle(ChatFormatting.GRAY);
         MutableComponent warning4 = Component.literal("""
                           - Turn off this message;
                           - Change the data collection level;
-                          - Change any other settings as you please.""").withStyle(ChatFormatting.DARK_AQUA);
+                          - Change any other settings as you please.
+                          """).withStyle(ChatFormatting.DARK_AQUA);
         MutableComponent warning5 = Component.literal("""
                           Data collection is only present on your Discord server and is fully GDPR compliant. For more information, go to https://docs.kordex.dev/data-collection.html.
                           You're seeing this message because you have permission level 1 or higher.""").withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);

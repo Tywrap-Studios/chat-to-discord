@@ -56,7 +56,7 @@ public class CTDCommon {
 
         MCL = new MclogsClient("Chat To Discord", MOD_V);
 
-        LOGGING.info(String.format("Loading up. In %s mode.", MODE.name()));
+        LOGGING.info(String.format("Loading up in %s mode.", MODE.toString()));
 
         CTDServices.EVENTS.registerAll();
 

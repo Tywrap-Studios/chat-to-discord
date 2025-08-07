@@ -8,12 +8,14 @@ import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import org.tywrapstudios.ctd.command.CTDCommand;
 import org.tywrapstudios.ctd.handlers.Handlers;
+import org.tywrapstudios.ctd.platform.impl.MinecraftServerConnection;
 import org.tywrapstudios.ctd.platform.services.IEventHelper;
 
 public class FabricEventHelper implements IEventHelper {
     @Override
     public void registerServerStarted() {
         ServerLifecycleEvents.SERVER_STARTED.register(minecraftServer -> {
+            MinecraftServerConnection.init(minecraftServer);
             Handlers.handleChatMessage("Server started.","console","Console");
         });
     }
@@ -39,7 +41,7 @@ public class FabricEventHelper implements IEventHelper {
     @Override
     public void registerGameMessage() {
         ServerMessageEvents.GAME_MESSAGE.register((minecraftServer, text, b) -> {
-            Handlers.handleGameMessage(text.getString());
+            Handlers.handleGameMessage(text);
         });
     }
 

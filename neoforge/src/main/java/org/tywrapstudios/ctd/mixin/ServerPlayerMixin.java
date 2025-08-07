@@ -15,6 +15,6 @@ public abstract class ServerPlayerMixin {
 
     @Inject(method = "die", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"))
     private void ctd$handleGameMessage$DEATH(DamageSource cause, CallbackInfo ci, @Local Component component) {
-        Handlers.handleGameMessage(component.getString());
+        Handlers.handleGameMessage(component);
     }
 }
