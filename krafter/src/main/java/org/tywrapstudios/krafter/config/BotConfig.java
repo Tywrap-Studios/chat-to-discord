@@ -7,23 +7,36 @@ import java.util.*;
 import java.util.function.Function;
 
 public class BotConfig extends BasicConfigClass {
-    public record AdministratorList(List<String> users, List<String> roles){}
+    public static class AdministratorList {
+        public final Set<String> users = new HashSet<>();
+        public final Set<String> roles = new HashSet<>();
+    }
     @Comment("Whether the bot should be run altogether.")
     public boolean enabled = true;
     @Comment("""
             Role and user ids that are considered global administrators for the bot.
             They most notably have full permission over most of the SAB and Misc functionality.
             Don't worry though, you can set separate admins for separate functions in their respective configs.""")
-    public AdministratorList global_administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
+    public AdministratorList global_administrators = new AdministratorList();
     @Comment("Discord to MC Chat functionality specifics.")
-    public DiscordToChat discord_to_chat = new DiscordToChat();
-    public static class DiscordToChat {
+    public Minecraft minecraft = new Minecraft();
+    public static class Minecraft {
         @Comment("Whether Discord messages should be sent to the MC Chat altogether.")
         public boolean enabled = true;
         @Comment("""
                 The name of the channel which the bot will watch for messages to send. e.g. "mc-chat"
                 Set to "new" to have one made automatically.""")
         public String watch_channel = "";
+        @Comment("""
+                An address (host plus port) to an RCON connection, which allows the bot to send commands to the server without
+                a direct server connection.
+                
+                If you don't know what this is, or what it does, don't touch this. Krafter will always first try to
+                maintain a direct connection before ultimately falling back to RCON.""")
+        public String rcon_host = "";
+        public String rcon_port = "";
+        @Comment("The password for the RCON connection, if you have one set up.")
+        public String rcon_password = "";
     }
     @Comment("The prefix for chat commands.")
     public String prefix = ">>";
@@ -49,7 +62,7 @@ public class BotConfig extends BasicConfigClass {
                 Set to "new" to have one made automatically.""")
         public String dump_channel = "";
         @Comment("Role and user ids that are considered administrators for SAB functionality.")
-        public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
+        public AdministratorList administrators = new AdministratorList();
         @Comment("""
                 YOOHOO!
                 The bot software collects data!
@@ -98,7 +111,7 @@ public class BotConfig extends BasicConfigClass {
         public static class SuggestionForum {
             public boolean enabled = false;
             @Comment("Role and user ids that are considered administrators for Suggestion Forums.")
-            public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
+            public AdministratorList administrators = new AdministratorList();
             @Comment("""
                     The name of the channel in which the bot will use to host the suggestion forum. e.g. "suggestions"
                     Contrary to what you'd believe, this is still a regular text channel! Do not feed a Forum channel id
@@ -166,7 +179,7 @@ public class BotConfig extends BasicConfigClass {
         public static class AMA {
             public boolean enabled = false;
             @Comment("Role and user ids that are considered administrators for an AMA.")
-            public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
+            public AdministratorList administrators = new AdministratorList();
         }
 
         @Comment("""
@@ -176,7 +189,7 @@ public class BotConfig extends BasicConfigClass {
         public static class Tags {
             public boolean enabled = false;
             @Comment("Role and user ids that are considered administrators for managing tags.")
-            public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
+            public AdministratorList administrators = new AdministratorList();
             @Comment("Whether to automatically reply to a message with a tag if it fits certain triggers.")
             public boolean auto_tag = true;
         }
@@ -188,7 +201,7 @@ public class BotConfig extends BasicConfigClass {
         public static class EmbedChannels {
             public boolean enabled = false;
             @Comment("Role and user ids that are considered administrators for managing the embed channels.")
-            public AdministratorList administrators = new AdministratorList(new ArrayList<>(), new ArrayList<>());
+            public AdministratorList administrators = new AdministratorList();
             @Comment("""
                     A list of channel ids and their channel links.
                     Note that for this module, the bot is unable to make new channels automatically.
@@ -209,7 +222,7 @@ public class BotConfig extends BasicConfigClass {
             if(!Objects.equals(t, "new") && !t.matches("[a-z]+") && !t.isEmpty()) return "";
             return t;
         };
-        discord_to_chat.watch_channel = watch.apply(discord_to_chat.watch_channel);
+        minecraft.watch_channel = watch.apply(minecraft.watch_channel);
         safety_and_abuse.dump_channel = watch.apply(safety_and_abuse.dump_channel);
         miscellaneous.suggestion_forum.forum_channel = watch.apply(miscellaneous.suggestion_forum.forum_channel);
         miscellaneous.crash_analysing.watch_channel = watch.apply(miscellaneous.crash_analysing.watch_channel);

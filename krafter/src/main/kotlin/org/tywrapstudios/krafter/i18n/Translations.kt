@@ -40,6 +40,173 @@ public object Translations {
     }
   }
 
+  public object Commands {
+    public object Minecraft {
+      /**
+       * force-link
+       */
+      public val forceLink: Key = Key("commands.minecraft.forceLink")
+          .withBundle(Translations.bundle)
+
+      /**
+       * link
+       */
+      public val link: Key = Key("commands.minecraft.link")
+          .withBundle(Translations.bundle)
+
+      /**
+       * unlink
+       */
+      public val unlink: Key = Key("commands.minecraft.unlink")
+          .withBundle(Translations.bundle)
+
+      public object ForceLink {
+        /**
+         * Force link a Minecraft account to a Discord account.
+         */
+        public val description: Key = Key("commands.minecraft.forceLink.description")
+            .withBundle(Translations.bundle)
+
+        /**
+         * Successfully linked {0} to Minecraft account with uuid {1}.
+         */
+        public val success: Key = Key("commands.minecraft.forceLink.success")
+            .withBundle(Translations.bundle)
+
+        public object Arg {
+          /**
+           * user
+           */
+          public val member: Key = Key("commands.minecraft.forceLink.arg.member")
+              .withBundle(Translations.bundle)
+
+          /**
+           * uuid
+           */
+          public val uuid: Key = Key("commands.minecraft.forceLink.arg.uuid")
+              .withBundle(Translations.bundle)
+
+          public object Member {
+            /**
+             * The member to link the Minecraft account to.
+             */
+            public val description: Key = Key("commands.minecraft.forceLink.arg.member.description")
+                .withBundle(Translations.bundle)
+          }
+
+          public object Uuid {
+            /**
+             * The UUID of the Minecraft account to link.
+             */
+            public val description: Key = Key("commands.minecraft.forceLink.arg.uuid.description")
+                .withBundle(Translations.bundle)
+          }
+        }
+
+        public object Error {
+          /**
+           * The specified user already has a verified linked Minecraft account with uuid {0}.
+           */
+          public val alreadyLinked: Key = Key("commands.minecraft.forceLink.error.alreadyLinked")
+              .withBundle(Translations.bundle)
+
+          /**
+           * The specified user already has a verified linked Minecraft account with a different
+           * uuid: {0}. Please unlink it first.
+           */
+          public val alreadyLinkedDifferent: Key =
+              Key("commands.minecraft.forceLink.error.alreadyLinkedDifferent")
+              .withBundle(Translations.bundle)
+
+          /**
+           * Force linking Minecraft accounts is currently disabled.
+           */
+          public val disabled: Key = Key("commands.minecraft.forceLink.error.disabled")
+              .withBundle(Translations.bundle)
+
+          /**
+           * The provided UUID is invalid. Please provide a valid Minecraft UUID.
+           */
+          public val invalidUuid: Key = Key("commands.minecraft.forceLink.error.invalidUuid")
+              .withBundle(Translations.bundle)
+        }
+      }
+
+      public object Link {
+        /**
+         * Link your Minecraft account to your Discord account.
+         */
+        public val description: Key = Key("commands.minecraft.link.description")
+            .withBundle(Translations.bundle)
+
+        /**
+         * Please join the Minecraft server and run the command `/ctd-krafter link {0}` to complete
+         * the linking process.
+         */
+        public val success: Key = Key("commands.minecraft.link.success")
+            .withBundle(Translations.bundle)
+
+        public object Arg {
+          /**
+           * uuid
+           */
+          public val uuid: Key = Key("commands.minecraft.link.arg.uuid")
+              .withBundle(Translations.bundle)
+
+          public object Uuid {
+            /**
+             * The UUID of the Minecraft account you want to link.
+             */
+            public val description: Key = Key("commands.minecraft.link.arg.uuid.description")
+                .withBundle(Translations.bundle)
+          }
+        }
+
+        public object Error {
+          /**
+           * Linking Minecraft accounts is currently disabled.
+           */
+          public val disabled: Key = Key("commands.minecraft.link.error.disabled")
+              .withBundle(Translations.bundle)
+
+          /**
+           * The provided UUID is invalid. Please provide a valid Minecraft UUID.
+           */
+          public val invalidUuid: Key = Key("commands.minecraft.link.error.invalidUuid")
+              .withBundle(Translations.bundle)
+        }
+      }
+
+      public object Unlink {
+        /**
+         * Unlink your Minecraft account from your Discord account.
+         */
+        public val description: Key = Key("commands.minecraft.unlink.description")
+            .withBundle(Translations.bundle)
+
+        /**
+         * Your Minecraft account with uuid {0} has successfully been unlinked.
+         */
+        public val success: Key = Key("commands.minecraft.unlink.success")
+            .withBundle(Translations.bundle)
+
+        public object Error {
+          /**
+           * Unlinking Minecraft accounts is currently disabled.
+           */
+          public val disabled: Key = Key("commands.minecraft.unlink.error.disabled")
+              .withBundle(Translations.bundle)
+
+          /**
+           * Your Discord account is not linked to any Minecraft account.
+           */
+          public val notLinked: Key = Key("commands.minecraft.unlink.error.notLinked")
+              .withBundle(Translations.bundle)
+        }
+      }
+    }
+  }
+
   public object Enum {
     public object SuggestionStatus {
       /**

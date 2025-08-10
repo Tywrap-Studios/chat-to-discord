@@ -1,9 +1,19 @@
 package org.tywrapstudios.krafter.api.json
 
+import dev.kord.common.entity.Snowflake
+import dev.kordex.core.utils.getKoin
+import dev.kordex.core.utils.loadModule
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import org.koin.core.Koin
+import org.koin.core.annotation.KoinInternalApi
+import org.koin.core.qualifier.named
+import org.koin.core.qualifier.qualifier
 import org.tywrapstudios.blossombridge.api.logging.LoggingHandler
 import org.tywrapstudios.krafter.LOGGING
+import org.tywrapstudios.krafter.extensions.data.KrafterMinecraftLinkData
+import org.tywrapstudios.krafter.extensions.minecraft.MinecraftExtension
+import org.tywrapstudios.krafter.setup
 import java.net.URI
 import java.net.URL
 import java.util.UUID
@@ -22,6 +32,7 @@ data class McPlayer(
     val name: String,
     val legacy: Boolean? = false,
     val properties: List<McPlayerProperties>,
+    val profileActions: List<String>
 )
 
 /**
@@ -96,6 +107,23 @@ fun getMcPlayer(uuid: UUID): McPlayer? {
         LOGGING.warn("Something went wrong while fetching Minecraft profile for UUID: $uuid")
         null
     }
+}
+
+suspend fun getMcPlayer(member: Snowflake): McPlayer? {
+    val extension = setup().extensions["krafter.minecraft"] as? MinecraftExtension
+    val link = extension?.data?.getLinkStatus(member)
+
+    if (link == null) {
+        LOGGING.warn("Couldn't fetch link for McPlayer object for member $member with $extension")
+        return null
+    }
+
+    if (!link.verified) {
+        LOGGING.debug("Minecraft link for member $member is not verified, will not fetch player profile.")
+        return null
+    }
+
+    return getMcPlayer(link.uuid)
 }
 
 /**

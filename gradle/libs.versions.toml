@@ -14,6 +14,7 @@ logback-groovy = "1.14.5"
 logging = "7.0.7"
 kordex-gradle = "1.7.1"
 kordex = "2.3.3-SNAPSHOT"
+rcon = "1.2.0"
 sqlite-jdbc = "3.47.2.0"
 
 [libraries]
@@ -37,6 +38,7 @@ kx-ser = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logback-groovy = { module = "io.github.virtualdogbert:logback-groovy-config", version.ref = "logback-groovy" }
 logging = { module = "io.github.oshai:kotlin-logging", version.ref = "logging" }
+rcon = { module = "nl.vv32.rcon:rcon", version.ref = "rcon" }
 sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
 
 [plugins]

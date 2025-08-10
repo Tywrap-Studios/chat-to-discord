@@ -8,7 +8,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 import org.tywrapstudios.ctd.CTDCommon;
-import org.tywrapstudios.ctd.command.CTDCommand;
 import org.tywrapstudios.krafter.api.discord.McAuthor;
 import org.tywrapstudios.krafter.api.discord.McMessage;
 import org.tywrapstudios.krafter.platform.services.IMinecraftServerConnection;
@@ -20,7 +19,7 @@ public class MinecraftServerConnection implements IMinecraftServerConnection {
 
     public static void init(@NotNull MinecraftServer server) {
         if (MinecraftServerConnection.server != null) {
-            throw new IllegalStateException("MinecraftServerConnection is already initialized.");
+            CTDCommon.LOGGING.error("MinecraftServerConnection is already initialized.");
         }
         MinecraftServerConnection.server = server;
     }
@@ -56,6 +55,6 @@ public class MinecraftServerConnection implements IMinecraftServerConnection {
 
     @Override
     public void broadcastPlain(@NotNull String message) {
-        server.sendSystemMessage(Component.literal(message));
+        server.getPlayerList().broadcastSystemMessage(Component.literal(message), false);
     }
 }
