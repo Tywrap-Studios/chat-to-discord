@@ -11,48 +11,54 @@
 package org.tywrapstudios.krafter.extensions.logs
 
 import dev.kord.core.behavior.channel.asChannelOfOrNull
-import dev.kord.core.behavior.createTextChannel
-import dev.kord.core.entity.channel.GuildMessageChannel
+import dev.kord.core.behavior.channel.createEmbed
 import dev.kord.core.entity.channel.TextChannel
 import dev.kord.core.event.Event
+import dev.kordex.core.DISCORD_RED
 import dev.kordex.core.checks.channelFor
 import dev.kordex.core.checks.guildFor
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.lastOrNull
 import org.quiltmc.community.cozy.modules.logs.data.Log
 import org.quiltmc.community.cozy.modules.logs.data.Order
 import org.quiltmc.community.cozy.modules.logs.types.LogParser
-import org.tywrapstudios.krafter.CFG_CHANNEL_REASON
+import org.quiltmc.community.cozy.modules.logs.types.LogProcessor
 import org.tywrapstudios.krafter.config
+import org.tywrapstudios.krafter.getOrCreateChannel
 
 class WrongLocationMessageSender : LogParser() {
     override val identifier: String = "wrong-location-message-sender"
     override val order = Order(Int.MAX_VALUE) // be the last parser to run (to destroy the log if necessary)
 
+    @SuppressWarnings("ReturnCount", "MagicNumber")
     override suspend fun predicate(log: Log, event: Event): Boolean {
         val channel = channelFor(event)?.asChannelOfOrNull<TextChannel>() ?: return false
-        val guild = guildFor(event) ?: return false
-        var allowedChannel = guild
-            .channels
-            .filter { it.name == config().miscellaneous.crash_analysing.watch_channel }
-            .lastOrNull()
-            ?.asChannelOrNull() as? GuildMessageChannel
+        val guild = guildFor(event)?.asGuildOrNull() ?: return false
+        val allowedChannel = getOrCreateChannel(
+            config().miscellaneous.crash_analysing.watch_channel,
+            "crash-logs",
+            "Send your crash logs here to get help.",
+            mutableSetOf(),
+            guild
+        )
 
-        if (config().miscellaneous.crash_analysing.watch_channel == "new") {
-            allowedChannel = guild.createTextChannel("crash-logs") {
-                reason = CFG_CHANNEL_REASON
-                topic = "Send your crash logs here to get help."
-            }
-        }
-        if (allowedChannel == null) return false
         if (channel.id == allowedChannel.id) return false
 
-        channel.createMessage(
-            "This log was sent in the wrong location. No parsing will be done.\n" +
-                    "Please use <#${allowedChannel.name}> to parse logs."
-        )
+        channel.asChannelOfOrNull<TextChannel>()?.createEmbed {
+            title = "Wrong Location"
+            field {
+                name = "Problem"
+                value = "This log was sent in the wrong location. No parsing will be done."
+            }
+            field {
+                name = "Fix"
+                value = "Please use ${allowedChannel.mention} to parse logs."
+            }
+            color = DISCORD_RED
+        }
+
         return false
     }
 
-    override suspend fun process(log: Log) = Unit
+    override suspend fun process(log: Log) {
+        log.abort("")
+    }
 }

@@ -1,12 +1,20 @@
 package org.tywrapstudios.krafter.extensions.sab
 
+import dev.kord.common.entity.Overwrite
+import dev.kord.common.entity.OverwriteType
+import dev.kord.common.entity.Permission
+import dev.kord.common.entity.Permissions
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.channel.createMessage
+import dev.kord.core.entity.Guild
+import dev.kord.core.entity.PermissionOverwrite
 import dev.kord.core.entity.channel.TextChannel
 import dev.kord.core.event.guild.GuildCreateEvent
 import dev.kord.rest.builder.message.embed
 import dev.kordex.core.DISCORD_BLURPLE
 import dev.kordex.core.DISCORD_GREEN
 import dev.kordex.core.DISCORD_RED
+import dev.kordex.core.ExtensibleBot
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.event
 import dev.kordex.core.utils.getKoin
@@ -30,6 +38,7 @@ class SafetyAndAbuseExtension : Extension() {
                     cfg.dump_channel,
                     "krafter-sab",
                     "Safety and Abuse logging and dump channel for the Krafter software",
+                    getOverwrites(event.guild),
                     event.guild
                 )
             }
@@ -37,73 +46,57 @@ class SafetyAndAbuseExtension : Extension() {
     }
 }
 
-fun getSabChannel(): TextChannel? {
-    return getKoin().getOrNull<SafetyAndAbuseExtension>(named("krafter.sab"))?.dumpChannel
-}
-
-suspend fun sabInfo(title: String, description: String) {
-    getSabChannel()?.createMessage {
-        embed {
-            this.title = title
-            field {
-                value = description
-            }
-            color = DISCORD_BLURPLE
-            timestamp = Clock.System.now()
-            footer {
-                text = Translations.Extensions.Sab.name.translate()
-//            image =
-            }
-        }
+fun getOverwrites(guild: Guild): MutableSet<Overwrite> {
+    val cfg = config().safety_and_abuse
+    val overwrites = mutableSetOf<Overwrite>()
+    for (role in cfg.administrators.roles) {
+        overwrites.add(
+            Overwrite(
+                Snowflake(role),
+                OverwriteType.Role,
+                Permissions {
+                    +Permission.ViewChannel
+                    -Permission.SendMessages
+                },
+                Permissions {
+                    -Permission.ViewChannel
+                    +Permission.SendMessages
+                }
+            )
+        )
     }
-}
 
-suspend fun sabConfirm(title: String, description: String) {
-    getSabChannel()?.createMessage {
-        embed {
-            this.title = title
-            field {
-                value = description
-            }
-            color = DISCORD_GREEN
-            timestamp = Clock.System.now()
-            footer {
-                text = Translations.Extensions.Sab.name.translate()
-            }
-        }
+    for (user in cfg.administrators.users) {
+        overwrites.add(
+            Overwrite(
+                Snowflake(user),
+                OverwriteType.Member,
+                Permissions {
+                    +Permission.ViewChannel
+                    -Permission.SendMessages
+                },
+                Permissions {
+                    -Permission.ViewChannel
+                    +Permission.SendMessages
+                }
+            )
+        )
     }
-}
 
-suspend fun sabWarn(title: String, description: String) {
-    getSabChannel()?.createMessage {
-        embed {
-            this.title = title
-            field {
-                value = description
+    overwrites.add(
+        Overwrite(
+            guild.id,
+            OverwriteType.Role,
+            Permissions {
+                -Permission.ViewChannel
+                -Permission.SendMessages
+            },
+            Permissions {
+                +Permission.ViewChannel
+                +Permission.SendMessages
             }
-            color = ORANGE
-            timestamp = Clock.System.now()
-            footer {
-                text = Translations.Extensions.Sab.name.translate()
-//            image =
-            }
-        }
-    }
-}
+        )
+    )
 
-suspend fun sabError(title: String, description: String) {
-    getSabChannel()?.createMessage {
-        embed {
-            this.title = title
-            field {
-                value = description
-            }
-            color = DISCORD_RED
-            timestamp = Clock.System.now()
-            footer {
-                text = Translations.Extensions.Sab.name.translate()
-//            image =
-            }
-        }
-    }
+    return overwrites
 }
