@@ -9,6 +9,8 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.flow.toList
 import org.tywrapstudios.krafter.config
 import org.tywrapstudios.krafter.config.BotConfig
+import org.tywrapstudios.krafter.getRoles
+import org.tywrapstudios.krafter.getUsers
 import org.tywrapstudios.krafter.i18n.Translations
 
 suspend fun CheckContext<*>.isBotModuleAdmin(list: BotConfig.AdministratorList) {
@@ -18,12 +20,6 @@ suspend fun CheckContext<*>.isBotModuleAdmin(list: BotConfig.AdministratorList) 
 
     val logger = KotlinLogging.logger("org.tywrapstudios.krafter.checks.isBotModuleAdmin")
     val member = memberFor(event)
-    val roles = ArrayList<String>()
-    roles.addAll(config().global_administrators.roles())
-    roles.addAll(list.roles)
-    val users = ArrayList<String>()
-    users.addAll(config().global_administrators.roles())
-    users.addAll(list.users())
 
     if (member == null) {
         logger.nullMember(event)
@@ -33,8 +29,8 @@ suspend fun CheckContext<*>.isBotModuleAdmin(list: BotConfig.AdministratorList) 
         val memberObj = member.asMember()
 
         val result = when {
-            !memberObj.roles.toList().none { roles.contains(it.id.value.toString()) } -> true
-            users.contains(member.id.value.toString()) -> true
+            !memberObj.roles.toList().none { list.getRoles().contains(it.id.value.toString()) } -> true
+            list.getUsers().contains(member.id.value.toString()) -> true
 
             else -> false
         }
@@ -62,12 +58,6 @@ suspend fun CheckContext<*>.notIsBotModuleAdmin(list: BotConfig.AdministratorLis
 
     val logger = KotlinLogging.logger("org.tywrapstudios.krafter.checks.notIsBotModuleAdmin")
     val member = memberFor(event)
-    val roles = ArrayList<String>()
-    roles.addAll(config().global_administrators.roles())
-    roles.addAll(list.roles)
-    val users = ArrayList<String>()
-    users.addAll(config().global_administrators.roles())
-    users.addAll(list.users())
 
     if (member == null) {
         logger.nullMember(event)
@@ -78,7 +68,8 @@ suspend fun CheckContext<*>.notIsBotModuleAdmin(list: BotConfig.AdministratorLis
 
         val result = when {
             memberObj.roles.toList()
-                .none { roles.contains(it.id.value.toString()) } && !users.contains(member.id.value.toString()) -> true
+                .none { list.getRoles().contains(it.id.value.toString()) } && !list.getUsers()
+                .contains(member.id.value.toString()) -> true
 
             else -> false
         }

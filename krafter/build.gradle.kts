@@ -81,6 +81,8 @@ kordEx {
         dataCollection(DataCollection.Standard)
 
         mainClass = "org.tywrapstudios.krafter.AppKt"
+
+        voice = false
     }
 
     module("pluralkit")
