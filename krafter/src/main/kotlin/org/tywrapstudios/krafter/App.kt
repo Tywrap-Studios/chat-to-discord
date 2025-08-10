@@ -29,7 +29,7 @@ import org.tywrapstudios.krafter.extensions.minecraft.MinecraftExtension
 import org.tywrapstudios.krafter.extensions.logs.RuleBreakingModProcessor
 import org.tywrapstudios.krafter.extensions.logs.WrongLocationMessageSender
 import org.tywrapstudios.krafter.extensions.sab.SafetyAndAbuseExtension
-import org.tywrapstudios.krafter.extensions.sab.getSabChannel
+import org.tywrapstudios.krafter.extensions.sab.getOverwrites
 import java.io.File
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
@@ -37,79 +37,121 @@ import java.util.concurrent.CompletableFuture
 private val TEST_SERVER_ID: Long? = envOrNull("TEST_SERVER")?.toLong()
 private val TEST_TOKEN: String? = envOrNull("TEST_TOKEN")
 private val INIT_LOGGER = LoggerFactory.getLogger("Krafter Standalone Initializer")
+var TOKEN: String? = null
 lateinit var CFG: ConfigManager<BotConfig>
 lateinit var LOGGING: LoggingHandler<BotConfig>
 lateinit var RUN_PATH: Path
 
-private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runPath: Path) = ExtensibleBot(token) {
-    CFG = manager
-    CFG.loadConfig()
+private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runPath: Path): ExtensibleBot {
+    if (TOKEN == null) {
+        TOKEN = token
+        CFG = manager
+        LOGGING = LoggingHandler("Krafter", CFG)
+        RUN_PATH = runPath
+
+        DatabaseManager.setup(null)
+
+        CFG.loadConfig()
+
+        LOGGING.debug("Current configuration:")
+        LOGGING.debug(CFG.getConfigJsonAsString(comments = false, newlines = true))
+    }
+
     val config = config()
-    LOGGING = LoggingHandler("Krafter", CFG)
-    RUN_PATH = runPath
 
-    DatabaseManager.setup(null)
+    return ExtensibleBot(token) {
 
-    chatCommands {
-        defaultPrefix = config.prefix
-        enabled = true
+        chatCommands {
+            defaultPrefix = config.prefix
+            enabled = true
 
-        prefix { default ->
-            // If TEST_SERVER_ID isn't null, we are in test mode and should not use the default prefix.
+            prefix { default ->
+                // If TEST_SERVER_ID isn't null, we are in test mode and should not use the default prefix.
+                if (TEST_SERVER_ID != null) {
+                    "?>"
+                } else {
+                    default
+                }
+            }
+        }
+
+        applicationCommands {
             if (TEST_SERVER_ID != null) {
-                "?>"
-            } else {
-                default
-            }
-        }
-    }
-
-    applicationCommands {
-        if (TEST_SERVER_ID != null) {
-            defaultGuild = Snowflake(TEST_SERVER_ID)
-        }
-    }
-
-    extensions {
-
-        if (config.miscellaneous.plural_kit.enabled) extPluralKit()
-
-        add(::SafetyAndAbuseExtension)
-        add(::MinecraftExtension)
-
-        if (config.safety_and_abuse.moderation.block_phishing) extPhishing {
-            for (domain in config.safety_and_abuse.moderation.banned_domains) badDomain(domain)
-            if (getSabChannel() != null) {
-                logChannelName = getSabChannel()!!.name
-            }
-        }
-        if (config.miscellaneous.tags.enabled) tags(KrafterTagsData()) {
-            staffCommandCheck { isBotModuleAdmin(config.miscellaneous.tags.administrators) }
-            loggingChannelName = getSabChannel()?.name
-        }
-        if (config.miscellaneous.ama.enabled) extAma(KrafterAmaData())
-        if (config.miscellaneous.crash_analysing.enabled) extLogParser {
-            processor(PiracyProcessor())
-            processor(ProblematicLauncherProcessor())
-            processor(RuleBreakingModProcessor())
-
-            parser(WrongLocationMessageSender())
-            staffCommandCheck { isGlobalBotAdmin() }
-        }
-        if (config.miscellaneous.embed_channels.enabled) welcomeChannel(KrafterWelcomeChannelData()) {
-            staffCommandCheck { isBotModuleAdmin(config.miscellaneous.embed_channels.administrators) }
-            getLogChannel { channel, guild ->
-                return@getLogChannel getSabChannel()
+                defaultGuild = Snowflake(TEST_SERVER_ID)
             }
         }
 
-    }
+        extensions {
 
-    dataCollectionMode = DataCollection.fromDB(config.safety_and_abuse.data_collection)
+            if (config.miscellaneous.plural_kit.enabled) extPluralKit()
 
-    presence {
-        playing("on ${config.status.server_name}")
+            add(::SafetyAndAbuseExtension)
+            add(::MinecraftExtension)
+
+            if (config.safety_and_abuse.moderation.block_phishing) extPhishing {
+                for (domain in config.safety_and_abuse.moderation.banned_domains) badDomain(domain)
+                logChannelName =
+                    if (
+                        config().safety_and_abuse.dump_channel == "new" ||
+                        config().safety_and_abuse.dump_channel.isEmpty()
+                    ) {
+                        "krafter-sab"
+                    } else {
+                        config.safety_and_abuse.dump_channel
+                    }
+            }
+            if (config.miscellaneous.tags.enabled) tags(KrafterTagsData()) {
+                staffCommandCheck { isBotModuleAdmin(config.miscellaneous.tags.administrators) }
+                loggingChannelName =
+                    if (
+                        config().safety_and_abuse.dump_channel == "new" ||
+                        config().safety_and_abuse.dump_channel.isEmpty()
+                    ) {
+                        "krafter-sab"
+                    } else {
+                        config.safety_and_abuse.dump_channel
+                    }
+            }
+            if (config.miscellaneous.ama.enabled) extAma(KrafterAmaData())
+            if (config.miscellaneous.crash_analysing.enabled) extLogParser {
+                processor(PiracyProcessor())
+                processor(ProblematicLauncherProcessor())
+                processor(RuleBreakingModProcessor())
+
+                parser(WrongLocationMessageSender())
+                staffCommandCheck { isGlobalBotAdmin() }
+            }
+            if (config.miscellaneous.embed_channels.enabled) welcomeChannel(KrafterWelcomeChannelData()) {
+                staffCommandCheck { isBotModuleAdmin(config.miscellaneous.embed_channels.administrators) }
+                getLogChannel { channel, guild ->
+                    val cfg = config().safety_and_abuse
+
+                    return@getLogChannel getOrCreateChannel(
+                        cfg.dump_channel,
+                        "krafter-sab",
+                        "Safety and Abuse logging and dump channel for the Krafter software",
+                        getOverwrites(guild),
+                        guild
+                    )
+                }
+            }
+
+        }
+
+        dataCollectionMode = DataCollection.fromDB(config.safety_and_abuse.data_collection)
+
+        presence {
+            playing("on ${config.status.server_name}")
+        }
     }
+}
+
+suspend fun setup(): ExtensibleBot {
+    return setup(
+        token = TOKEN!!,
+        manager = CFG,
+        runPath = RUN_PATH
+    )
 }
 
 /**
