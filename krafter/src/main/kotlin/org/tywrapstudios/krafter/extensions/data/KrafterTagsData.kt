@@ -21,7 +21,7 @@ class KrafterTagsData : TagsData {
         transaction {
             setup()
 
-            TagsTable.select(TagsTable.key).where { (TagsTable.key eq key) and (TagsTable.guildId eq guildId?.value) }
+            TagsTable.selectAll().where { (TagsTable.key eq key) and (TagsTable.guildId eq guildId?.value) }
                 .forEach { tag = fromRow(it) }
         }
         return tag
@@ -35,7 +35,7 @@ class KrafterTagsData : TagsData {
         transaction {
             setup()
 
-            TagsTable.select(TagsTable.category)
+            TagsTable.selectAll()
                 .where { (TagsTable.category eq category) and (TagsTable.guildId eq guildId?.value) }
                 .forEach { tags.add(fromRow(it)) }
         }
@@ -96,7 +96,7 @@ class KrafterTagsData : TagsData {
         transaction {
             setup()
 
-            TagsTable.select(TagsTable.id).forEach {
+            TagsTable.selectAll().forEach {
                 if (category == null || category == it[TagsTable.category]) catBool = true
                 if (guildId == null || guildId.value == it[TagsTable.guildId]) guildBool = true
                 if (key == null || key == it[TagsTable.key]) keyBool = true
@@ -112,16 +112,14 @@ class KrafterTagsData : TagsData {
         transaction {
             setup()
 
-            TagsTable.update {
-                TagsTable.replace {
-                    it[TagsTable.category] = tag.category
-                    it[TagsTable.description] = tag.description
-                    it[TagsTable.key] = tag.key
-                    it[TagsTable.title] = tag.title
-                    it[TagsTable.color] = if (tag.color != null) tag.color!!.rgb else null
-                    it[TagsTable.guildId] = if (tag.guildId != null) tag.guildId!!.value else null
-                    it[TagsTable.image] = tag.image
-                }
+            TagsTable.replace {
+                it[TagsTable.category] = tag.category
+                it[TagsTable.description] = tag.description
+                it[TagsTable.key] = tag.key
+                it[TagsTable.title] = tag.title
+                it[TagsTable.color] = if (tag.color != null) tag.color!!.rgb else null
+                it[TagsTable.guildId] = if (tag.guildId != null) tag.guildId!!.value else null
+                it[TagsTable.image] = tag.image
             }
         }
     }
