@@ -20,7 +20,6 @@ import dev.kordex.core.checks.guildFor
 import org.quiltmc.community.cozy.modules.logs.data.Log
 import org.quiltmc.community.cozy.modules.logs.data.Order
 import org.quiltmc.community.cozy.modules.logs.types.LogParser
-import org.quiltmc.community.cozy.modules.logs.types.LogProcessor
 import org.tywrapstudios.krafter.config
 import org.tywrapstudios.krafter.getOrCreateChannel
 

@@ -2,7 +2,6 @@ package org.tywrapstudios.krafter.database
 
 import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.SqlLogger
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.statements.StatementContext
@@ -12,8 +11,6 @@ import org.sqlite.SQLiteConfig
 import org.sqlite.SQLiteDataSource
 import org.tywrapstudios.krafter.LOGGING
 import org.tywrapstudios.krafter.RUN_PATH
-import org.tywrapstudios.krafter.database.tables.AmaConfigTable
-import org.tywrapstudios.krafter.database.tables.TagsTable
 import javax.sql.DataSource
 import kotlin.io.path.pathString
 

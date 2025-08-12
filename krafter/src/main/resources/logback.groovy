@@ -1,5 +1,4 @@
 import ch.qos.logback.core.joran.spi.ConsoleTarget
-import ch.qos.logback.core.ConsoleAppender
 
 def defaultLevel = INFO
 def defaultTarget = ConsoleTarget.SystemErr

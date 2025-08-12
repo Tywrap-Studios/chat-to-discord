@@ -4,9 +4,7 @@ import dev.kord.core.entity.Message
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
-import org.tywrapstudios.krafter.api.json.McPlayer
 import org.tywrapstudios.krafter.api.json.getMcPlayer
-import java.util.UUID
 import java.util.concurrent.CompletableFuture
 
 class McMessage(val message: Message) {

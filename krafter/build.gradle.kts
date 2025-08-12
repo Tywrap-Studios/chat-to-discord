@@ -1,5 +1,4 @@
 import dev.kordex.gradle.plugins.kordex.DataCollection
-import dev.kordex.gradle.plugins.kordex.base.latestKordMetadata
 
 plugins {
     distribution

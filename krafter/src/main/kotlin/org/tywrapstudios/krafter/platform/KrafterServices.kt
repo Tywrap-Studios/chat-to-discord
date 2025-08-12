@@ -2,8 +2,8 @@ package org.tywrapstudios.krafter.platform
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.tywrapstudios.krafter.platform.services.IMinecraftServerConnection
 import org.tywrapstudios.krafter.api.rcon.RconMinecraftServerConnection
+import org.tywrapstudios.krafter.platform.services.IMinecraftServerConnection
 import java.util.*
 
 internal val LOGGER: Logger = LoggerFactory.getLogger("Krafter Service Loader")

@@ -1,22 +1,14 @@
 package org.tywrapstudios.krafter.api.json
 
 import dev.kord.common.entity.Snowflake
-import dev.kordex.core.utils.getKoin
-import dev.kordex.core.utils.loadModule
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import org.koin.core.Koin
-import org.koin.core.annotation.KoinInternalApi
-import org.koin.core.qualifier.named
-import org.koin.core.qualifier.qualifier
-import org.tywrapstudios.blossombridge.api.logging.LoggingHandler
 import org.tywrapstudios.krafter.LOGGING
-import org.tywrapstudios.krafter.extensions.data.KrafterMinecraftLinkData
 import org.tywrapstudios.krafter.extensions.minecraft.MinecraftExtension
 import org.tywrapstudios.krafter.setup
 import java.net.URI
 import java.net.URL
-import java.util.UUID
+import java.util.*
 
 /**
  * Represents a Minecraft player with their ID, name, legacy status, and properties.

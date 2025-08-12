@@ -16,7 +16,6 @@ import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable
 import org.tywrapstudios.krafter.database.tables.MinecraftLinkTable
 import org.tywrapstudios.krafter.database.tables.TagsTable
-import java.util.HashSet
 
 const val CFG_CHANNEL_REASON = "Config prompted for an automatic new channel creation."
 

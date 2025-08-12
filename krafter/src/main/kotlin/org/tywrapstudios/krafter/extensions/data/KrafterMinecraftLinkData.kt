@@ -1,17 +1,14 @@
 package org.tywrapstudios.krafter.extensions.data
 
 import dev.kord.common.entity.Snowflake
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteReturning
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.replace
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update
 import org.tywrapstudios.krafter.database.tables.MinecraftLinkTable
 import org.tywrapstudios.krafter.setup
-import java.util.UUID
+import java.util.*
 import kotlin.random.Random
 import kotlin.random.nextUInt
 

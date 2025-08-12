@@ -12,7 +12,6 @@ import dev.kordex.core.extensions.event
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
-import org.tywrapstudios.krafter.LOGGING
 import org.tywrapstudios.krafter.api.discord.McMessage
 import org.tywrapstudios.krafter.checks.isGlobalBotAdmin
 import org.tywrapstudios.krafter.config
@@ -21,7 +20,7 @@ import org.tywrapstudios.krafter.getOrCreateChannel
 import org.tywrapstudios.krafter.i18n.Translations
 import org.tywrapstudios.krafter.platform.MC_CONNECTION
 import org.tywrapstudios.krafter.setup
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.regex.Pattern
 

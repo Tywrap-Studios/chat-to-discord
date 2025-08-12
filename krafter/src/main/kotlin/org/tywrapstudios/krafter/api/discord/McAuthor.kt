@@ -3,7 +3,7 @@ package org.tywrapstudios.krafter.api.discord
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.entity.Member
 import org.tywrapstudios.krafter.api.json.McPlayer
-import java.util.UUID
+import java.util.*
 
 class McAuthor(val member: Member, val player: McPlayer?) {
     fun getName(): String {
