@@ -86,8 +86,10 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
             if (config.miscellaneous.plural_kit.enabled) extPluralKit()
 
             add(::SafetyAndAbuseExtension)
-            add(::MinecraftExtension)
 
+            if(config.minecraft.enabled) {
+                add(::MinecraftExtension)
+            }
             if (config.safety_and_abuse.moderation.block_phishing) extPhishing {
                 for (domain in config.safety_and_abuse.moderation.banned_domains) badDomain(domain)
                 logChannelName =
