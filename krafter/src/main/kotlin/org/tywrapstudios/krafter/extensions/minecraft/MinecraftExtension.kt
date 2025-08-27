@@ -1,3 +1,5 @@
+@file:Suppress("LongMethod", "CyclomaticComplexMethod")
+
 package org.tywrapstudios.krafter.extensions.minecraft
 
 import dev.kord.core.entity.channel.TextChannel

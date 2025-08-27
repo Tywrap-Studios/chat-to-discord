@@ -1,3 +1,5 @@
+@file:Suppress("WildcardImport")
+
 package org.tywrapstudios.krafter.extensions.sab
 
 import dev.kord.common.entity.*

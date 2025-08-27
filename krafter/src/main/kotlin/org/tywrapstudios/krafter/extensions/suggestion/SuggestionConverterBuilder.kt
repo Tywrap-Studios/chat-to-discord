@@ -2,7 +2,6 @@ package org.tywrapstudios.krafter.extensions.suggestion
 
 import dev.kordex.core.annotations.UnexpectedFunctionBehaviour
 import dev.kordex.core.commands.Arguments
-import dev.kordex.core.commands.converters.Converter
 import dev.kordex.core.commands.converters.ConverterToOptional
 import dev.kordex.core.commands.converters.OptionalConverter
 import dev.kordex.core.commands.converters.SingleConverter

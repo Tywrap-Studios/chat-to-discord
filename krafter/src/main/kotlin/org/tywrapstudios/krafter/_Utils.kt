@@ -1,3 +1,5 @@
+@file:Suppress("WildcardImport", "TooManyFunctions")
+
 package org.tywrapstudios.krafter
 
 import dev.kord.common.Color
@@ -14,11 +16,7 @@ import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.addLogger
 import org.tywrapstudios.krafter.config.BotConfig
 import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
-import org.tywrapstudios.krafter.database.tables.AmaConfigTable
-import org.tywrapstudios.krafter.database.tables.MinecraftLinkTable
-import org.tywrapstudios.krafter.database.tables.OwnedThreadTable
-import org.tywrapstudios.krafter.database.tables.SuggestionTable
-import org.tywrapstudios.krafter.database.tables.TagsTable
+import org.tywrapstudios.krafter.database.tables.*
 
 const val CFG_CHANNEL_REASON = "Config prompted for an automatic new channel creation."
 

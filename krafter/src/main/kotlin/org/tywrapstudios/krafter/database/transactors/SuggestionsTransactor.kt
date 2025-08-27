@@ -8,15 +8,13 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+@file:Suppress("WildcardImport")
+
 package org.tywrapstudios.krafter.database.transactors
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.MessageBehavior
-import org.jetbrains.exposed.sql.Op
-import org.jetbrains.exposed.sql.Query
-import org.jetbrains.exposed.sql.SqlExpressionBuilder
-import org.jetbrains.exposed.sql.replace
-import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.tywrapstudios.krafter.database.entities.Suggestion
 import org.tywrapstudios.krafter.database.tables.SuggestionTable
