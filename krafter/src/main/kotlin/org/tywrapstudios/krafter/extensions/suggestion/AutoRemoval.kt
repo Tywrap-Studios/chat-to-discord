@@ -21,6 +21,7 @@ import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.encoding.decodeStructure
 import kotlinx.serialization.encoding.encodeStructure
 import org.intellij.lang.annotations.Language
+import org.tywrapstudios.krafter.config.BotConfig
 
 @Serializable
 data class AutoRemoval(
@@ -40,21 +41,20 @@ data class AutoRemoval(
     override fun toString() = "`$id`: `$regex` -> ${status.readableName} / \"$reason\""
 }
 
-val defaultAutoRemovals = listOf(
-    AutoRemoval(
-        "forge",
-        "forge port|port( .+)? to forge|make( it)? forge",
-        SuggestionStatus.Denied,
-        "Ladysnake mods will not get first-party support for Forge. Third-party contributors may make " +
-                "their own ports for Forge if they wish."
-    ),
-    AutoRemoval(
-        "new-mod",
-        "new mod",
-        SuggestionStatus.Denied,
-        "This is for requesting suggestions for existing mods, not ideas for new mods."
+fun BotConfig.Miscellaneous.SuggestionForum.AnswerMap.toAutoRemoval(): AutoRemoval {
+    val builder: StringBuilder = StringBuilder()
+    this.triggers.forEach { entry ->
+        builder.append("$entry|")
+    }
+    builder.deleteAt(builder.lastIndex)
+
+    return AutoRemoval(
+        this.id,
+        builder.toString(),
+        SuggestionStatus.valueOf(this.status),
+        this.answer
     )
-)
+}
 
 object RegexSerializer : KSerializer<Regex> {
     override val descriptor: SerialDescriptor =

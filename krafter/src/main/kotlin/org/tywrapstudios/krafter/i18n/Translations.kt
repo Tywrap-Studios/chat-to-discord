@@ -6,6 +6,12 @@ import dev.kordex.core.i18n.types.Key
 public object Translations {
   public val bundle: Bundle = Bundle("krafter.strings")
 
+  /**
+   * Placeholder
+   */
+  public val placeholder: Key = Key("placeholder")
+      .withBundle(Translations.bundle)
+
   public object Checks {
     public object HasId {
       /**
@@ -205,6 +211,217 @@ public object Translations {
         }
       }
     }
+
+    public object Suggestions {
+      /**
+       * Commands for managing the suggestion forum.
+       */
+      public val description: Key = Key("commands.suggestions.description")
+          .withBundle(Translations.bundle)
+
+      /**
+       * edit
+       */
+      public val edit: Key = Key("commands.suggestions.edit")
+          .withBundle(Translations.bundle)
+
+      /**
+       * manage
+       */
+      public val manage: Key = Key("commands.suggestions.manage")
+          .withBundle(Translations.bundle)
+
+      /**
+       * refresh
+       */
+      public val refresh: Key = Key("commands.suggestions.refresh")
+          .withBundle(Translations.bundle)
+
+      /**
+       * spreadsheet
+       */
+      public val spreadsheet: Key = Key("commands.suggestions.spreadsheet")
+          .withBundle(Translations.bundle)
+
+      public object Edit {
+        /**
+         * Edit one of your suggestions.
+         */
+        public val description: Key = Key("commands.suggestions.edit.description")
+            .withBundle(Translations.bundle)
+
+        public object Arg {
+          /**
+           * problem
+           */
+          public val problem: Key = Key("commands.suggestions.edit.arg.problem")
+              .withBundle(Translations.bundle)
+
+          /**
+           * solution
+           */
+          public val solution: Key = Key("commands.suggestions.edit.arg.solution")
+              .withBundle(Translations.bundle)
+
+          /**
+           * text
+           */
+          public val text: Key = Key("commands.suggestions.edit.arg.text")
+              .withBundle(Translations.bundle)
+
+          public object Problem {
+            /**
+             * New problem text.
+             */
+            public val description: Key = Key("commands.suggestions.edit.arg.problem.description")
+                .withBundle(Translations.bundle)
+          }
+
+          public object Solution {
+            /**
+             * New solution text.
+             */
+            public val description: Key = Key("commands.suggestions.edit.arg.solution.description")
+                .withBundle(Translations.bundle)
+          }
+
+          public object Text {
+            /**
+             * New suggestion text.
+             */
+            public val description: Key = Key("commands.suggestions.edit.arg.text.description")
+                .withBundle(Translations.bundle)
+          }
+        }
+      }
+
+      public object GeneralArgs {
+        /**
+         * status
+         */
+        public val status: Key = Key("commands.suggestions.generalArgs.status")
+            .withBundle(Translations.bundle)
+
+        /**
+         * suggestion
+         */
+        public val suggestion: Key = Key("commands.suggestions.generalArgs.suggestion")
+            .withBundle(Translations.bundle)
+
+        public object Status {
+          /**
+           * Status to apply.
+           */
+          public val description: Key = Key("commands.suggestions.generalArgs.status.description")
+              .withBundle(Translations.bundle)
+        }
+
+        public object Suggestion {
+          /**
+           * Suggestion ID to act on.
+           */
+          public val description: Key =
+              Key("commands.suggestions.generalArgs.suggestion.description")
+              .withBundle(Translations.bundle)
+        }
+      }
+
+      public object Manage {
+        /**
+         * auto-response
+         */
+        public val autoResponse: Key = Key("commands.suggestions.manage.autoResponse")
+            .withBundle(Translations.bundle)
+
+        /**
+         * Manage suggestions, if you have the permissions to do so.
+         */
+        public val description: Key = Key("commands.suggestions.manage.description")
+            .withBundle(Translations.bundle)
+
+        /**
+         * state
+         */
+        public val state: Key = Key("commands.suggestions.manage.state")
+            .withBundle(Translations.bundle)
+
+        public object AutoResponse {
+          /**
+           * Use an automated response to a suggestion.
+           */
+          public val description: Key = Key("commands.suggestions.manage.autoResponse.description")
+              .withBundle(Translations.bundle)
+
+          public object Arg {
+            /**
+             * id
+             */
+            public val id: Key = Key("commands.suggestions.manage.autoResponse.arg.id")
+                .withBundle(Translations.bundle)
+
+            public object Id {
+              /**
+               * Auto response ID
+               */
+              public val description: Key =
+                  Key("commands.suggestions.manage.autoResponse.arg.id.description")
+                  .withBundle(Translations.bundle)
+            }
+          }
+        }
+
+        public object State {
+          /**
+           * Suggestion state change command; "clear" to remove comment.
+           */
+          public val description: Key = Key("commands.suggestions.manage.state.description")
+              .withBundle(Translations.bundle)
+
+          public object Arg {
+            /**
+             * comment
+             */
+            public val comment: Key = Key("commands.suggestions.manage.state.arg.comment")
+                .withBundle(Translations.bundle)
+
+            public object Comment {
+              /**
+               * Comment text to set, 'clear' to remove.
+               */
+              public val description: Key =
+                  Key("commands.suggestions.manage.state.arg.comment.description")
+                  .withBundle(Translations.bundle)
+            }
+          }
+        }
+      }
+
+      public object Refresh {
+        /**
+         * Create a new channel message to allow creation of suggestions.
+         */
+        public val description: Key = Key("commands.suggestions.refresh.description")
+            .withBundle(Translations.bundle)
+      }
+
+      public object Spreadsheet {
+        /**
+         * Download a copy of the suggestions as a spreadsheet.
+         */
+        public val description: Key = Key("commands.suggestions.spreadsheet.description")
+            .withBundle(Translations.bundle)
+      }
+    }
+  }
+
+  public object Converter {
+    public object Suggestion {
+      /**
+       * "Suggestion ID"
+       */
+      public val signatureType: Key = Key("converter.suggestion.signatureType")
+          .withBundle(Translations.bundle)
+    }
   }
 
   public object Enum {
@@ -267,6 +484,16 @@ public object Translations {
        * Stale
        */
       public val stale: Key = Key("enum.suggestionStatus.stale")
+          .withBundle(Translations.bundle)
+    }
+  }
+
+  public object Errors {
+    public object Exceptions {
+      /**
+       * Unknown suggestion ID: {0}
+       */
+      public val unknownSuggestionId: Key = Key("errors.exceptions.unknownSuggestionId")
           .withBundle(Translations.bundle)
     }
   }

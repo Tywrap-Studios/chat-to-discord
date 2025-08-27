@@ -16,6 +16,8 @@ import org.tywrapstudios.krafter.config.BotConfig
 import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable
 import org.tywrapstudios.krafter.database.tables.MinecraftLinkTable
+import org.tywrapstudios.krafter.database.tables.OwnedThreadTable
+import org.tywrapstudios.krafter.database.tables.SuggestionTable
 import org.tywrapstudios.krafter.database.tables.TagsTable
 
 const val CFG_CHANNEL_REASON = "Config prompted for an automatic new channel creation."
@@ -27,7 +29,7 @@ fun config(): BotConfig = CFG.getConfig()
 fun saveConfig() = CFG.saveConfig()
 
 fun Transaction.setup() {
-    SchemaUtils.create(TagsTable, AmaConfigTable, MinecraftLinkTable)
+    SchemaUtils.create(TagsTable, AmaConfigTable, MinecraftLinkTable, SuggestionTable, OwnedThreadTable)
     addLogger(krafterSqlLogger)
 }
 
@@ -49,7 +51,7 @@ suspend fun getOrCreateChannel(
     providedName: String,
     defaultName: String,
     channelTopic: String = "A channel automatically created by Krafter.",
-    permissionOverwrites: MutableSet<Overwrite>,
+    permissionOverwrites: MutableSet<Overwrite>?,
     guild: Guild,
 ): TextChannel {
     var channel: TextChannel?
@@ -68,7 +70,7 @@ suspend fun getOrCreateChannel(
         channel = guild.createTextChannel(defaultName) {
             reason = CFG_CHANNEL_REASON
             topic = channelTopic
-            this.permissionOverwrites = permissionOverwrites
+            if (permissionOverwrites != null) this.permissionOverwrites = permissionOverwrites
         }
         LOGGING.debug("$providedName $defaultName: ${channel.mention} created. New channel.")
     }

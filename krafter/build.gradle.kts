@@ -58,6 +58,7 @@ dependencies {
     api(libs.bundles.cozy.modules)
     api(libs.bundles.database)
     api(libs.rcon)
+    api(libs.excelkt)
 //    implementation(libs.ktor.client.cio)
 }
 
@@ -84,6 +85,7 @@ kordEx {
         voice = false
     }
 
+//    module("dev-unsafe") TODO Uncomment once I can sync
     module("pluralkit")
     module("func-phishing")
     module("func-tags")

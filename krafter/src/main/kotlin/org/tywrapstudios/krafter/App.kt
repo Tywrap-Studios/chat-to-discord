@@ -30,6 +30,7 @@ import org.tywrapstudios.krafter.extensions.logs.WrongLocationMessageSender
 import org.tywrapstudios.krafter.extensions.minecraft.MinecraftExtension
 import org.tywrapstudios.krafter.extensions.sab.SafetyAndAbuseExtension
 import org.tywrapstudios.krafter.extensions.sab.getOverwrites
+import org.tywrapstudios.krafter.extensions.suggestion.SuggestionsExtension
 import java.io.File
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
@@ -138,6 +139,9 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
                 }
             }
 
+            if (config.miscellaneous.suggestion_forum.enabled) {
+                add(::SuggestionsExtension)
+            }
         }
 
         dataCollectionMode = DataCollection.fromDB(config.safety_and_abuse.data_collection)
