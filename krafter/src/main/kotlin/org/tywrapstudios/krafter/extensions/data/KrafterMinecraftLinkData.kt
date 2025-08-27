@@ -27,7 +27,7 @@ class KrafterMinecraftLinkData {
             setup()
 
             MinecraftLinkTable.replace {
-                it[id] = member.value
+                it[id] = member
                 it[uuid] = link.uuid
                 it[code] = link.code
                 it[verified] = link.verified
@@ -48,7 +48,7 @@ class KrafterMinecraftLinkData {
         transaction {
             setup()
 
-            MinecraftLinkTable.selectAll().where { MinecraftLinkTable.id eq member.value }
+            MinecraftLinkTable.selectAll().where { MinecraftLinkTable.id eq member }
                 .forEach {
                     status = LinkStatus(
                         it[MinecraftLinkTable.uuid],
@@ -79,14 +79,14 @@ class KrafterMinecraftLinkData {
         transaction {
             setup()
 
-            MinecraftLinkTable.selectAll().where { MinecraftLinkTable.id eq member.value }.forEach {
+            MinecraftLinkTable.selectAll().where { MinecraftLinkTable.id eq member }.forEach {
                 if (it[MinecraftLinkTable.code] != verificationCode) {
                     success = -1
                     return@transaction
                 }
             }
 
-            MinecraftLinkTable.update({ MinecraftLinkTable.id eq member.value }) {
+            MinecraftLinkTable.update({ MinecraftLinkTable.id eq member }) {
                 it[code] = 0u
                 it[verified] = true
                 success = 1
@@ -148,7 +148,7 @@ class KrafterMinecraftLinkData {
         transaction {
             setup()
 
-            MinecraftLinkTable.deleteReturning { MinecraftLinkTable.id eq member.value }.forEach {
+            MinecraftLinkTable.deleteReturning { MinecraftLinkTable.id eq member }.forEach {
                 uuid = it[MinecraftLinkTable.uuid]
             }
         }

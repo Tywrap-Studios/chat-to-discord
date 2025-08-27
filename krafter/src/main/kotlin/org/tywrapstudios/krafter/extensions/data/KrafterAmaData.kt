@@ -22,7 +22,7 @@ class KrafterAmaData : AmaData {
         transaction {
             setup()
 
-            AmaConfigTable.selectAll().where { AmaConfigTable.id eq guildId.value }.forEach {
+            AmaConfigTable.selectAll().where { AmaConfigTable.id eq guildId }.forEach {
                 cfg = fromRow(it)
             }
         }
@@ -37,7 +37,7 @@ class KrafterAmaData : AmaData {
         transaction {
             setup()
 
-            AmaConfigTable.update({ AmaConfigTable.id eq guildId.value }) {
+            AmaConfigTable.update({ AmaConfigTable.id eq guildId }) {
                 it[AmaConfigTable.enabled] = enabled
             }
         }
@@ -48,18 +48,18 @@ class KrafterAmaData : AmaData {
             setup()
 
             AmaConfigTable.replace {
-                it[id] = config.guildId.value
-                it[answerQueueChannel] = config.answerQueueChannel.value
-                it[liveChatChannel] = config.liveChatChannel.value
-                it[buttonChannel] = config.buttonChannel.value
-                it[approvalQueueChannel] = config.approvalQueueChannel?.value
-                it[flaggedQuestionChannel] = config.flaggedQuestionChannel?.value
+                it[id] = config.guildId
+                it[answerQueueChannel] = config.answerQueueChannel
+                it[liveChatChannel] = config.liveChatChannel
+                it[buttonChannel] = config.buttonChannel
+                it[approvalQueueChannel] = config.approvalQueueChannel
+                it[flaggedQuestionChannel] = config.flaggedQuestionChannel
 
                 it[title] = config.embedConfig.title
                 it[description] = config.embedConfig.description
                 it[imageUrl] = config.embedConfig.imageUrl
 
-                it[buttonMessage] = config.buttonMessage.value
+                it[buttonMessage] = config.buttonMessage
                 it[buttonId] = config.buttonId
                 it[enabled] = config.enabled
             }

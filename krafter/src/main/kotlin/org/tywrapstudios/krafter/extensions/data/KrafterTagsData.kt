@@ -21,7 +21,7 @@ class KrafterTagsData : TagsData {
         transaction {
             setup()
 
-            TagsTable.selectAll().where { (TagsTable.key eq key) and (TagsTable.guildId eq guildId?.value) }
+            TagsTable.selectAll().where { (TagsTable.key eq key) and (TagsTable.guildId eq guildId) }
                 .forEach { tag = fromRow(it) }
         }
         return tag
@@ -36,7 +36,7 @@ class KrafterTagsData : TagsData {
             setup()
 
             TagsTable.selectAll()
-                .where { (TagsTable.category eq category) and (TagsTable.guildId eq guildId?.value) }
+                .where { (TagsTable.category eq category) and (TagsTable.guildId eq guildId) }
                 .forEach { tags.add(fromRow(it)) }
         }
         return tags
@@ -77,7 +77,7 @@ class KrafterTagsData : TagsData {
         transaction {
             setup()
 
-            TagsTable.select(category).where { (TagsTable.guildId eq guildId?.value) or (TagsTable.guildId eq null) }
+            TagsTable.select(category).where { (TagsTable.guildId eq guildId) or (TagsTable.guildId eq null) }
                 .forEach { categories.add(it[category]) }
         }
         return categories
@@ -98,7 +98,7 @@ class KrafterTagsData : TagsData {
 
             TagsTable.selectAll().forEach {
                 if (category == null || category == it[TagsTable.category]) catBool = true
-                if (guildId == null || guildId.value == it[TagsTable.guildId]) guildBool = true
+                if (guildId == null || guildId == it[TagsTable.guildId]) guildBool = true
                 if (key == null || key == it[TagsTable.key]) keyBool = true
                 if (catBool && guildBool && keyBool) {
                     tags.add(fromRow(it))
@@ -118,7 +118,7 @@ class KrafterTagsData : TagsData {
                 it[TagsTable.key] = tag.key
                 it[TagsTable.title] = tag.title
                 it[TagsTable.color] = if (tag.color != null) tag.color!!.rgb else null
-                it[TagsTable.guildId] = if (tag.guildId != null) tag.guildId!!.value else null
+                it[TagsTable.guildId] = tag.guildId
                 it[TagsTable.image] = tag.image
             }
         }
@@ -132,7 +132,7 @@ class KrafterTagsData : TagsData {
         transaction {
             setup()
 
-            TagsTable.deleteReturning { (TagsTable.key eq key) and (TagsTable.guildId eq guildId?.value) }.forEach {
+            TagsTable.deleteReturning { (TagsTable.key eq key) and (TagsTable.guildId eq guildId) }.forEach {
                 tag = fromRow(it)
             }
         }

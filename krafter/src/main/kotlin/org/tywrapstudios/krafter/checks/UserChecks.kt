@@ -8,6 +8,7 @@ import dev.kordex.core.checks.types.CheckContext
 import dev.kordex.core.checks.userFor
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.tywrapstudios.krafter.i18n.Translations
+import org.tywrapstudios.krafter.snowflake
 
 suspend fun CheckContext<*>.hasId(id: Snowflake) {
     if (!passed) {
@@ -98,7 +99,7 @@ suspend fun CheckContext<*>.hasId(id: ULong) {
         return
     }
 
-    val id = Snowflake(id)
+    val id = id.snowflake()
     hasId(id)
 }
 
@@ -107,6 +108,6 @@ suspend fun CheckContext<*>.notHasId(id: ULong) {
         return
     }
 
-    val id = Snowflake(id)
+    val id = id.snowflake()
     notHasId(id)
 }
