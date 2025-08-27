@@ -2,6 +2,7 @@ package org.tywrapstudios.krafter
 
 import dev.kord.common.Color
 import dev.kord.common.entity.Overwrite
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.createTextChannel
 import dev.kord.core.entity.Guild
 import dev.kord.core.entity.channel.TextChannel
@@ -83,4 +84,27 @@ suspend fun getOrCreateChannel(
 
     LOGGING.debug("$providedName $defaultName: ${channel.mention} final.")
     return channel
+}
+
+// Snowflake skedaddles that are probably bad practice as hell, but I don't care
+
+fun ULong.snowflake() = Snowflake(this)
+fun String.snowflake() = Snowflake(this)
+
+fun Collection<ULong>.snowflake(): MutableList<Snowflake> {
+    val list = mutableListOf<Snowflake>()
+    this.forEach { uLong -> list.add(uLong.snowflake()) }
+    return list
+}
+
+fun Collection<String>.snowflake(): MutableList<Snowflake> {
+    val list = mutableListOf<Snowflake>()
+    this.forEach { snowflake -> list.add(Snowflake(snowflake)) }
+    return list
+}
+
+fun Collection<Snowflake>.uLongs(): MutableList<ULong> {
+    val list = mutableListOf<ULong>()
+    this.forEach { snowflake -> list.add(snowflake.value) }
+    return list
 }
