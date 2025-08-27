@@ -47,7 +47,25 @@ public object Translations {
   }
 
   public object Commands {
+    /**
+     * minecraft
+     */
+    public val minecraft: Key = Key("commands.minecraft")
+        .withBundle(Translations.bundle)
+
+    /**
+     * suggestions
+     */
+    public val suggestions: Key = Key("commands.suggestions")
+        .withBundle(Translations.bundle)
+
     public object Minecraft {
+      /**
+       * Minecraft related commands.
+       */
+      public val description: Key = Key("commands.minecraft.description")
+          .withBundle(Translations.bundle)
+
       /**
        * force-link
        */

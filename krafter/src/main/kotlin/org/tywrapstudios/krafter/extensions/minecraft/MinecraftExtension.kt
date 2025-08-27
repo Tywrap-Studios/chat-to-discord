@@ -4,6 +4,8 @@ import dev.kord.core.entity.channel.TextChannel
 import dev.kord.core.event.guild.GuildCreateEvent
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.application.slash.ephemeralSubCommand
+import dev.kordex.core.commands.application.slash.group
 import dev.kordex.core.commands.converters.impl.member
 import dev.kordex.core.commands.converters.impl.string
 import dev.kordex.core.extensions.Extension
@@ -55,109 +57,116 @@ class MinecraftExtension : Extension() {
             }
         }
 
-        ephemeralSlashCommand(::LinkCommandArguments) {
-            name = Translations.Commands.Minecraft.link
-            description = Translations.Commands.Minecraft.Link.description
-            action {
-                if (!config().minecraft.enabled) {
-                    respond {
-                        content = Translations.Commands.Minecraft.Link.Error.disabled.translate()
-                    }
-                    return@action
-                }
-
-                val uuid = arguments.uuid
-                val member = event.interaction.user.id
-
-                val link = data.setLinkStatus(member, KrafterMinecraftLinkData.LinkStatus(UUID.fromString(uuid)))
-
-                respond {
-                    content = Translations.Commands.Minecraft.Link.success.withOrdinalPlaceholders(
-                        link.code
-                    ).translate()
-                }
-            }
-        }
-
         ephemeralSlashCommand {
-            name = Translations.Commands.Minecraft.unlink
-            description = Translations.Commands.Minecraft.Unlink.description
-            action {
-                if (!config().minecraft.enabled) {
-                    respond {
-                        content = Translations.Commands.Minecraft.Unlink.Error.disabled.translate()
-                    }
-                    return@action
-                }
+            group(Translations.Commands.minecraft) {
+                description = Translations.Commands.Minecraft.description
+            }
 
-                val member = event.interaction.user.id
-                val uuid = data.unlink(member)
-                if (uuid == null) {
-                    respond {
-                        content = Translations.Commands.Minecraft.Unlink.Error.notLinked.translate()
+            ephemeralSubCommand(::LinkCommandArguments) {
+                name = Translations.Commands.Minecraft.link
+                description = Translations.Commands.Minecraft.Link.description
+                action {
+                    if (!config().minecraft.enabled) {
+                        respond {
+                            content = Translations.Commands.Minecraft.Link.Error.disabled.translate()
+                        }
+                        return@action
                     }
-                } else {
+
+                    val uuid = arguments.uuid
+                    val member = event.interaction.user.id
+
+                    val link = data.setLinkStatus(member, KrafterMinecraftLinkData.LinkStatus(UUID.fromString(uuid)))
+
                     respond {
-                        content = Translations.Commands.Minecraft.Unlink.success.withOrdinalPlaceholders(
-                            uuid
+                        content = Translations.Commands.Minecraft.Link.success.withOrdinalPlaceholders(
+                            link.code
                         ).translate()
                     }
                 }
             }
-        }
 
-        ephemeralSlashCommand(::ForceLinkCommandArguments) {
-            name = Translations.Commands.Minecraft.forceLink
-            description = Translations.Commands.Minecraft.ForceLink.description
-            check {
-                isGlobalBotAdmin()
-            }
-            action {
-                if (!config().minecraft.enabled) {
-                    respond {
-                        content = Translations.Commands.Minecraft.ForceLink.Error.disabled.translate()
+            ephemeralSubCommand {
+                name = Translations.Commands.Minecraft.unlink
+                description = Translations.Commands.Minecraft.Unlink.description
+                action {
+                    if (!config().minecraft.enabled) {
+                        respond {
+                            content = Translations.Commands.Minecraft.Unlink.Error.disabled.translate()
+                        }
+                        return@action
                     }
-                    return@action
+
+                    val member = event.interaction.user.id
+                    val uuid = data.unlink(member)
+                    if (uuid == null) {
+                        respond {
+                            content = Translations.Commands.Minecraft.Unlink.Error.notLinked.translate()
+                        }
+                    } else {
+                        respond {
+                            content = Translations.Commands.Minecraft.Unlink.success.withOrdinalPlaceholders(
+                                uuid
+                            ).translate()
+                        }
+                    }
                 }
+            }
 
-                val member = arguments.member
-                val uuid = arguments.uuid
-
-                val currentLink = data.getLinkStatus(member.id)
-
-                if (currentLink == null) {
-                    data.setLinkStatus(
-                        member.id,
-                        KrafterMinecraftLinkData.LinkStatus(UUID.fromString(uuid))
-                    )
-                } else if (currentLink.uuid.toString() == uuid && currentLink.verified) {
-                    respond {
-                        content = Translations.Commands.Minecraft.ForceLink.Error.alreadyLinked.withOrdinalPlaceholders(
-                            currentLink.uuid
-                        ).translate()
+            ephemeralSubCommand(::ForceLinkCommandArguments) {
+                name = Translations.Commands.Minecraft.forceLink
+                description = Translations.Commands.Minecraft.ForceLink.description
+                check {
+                    isGlobalBotAdmin()
+                }
+                action {
+                    if (!config().minecraft.enabled) {
+                        respond {
+                            content = Translations.Commands.Minecraft.ForceLink.Error.disabled.translate()
+                        }
+                        return@action
                     }
-                    return@action
-                } else if (currentLink.uuid.toString() != uuid && currentLink.verified) {
-                    respond {
-                        content = Translations.Commands.Minecraft.ForceLink.Error.alreadyLinkedDifferent
-                            .withOrdinalPlaceholders(currentLink.uuid)
-                            .translate()
-                    }
-                    return@action
-                } else if (!currentLink.verified) {
-                    data.verify(member.id, currentLink.code)
-                    respond {
-                        content = Translations.Commands.Minecraft.ForceLink.success.withOrdinalPlaceholders(
-                            member.mention,
-                            currentLink.uuid
-                        ).translate()
+
+                    val member = arguments.member
+                    val uuid = arguments.uuid
+
+                    val currentLink = data.getLinkStatus(member.id)
+
+                    if (currentLink == null) {
+                        data.setLinkStatus(
+                            member.id,
+                            KrafterMinecraftLinkData.LinkStatus(UUID.fromString(uuid))
+                        )
+                    } else if (currentLink.uuid.toString() == uuid && currentLink.verified) {
+                        respond {
+                            content =
+                                Translations.Commands.Minecraft.ForceLink.Error.alreadyLinked.withOrdinalPlaceholders(
+                                    currentLink.uuid
+                            ).translate()
+                        }
+                        return@action
+                    } else if (currentLink.uuid.toString() != uuid && currentLink.verified) {
+                        respond {
+                            content = Translations.Commands.Minecraft.ForceLink.Error.alreadyLinkedDifferent
+                                .withOrdinalPlaceholders(currentLink.uuid)
+                                .translate()
+                        }
+                        return@action
+                    } else if (!currentLink.verified) {
+                        data.verify(member.id, currentLink.code)
+                        respond {
+                            content = Translations.Commands.Minecraft.ForceLink.success.withOrdinalPlaceholders(
+                                member.mention,
+                                currentLink.uuid
+                            ).translate()
+                        }
                     }
                 }
             }
         }
     }
 
-    inner class LinkCommandArguments : Arguments() {
+    class LinkCommandArguments : Arguments() {
         val uuid by string {
             name = Translations.Commands.Minecraft.Link.Arg.uuid
             description = Translations.Commands.Minecraft.Link.description
@@ -175,7 +184,7 @@ class MinecraftExtension : Extension() {
         }
     }
 
-    inner class ForceLinkCommandArguments : Arguments() {
+    class ForceLinkCommandArguments : Arguments() {
         val member by member {
             name = Translations.Commands.Minecraft.ForceLink.Arg.member
             description = Translations.Commands.Minecraft.ForceLink.Arg.Member.description
