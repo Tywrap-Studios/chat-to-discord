@@ -35,7 +35,7 @@ import java.io.File
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 
-private val TEST_SERVER_ID: Long? = envOrNull("TEST_SERVER")?.toLong()
+private val TEST_SERVER_ID: Snowflake? = envOrNull("TEST_SERVER")?.toULong()?.snowflake()
 private val TEST_TOKEN: String? = envOrNull("TEST_TOKEN")
 private val INIT_LOGGER = LoggerFactory.getLogger("Krafter Standalone Initializer")
 var TOKEN: String? = null
@@ -78,7 +78,7 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
 
         applicationCommands {
             if (TEST_SERVER_ID != null) {
-                defaultGuild = Snowflake(TEST_SERVER_ID)
+                defaultGuild = TEST_SERVER_ID
             }
         }
 

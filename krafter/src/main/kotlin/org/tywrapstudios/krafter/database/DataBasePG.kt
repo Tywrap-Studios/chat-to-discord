@@ -6,6 +6,7 @@ import org.sqlite.SQLiteConfig
 import org.sqlite.SQLiteDataSource
 import org.tywrapstudios.krafter.database.tables.AmaConfigTable
 import org.tywrapstudios.krafter.database.tables.TagsTable
+import org.tywrapstudios.krafter.snowflake
 import kotlin.io.path.Path
 import kotlin.io.path.pathString
 
@@ -46,19 +47,19 @@ fun main() {
         }
 
         AmaConfigTable.insert {
-            it[id] = 13732384758686.toULong()
-            it[answerQueueChannel] = 4736372635524.toULong()
-            it[liveChatChannel] = 7543265435678.toULong()
-            it[buttonChannel] = 742467754324567.toULong()
+            it[id] = 13732384758686.toULong().snowflake()
+            it[answerQueueChannel] = 4736372635524.toULong().snowflake()
+            it[liveChatChannel] = 7543265435678.toULong().snowflake()
+            it[buttonChannel] = 742467754324567.toULong().snowflake()
             it[approvalQueueChannel] = null
-            it[flaggedQuestionChannel] = 35677654322456.toULong()
+            it[flaggedQuestionChannel] = 35677654322456.toULong().snowflake()
 
             it[title] = "Yes"
             it[description] = "Blabla blablablallakhdhdhdfkdfjdkjfkjdhfjdhfdjkfhkdjfjdfdfjhdkfjdkfh" +
                     "dkfhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhsgsyeyeyeyeyeyegdgdgdhdhdhsggagaga"
             it[imageUrl] = null
 
-            it[buttonMessage] = 337263748586868.toULong()
+            it[buttonMessage] = 337263748586868.toULong().snowflake()
             it[buttonId] = "ama-button-1"
             it[enabled] = true
         }
