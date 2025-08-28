@@ -80,6 +80,8 @@ public class BotConfig extends BasicConfigClass {
             public boolean block_phishing = true;
             @Comment("Additional domains you want removed. Only works if block_phishing is true.")
             public List<String> banned_domains = new ArrayList<>();
+            @Comment("A link to the place where your rules are stated.")
+            public String rules_link = "";
         }
     }
 

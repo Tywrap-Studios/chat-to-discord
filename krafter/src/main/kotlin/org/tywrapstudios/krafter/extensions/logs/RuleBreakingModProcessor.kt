@@ -13,21 +13,26 @@ package org.tywrapstudios.krafter.extensions.logs
 import org.quiltmc.community.cozy.modules.logs.data.Log
 import org.quiltmc.community.cozy.modules.logs.data.Order
 import org.quiltmc.community.cozy.modules.logs.types.LogProcessor
+import org.tywrapstudios.krafter.config
+import java.util.regex.Pattern
 
 private val BAD_MODS = mutableMapOf(
     "fabric_hider" to "Fabric Hider",
     "baritone" to "Baritone",
 )
 
-private const val SITE_LINK =
-    "https://wild-rubidium-ea3.notion.site/Welcome-to-CordCraft-1e59c7107e2180128f9efe24c853a251"
+private val SITE_LINK = config().safety_and_abuse.moderation.rules_link
 
 class RuleBreakingModProcessor : LogProcessor() {
     override val identifier: String = "rule-breaking-mod"
     override val order: Order = Order.Early
 
     override suspend fun process(log: Log) {
-        val mods = log.getMods().filter { BAD_MODS.filter { it2 -> it2.key.contains(it.key) }.isNotEmpty() }
+        val mods = log.getMods().filter {
+            BAD_MODS.filter { it2 ->
+                Pattern.compile(it2.key).matcher(it.key).matches()
+            }.isNotEmpty()
+        }
 
         if (mods.isEmpty()) {
             return
@@ -48,8 +53,8 @@ class RuleBreakingModProcessor : LogProcessor() {
                 appendLine()
 
                 append(
-                    "For more information, please see [rule 1 on the site]($SITE_LINK). Please note that we will not " +
-                            "provide you with support while you're using mods that break our rules."
+                    "For more information, please read [our rules]($SITE_LINK). Please note that we will not " +
+                            "provide you with support while you're using mods that break these rules."
                 )
             }
         )
