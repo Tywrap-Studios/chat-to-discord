@@ -91,20 +91,11 @@ suspend fun getOrCreateChannel(
 fun ULong.snowflake() = Snowflake(this)
 fun String.snowflake() = Snowflake(this)
 
-fun Collection<ULong>.snowflake(): MutableList<Snowflake> {
-    val list = mutableListOf<Snowflake>()
-    this.forEach { uLong -> list.add(uLong.snowflake()) }
-    return list
-}
+@JvmName("mapULongsToSnowflake")
+fun Collection<ULong>.snowflake() = this.map { it.snowflake() }.toMutableList()
 
-fun Collection<String>.snowflake(): MutableList<Snowflake> {
-    val list = mutableListOf<Snowflake>()
-    this.forEach { snowflake -> list.add(Snowflake(snowflake)) }
-    return list
-}
+// Haha Platform declaration clash go brrr
+@JvmName("mapStringsToSnowflake")
+fun Collection<String>.snowflake() = this.map { it.snowflake() }.toMutableList()
 
-fun Collection<Snowflake>.uLongs(): MutableList<ULong> {
-    val list = mutableListOf<ULong>()
-    this.forEach { snowflake -> list.add(snowflake.value) }
-    return list
-}
+fun Collection<Snowflake>.uLongs() = this.map { it.value }.toMutableList()
