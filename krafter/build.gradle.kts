@@ -85,7 +85,7 @@ kordEx {
         voice = false
     }
 
-//    module("dev-unsafe") TODO Uncomment once I can sync
+    module("dev-unsafe")
     module("pluralkit")
     module("func-phishing")
     module("func-tags")

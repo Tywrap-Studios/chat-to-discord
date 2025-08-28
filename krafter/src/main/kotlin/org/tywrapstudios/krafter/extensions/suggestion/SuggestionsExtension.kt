@@ -64,6 +64,8 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.event
 import dev.kordex.core.utils.*
+import dev.kordex.modules.dev.unsafe.commands.slash.InitialSlashCommandResponse
+import dev.kordex.modules.dev.unsafe.extensions.unsafeSlashCommand
 import dev.kordex.modules.pluralkit.api.PKMember
 import dev.kordex.modules.pluralkit.events.ProxiedMessageCreateEvent
 import dev.kordex.modules.pluralkit.events.UnProxiedMessageCreateEvent
@@ -747,49 +749,49 @@ class SuggestionsExtension : Extension() {
         }
 
 
-//        unsafeSlashCommand { TODO Uncomment once I can sync
-//            name = Translations.Commands.Suggestions.refresh
-//            description = Translations.Commands.Suggestions.Refresh.description
-//            // "Warning: you may not be able to respond in time!"
-//            initialResponse = InitialSlashCommandResponse.None
-//
-//            check { isBotModuleAdmin(config.administrators) }
-//
-//            action {
-//                val channel = getChannel(guild?.asGuild())
-//
-//                event.interaction.modal("Refresh suggestion channel", "suggestions:initial-message") {
-//                    actionRow {
-//                        textInput(TextInputStyle.Short, "channel", "Channel snowflake") {
-//                            placeholder = "Snowflake"
-//                            value = channel?.toString()
-//                            allowedLength = 18..20
-//                            required = true
-//                        }
-//                    }
-//
-//                    actionRow {
-//                        textInput(TextInputStyle.Short, "message", "Title") {
-//                            placeholder = "A short, descriptive title"
-//                            value = "Suggestion channel"
-//                            allowedLength = 1..128
-//                            required = true
-//                        }
-//                    }
-//
-//                    actionRow {
-//                        textInput(TextInputStyle.Paragraph, "description", "Description") {
-//                            placeholder = "A longer description"
-//                            value = "This channel is used to submit suggestions. " +
-//                                    "Click the button below to submit a suggestion."
-//
-//                            allowedLength = 1..TEXT_SIZE_LIMIT
-//                            required = true
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        unsafeSlashCommand {
+            name = Translations.Commands.Suggestions.refresh
+            description = Translations.Commands.Suggestions.Refresh.description
+            // "Warning: you may not be able to respond in time!"
+            initialResponse = InitialSlashCommandResponse.None
+
+            check { isBotModuleAdmin(config.administrators) }
+
+            action {
+                val channel = getChannel(guild?.asGuild())
+
+                event.interaction.modal("Refresh suggestion channel", "suggestions:initial-message") {
+                    actionRow {
+                        textInput(TextInputStyle.Short, "channel", "Channel snowflake") {
+                            placeholder = "Snowflake"
+                            value = channel?.toString()
+                            allowedLength = 18..20
+                            required = true
+                        }
+                    }
+
+                    actionRow {
+                        textInput(TextInputStyle.Short, "message", "Title") {
+                            placeholder = "A short, descriptive title"
+                            value = "Suggestion channel"
+                            allowedLength = 1..128
+                            required = true
+                        }
+                    }
+
+                    actionRow {
+                        textInput(TextInputStyle.Paragraph, "description", "Description") {
+                            placeholder = "A longer description"
+                            value = "This channel is used to submit suggestions. " +
+                                    "Click the button below to submit a suggestion."
+
+                            allowedLength = 1..TEXT_SIZE_LIMIT
+                            required = true
+                        }
+                    }
+                }
+            }
+        }
 
 
 //			subCommand(::SuggestionSearchArguments) {
