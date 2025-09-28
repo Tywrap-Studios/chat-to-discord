@@ -27,7 +27,7 @@ fun config(): BotConfig = CFG.getConfig()
 fun saveConfig() = CFG.saveConfig()
 
 fun Transaction.setup() {
-    SchemaUtils.create(TagsTable, AmaConfigTable, MinecraftLinkTable, SuggestionTable, OwnedThreadTable)
+    SchemaUtils.create(TagsTable, AmaConfigTable, MinecraftLinkTable)
     addLogger(krafterSqlLogger)
 }
 
@@ -57,32 +57,32 @@ suspend fun getOrCreateChannel(
     val channels = guild
         .channels
         .filter { (it.name == providedName || it.name == defaultName) }
-    LOGGING.debug("$providedName $defaultName: ${channels.count()} channels found.")
+    LOGGING.debug("$providedName [$defaultName]: ${channels.count()} channels found.")
 
     channel = channels.lastOrNull() as? TextChannel
 
-    LOGGING.debug("$providedName $defaultName: ${channel?.mention} found.")
+    LOGGING.debug("$providedName [$defaultName]: ${channel?.mention} found.")
 
-    LOGGING.debug("$providedName $defaultName: ${providedName == "new"}")
+    LOGGING.debug("$providedName [$defaultName]: ${providedName == "new"}")
     if (providedName == "new") {
         channel = guild.createTextChannel(defaultName) {
             reason = CFG_CHANNEL_REASON
             topic = channelTopic
             if (permissionOverwrites != null) this.permissionOverwrites = permissionOverwrites
         }
-        LOGGING.debug("$providedName $defaultName: ${channel.mention} created. New channel.")
+        LOGGING.debug("$providedName [$defaultName]: ${channel.mention} created. New channel.")
     }
 
-    LOGGING.debug("$providedName $defaultName: ${providedName.isEmpty() && channel == null} || ${channel == null}")
+    LOGGING.debug("$providedName [$defaultName]: ${providedName.isEmpty() && channel == null} || ${channel == null}")
     if ((providedName.isEmpty() && channel == null) || channel == null) {
         channel = guild.createTextChannel(providedName.ifEmpty { defaultName }) {
             reason = CFG_CHANNEL_REASON
             topic = channelTopic
         }
-        LOGGING.debug("$providedName $defaultName: ${channel.mention} created. Defaulted name.")
+        LOGGING.debug("$providedName [$defaultName]: ${channel.mention} created. Defaulted name.")
     }
 
-    LOGGING.debug("$providedName $defaultName: ${channel.mention} final.")
+    LOGGING.debug("$providedName [$defaultName]: ${channel.mention} final.")
     return channel
 }
 

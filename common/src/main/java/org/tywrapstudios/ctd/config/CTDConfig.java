@@ -18,7 +18,7 @@ public class CTDConfig extends BasicConfigClass {
          * Hello there! Please do not access this field directly, as it may contain sensitive information (duh) but most importantly,
          * bot tokens. Instead of this, use the respective {@code CTDCommon.WEBHOOKS} and {@code CTDCommon.TOKEN} values,
          * which are populated from this list.
-         * @implNote TOKEN is set to the last token value in this list if it matches the regex for a bot token. It can be null or empty.
+         * <br>TOKEN is set to the last token value in this list if it matches the regex for a bot token. It can be null or empty.
          */
         @Comment("""
                 A list of webhooks in Strings that the mod will send messages to: "https://discord.com/api/webhooks/..."

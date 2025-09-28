@@ -55,7 +55,7 @@ ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 [bundles]
 cozy-modules = [
 #    "cozy-ama",
-    "cozy-log-parser",
+#    "cozy-log-parser",
 #    "cozy-moderation",
 #    "cozy-tags",
 #    "cozy-user-cleanup",

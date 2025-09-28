@@ -12,9 +12,9 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
 //import org.quiltmc.community.cozy.modules.ama.extAma
-import org.quiltmc.community.cozy.modules.logs.extLogParser
-import org.quiltmc.community.cozy.modules.logs.processors.PiracyProcessor
-import org.quiltmc.community.cozy.modules.logs.processors.ProblematicLauncherProcessor
+//import org.quiltmc.community.cozy.modules.logs.extLogParser
+//import org.quiltmc.community.cozy.modules.logs.processors.PiracyProcessor
+//import org.quiltmc.community.cozy.modules.logs.processors.ProblematicLauncherProcessor
 import org.slf4j.LoggerFactory
 import org.tywrapstudios.blossombridge.api.config.ConfigManager
 import org.tywrapstudios.blossombridge.api.logging.LoggingHandler
@@ -25,8 +25,8 @@ import org.tywrapstudios.krafter.database.DatabaseManager
 //import org.tywrapstudios.krafter.extensions.data.KrafterAmaData
 import org.tywrapstudios.krafter.extensions.data.KrafterTagsData
 import org.tywrapstudios.krafter.extensions.data.KrafterWelcomeChannelData
-import org.tywrapstudios.krafter.extensions.logs.RuleBreakingModProcessor
-import org.tywrapstudios.krafter.extensions.logs.WrongLocationMessageSender
+//import org.tywrapstudios.krafter.extensions.logs.RuleBreakingModProcessor
+//import org.tywrapstudios.krafter.extensions.logs.WrongLocationMessageSender
 import org.tywrapstudios.krafter.extensions.minecraft.MinecraftExtension
 import org.tywrapstudios.krafter.extensions.sab.SafetyAndAbuseExtension
 import org.tywrapstudios.krafter.extensions.sab.getOverwrites
@@ -116,14 +116,14 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
                     }
             }
 //            if (config.miscellaneous.ama.enabled) extAma(KrafterAmaData())
-            if (config.miscellaneous.crash_analysing.enabled) extLogParser {
-                processor(PiracyProcessor())
-                processor(ProblematicLauncherProcessor())
-                processor(RuleBreakingModProcessor())
-
-                parser(WrongLocationMessageSender())
-                staffCommandCheck { isGlobalBotAdmin() }
-            }
+//            if (config.miscellaneous.crash_analysing.enabled) extLogParser {
+//                processor(PiracyProcessor())
+//                processor(ProblematicLauncherProcessor())
+//                processor(RuleBreakingModProcessor())
+//
+//                parser(WrongLocationMessageSender())
+//                staffCommandCheck { isGlobalBotAdmin() }
+//            }
             if (config.miscellaneous.embed_channels.enabled) welcomeChannel(KrafterWelcomeChannelData()) {
                 staffCommandCheck { isBotModuleAdmin(config.miscellaneous.embed_channels.administrators) }
                 getLogChannel { channel, guild ->
@@ -139,9 +139,9 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
                 }
             }
 
-            if (config.miscellaneous.suggestion_forum.enabled) {
-                add(::SuggestionsExtension)
-            }
+//            if (config.miscellaneous.suggestion_forum.enabled) {
+//                add(::SuggestionsExtension)
+//            }
         }
 
         dataCollectionMode = DataCollection.fromDB(config.safety_and_abuse.data_collection)

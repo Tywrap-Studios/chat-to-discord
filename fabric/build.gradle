@@ -4,6 +4,7 @@ plugins {
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -13,12 +14,20 @@ repositories {
         url = 'https://jitpack.io'
     }
     maven {
-        name = "KordEx (Snapshots)"
+        name = "KordEx (Snapshots, R2)"
         url = uri("https://snapshots-repo.kordex.dev")
     }
     maven {
-        name = "KordEx (Releases)"
+        name = "KordEx (Releases, R2)"
         url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Snapshots + Mirror, Reposilite)"
+        url = uri("https://repo.kordex.dev/snapshots")
+    }
+    maven {
+        name = "KordEx (Mirror, R2)"
+        url = uri("https://mirror-repo.kordex.dev")
     }
     maven {
         name = "QuiltMC (Releases)"

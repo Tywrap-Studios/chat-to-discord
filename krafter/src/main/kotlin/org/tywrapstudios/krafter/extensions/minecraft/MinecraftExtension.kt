@@ -60,9 +60,11 @@ class MinecraftExtension : Extension() {
         }
 
         ephemeralSlashCommand {
-            group(Translations.Commands.minecraft) {
-                description = Translations.Commands.Minecraft.description
-            }
+            name = Translations.Commands.minecraft
+            description = Translations.Commands.Minecraft.description
+//            group(Translations.Commands.minecraft) {
+//                description = Translations.Commands.Minecraft.description
+//            }
 
             ephemeralSubCommand(::LinkCommandArguments) {
                 name = Translations.Commands.Minecraft.link

@@ -18,14 +18,6 @@ repositories {
     google()
 
     maven {
-        name = "KordEx (Snapshots)"
-        url = uri("https://snapshots-repo.kordex.dev")
-    }
-    maven {
-        name = "KordEx (Releases)"
-        url = uri("https://releases-repo.kordex.dev")
-    }
-    maven {
         name = "QuiltMC (Snapshots)"
         url = uri("https://maven.quiltmc.org/repository/snapshot/")
     }

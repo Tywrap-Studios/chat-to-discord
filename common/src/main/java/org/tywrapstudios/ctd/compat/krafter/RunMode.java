@@ -16,7 +16,7 @@ public enum RunMode {
     /**
      * Indicates both a bot is running and webhooks are being sent.
      * Webhooks are sent by the bot instead.
-     * @implNote Currently not implemented or used
+     * <br> Currently not implemented or used
      */
     HARD_DYNAMIC
 }
