@@ -34,10 +34,6 @@ repositories {
         url = uri("https://releases-repo.kordex.dev")
     }
     maven {
-        name = "Kord (Snapshots)"
-        url = uri("https://repo.kord.dev/snapshots/")
-    }
-    maven {
         name = "Fabric"
         url = uri("https://maven.fabricmc.net")
     }

@@ -11,7 +11,7 @@ import dev.kordex.modules.pluralkit.extPluralKit
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
-import org.quiltmc.community.cozy.modules.ama.extAma
+//import org.quiltmc.community.cozy.modules.ama.extAma
 import org.quiltmc.community.cozy.modules.logs.extLogParser
 import org.quiltmc.community.cozy.modules.logs.processors.PiracyProcessor
 import org.quiltmc.community.cozy.modules.logs.processors.ProblematicLauncherProcessor
@@ -22,7 +22,7 @@ import org.tywrapstudios.krafter.checks.isBotModuleAdmin
 import org.tywrapstudios.krafter.checks.isGlobalBotAdmin
 import org.tywrapstudios.krafter.config.BotConfig
 import org.tywrapstudios.krafter.database.DatabaseManager
-import org.tywrapstudios.krafter.extensions.data.KrafterAmaData
+//import org.tywrapstudios.krafter.extensions.data.KrafterAmaData
 import org.tywrapstudios.krafter.extensions.data.KrafterTagsData
 import org.tywrapstudios.krafter.extensions.data.KrafterWelcomeChannelData
 import org.tywrapstudios.krafter.extensions.logs.RuleBreakingModProcessor
@@ -115,7 +115,7 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
                         config.safety_and_abuse.dump_channel
                     }
             }
-            if (config.miscellaneous.ama.enabled) extAma(KrafterAmaData())
+//            if (config.miscellaneous.ama.enabled) extAma(KrafterAmaData())
             if (config.miscellaneous.crash_analysing.enabled) extLogParser {
                 processor(PiracyProcessor())
                 processor(ProblematicLauncherProcessor())
