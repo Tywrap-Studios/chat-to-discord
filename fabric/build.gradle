@@ -1,6 +1,8 @@
 plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 repositories {
@@ -61,6 +63,8 @@ dependencies {
     api include("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
     // Krafter
     api include(project(":krafter"))
+    api include('io.github.oshai:kotlin-logging-jvm:7.0.3')
+    implementation include("dev.kord:kord-core:0.17.0-SNAPSHOT")
 }
 
 loom {

@@ -40,6 +40,8 @@ kx-ser = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logback-groovy = { module = "io.github.virtualdogbert:logback-groovy-config", version.ref = "logback-groovy" }
 logging = { module = "io.github.oshai:kotlin-logging", version.ref = "logging" }
+kord-extensions-core = { group = "dev.kordex", name = "kord-extensions", version.ref = "kordex" }
+kord-extensions-ap = { module = "dev.kordex:annotation-processor", version.ref = "kordex" }
 rcon = { module = "nl.vv32.rcon:rcon", version.ref = "rcon" }
 sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
 

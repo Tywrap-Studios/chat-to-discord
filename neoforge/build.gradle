@@ -1,6 +1,8 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 repositories {
@@ -58,12 +60,25 @@ dependencies {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
     // Krafter
-//    jarJar (implementation additionalRuntimeClasspath (project(":krafter"))) {
-//        exclude module: 'slf4j-api'
-//        exclude module: 'icu4j'
-//        exclude module: 'oshi-core'
-//        exclude module: 'commons-logging'
-//    }
+    jarJar (api additionalRuntimeClasspath (project(":krafter"))) {
+        exclude module: 'slf4j-api'
+        exclude module: 'icu4j'
+        exclude module: 'oshi-core'
+        exclude module: 'commons-logging'
+    }
+    jarJar (implementation (additionalRuntimeClasspath("dev.kordex:kord-extensions:2.3.6-SNAPSHOT"))) {
+        exclude module: 'slf4j-api'
+        exclude module: 'icu4j'
+        exclude module: 'oshi-core'
+        exclude module: 'commons-logging'
+    }
+    jarJar (api additionalRuntimeClasspath('io.github.oshai:kotlin-logging-jvm:7.0.3'))
+    jarJar (compileOnly additionalRuntimeClasspath("dev.kord:kord-core:0.17.0-SNAPSHOT")) {
+        exclude module: 'slf4j-api'
+        exclude module: 'icu4j'
+        exclude module: 'oshi-core'
+        exclude module: 'commons-logging'
+    }
 }
 
 neoForge {

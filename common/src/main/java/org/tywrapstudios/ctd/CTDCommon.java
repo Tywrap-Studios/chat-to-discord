@@ -24,7 +24,7 @@ public class CTDCommon {
 
     public static List<String> WEBHOOKS = new ArrayList<>();
     public static String TOKEN = "";
-    public static RunMode MODE;
+    public static RunMode MODE = RunMode.NONE;
 
     public static void init() {
         WEBHOOKS.clear();

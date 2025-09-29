@@ -18,5 +18,10 @@ public enum RunMode {
      * Webhooks are sent by the bot instead.
      * <br> Currently not implemented or used
      */
-    HARD_DYNAMIC
+    HARD_DYNAMIC,
+    /**
+     * Indicates neither a bot is running nor webhooks are being sent.
+     * <br> Hopefully temporarily needed
+     */
+    NONE
 }
