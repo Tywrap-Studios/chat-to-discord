@@ -74,12 +74,12 @@ dependencies {
         exclude module: 'commons-logging'
     }
     jarJar (api additionalRuntimeClasspath('io.github.oshai:kotlin-logging-jvm:7.0.3'))
-//    api("dev.kord:kord-core:0.17.0-SNAPSHOT") {
-//        exclude module: 'slf4j-api'
-//        exclude module: 'icu4j'
-//        exclude module: 'oshi-core'
-//        exclude module: 'commons-logging'
-//    }
+    api("dev.kord:kord-core:0.17.0-SNAPSHOT") {
+        exclude module: 'slf4j-api'
+        exclude module: 'icu4j'
+        exclude module: 'oshi-core'
+        exclude module: 'commons-logging'
+    }
 }
 
 neoForge {

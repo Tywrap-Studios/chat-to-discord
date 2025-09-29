@@ -8,9 +8,14 @@ import dev.kordex.modules.func.phishing.extPhishing
 import dev.kordex.modules.func.tags.tags
 import dev.kordex.modules.func.welcome.welcomeChannel
 import dev.kordex.modules.pluralkit.extPluralKit
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.future.future
+import kotlinx.coroutines.launch
 //import org.quiltmc.community.cozy.modules.ama.extAma
 //import org.quiltmc.community.cozy.modules.logs.extLogParser
 //import org.quiltmc.community.cozy.modules.logs.processors.PiracyProcessor
@@ -190,12 +195,13 @@ fun runAsync(
 ): CompletableFuture<Unit> = GlobalScope.future {
     INIT_LOGGER.info("Running the bot asynchronously using [CompletableFuture]!")
     run(token, manager, runPath)
+    INIT_LOGGER.info("[CompletableFuture] Post run method")
 }
 
 /**
  * Runs a test version of the bot. Provide the bot with a token in an .env file ([TEST_TOKEN]) and configure as needed.
  */
-@OptIn(DelicateCoroutinesApi::class)
+//@OptIn(DelicateCoroutinesApi::class)
 suspend fun main() {
     val file = File("krafter.json5")
     val manager = ConfigManager(BotConfig::class.java, file)
