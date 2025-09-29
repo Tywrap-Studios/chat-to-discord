@@ -65,20 +65,21 @@ dependencies {
         exclude module: 'icu4j'
         exclude module: 'oshi-core'
         exclude module: 'commons-logging'
+        exclude group: 'dev.kord'
     }
-    jarJar (implementation (additionalRuntimeClasspath("dev.kordex:kord-extensions:2.3.6-SNAPSHOT"))) {
+    jarJar (api (additionalRuntimeClasspath("dev.kordex:kord-extensions:2.3.6-SNAPSHOT"))) {
         exclude module: 'slf4j-api'
         exclude module: 'icu4j'
         exclude module: 'oshi-core'
         exclude module: 'commons-logging'
     }
     jarJar (api additionalRuntimeClasspath('io.github.oshai:kotlin-logging-jvm:7.0.3'))
-    api("dev.kord:kord-core:0.17.0-SNAPSHOT") {
-        exclude module: 'slf4j-api'
-        exclude module: 'icu4j'
-        exclude module: 'oshi-core'
-        exclude module: 'commons-logging'
-    }
+//    api("dev.kord:kord-core:0.17.0-SNAPSHOT") {
+//        exclude module: 'slf4j-api'
+//        exclude module: 'icu4j'
+//        exclude module: 'oshi-core'
+//        exclude module: 'commons-logging'
+//    }
 }
 
 neoForge {

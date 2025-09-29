@@ -35,7 +35,7 @@ public class CTDCommon {
         }
 
         for (String potentialWebhook : CONFIG_MANAGER.getConfig().discord_config.discord_webhooks) {
-            LOGGING.debug("Found " + potentialWebhook);
+            LOGGING.debug("Found " + "*".repeat(potentialWebhook.length()));
             var webhook = potentialWebhook.matches("https://discord\\.com/api/webhooks/[0-9]+/[A-Za-z0-9_\\-]+");
             if (webhook) {
                 WEBHOOKS.add(potentialWebhook);

@@ -2,7 +2,6 @@
 
 package org.tywrapstudios.krafter
 
-import dev.kord.common.Color
 import dev.kord.common.entity.Overwrite
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.createTextChannel
@@ -19,8 +18,6 @@ import org.tywrapstudios.krafter.database.DatabaseManager.krafterSqlLogger
 import org.tywrapstudios.krafter.database.tables.*
 
 const val CFG_CHANNEL_REASON = "Config prompted for an automatic new channel creation."
-
-val ORANGE = Color(java.awt.Color(238, 142, 64).rgb)
 
 fun config(): BotConfig = CFG.getConfig()
 

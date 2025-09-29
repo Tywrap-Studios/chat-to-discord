@@ -44,19 +44,16 @@ lateinit var LOGGING: LoggingHandler<BotConfig>
 lateinit var RUN_PATH: Path
 
 private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runPath: Path): ExtensibleBot {
-    if (TOKEN == null) {
-        TOKEN = token
-        CFG = manager
-        LOGGING = LoggingHandler("Krafter", CFG)
-        RUN_PATH = runPath
+    TOKEN = token
+    CFG = manager
+    LOGGING = LoggingHandler("Krafter", CFG)
+    RUN_PATH = runPath
 
-        DatabaseManager.setup(null)
+    CFG.loadConfig()
+    DatabaseManager.setup(null)
 
-        CFG.loadConfig()
-
-        LOGGING.debug("Current configuration:")
-        LOGGING.debug(CFG.getConfigJsonAsString(comments = false, newlines = true))
-    }
+    LOGGING.debug("Current configuration:")
+    LOGGING.debug(CFG.getConfigJsonAsString(comments = false, newlines = true))
 
     val config = config()
 
@@ -167,7 +164,7 @@ suspend fun setup(): ExtensibleBot {
  * @param runPath The path where the bot is running from, defaults to the current working directory.
  */
 suspend fun run(token: String, manager: ConfigManager<BotConfig>, runPath: Path = Path.of("").toAbsolutePath()) {
-    INIT_LOGGER.info("rmthtoken: $token")
+//    INIT_LOGGER.info("rmthtoken: $token")
     val bot = setup(token, manager, runPath)
     INIT_LOGGER.info("$CFG")
     INIT_LOGGER.info("${config().enabled}")
