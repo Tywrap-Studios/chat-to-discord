@@ -1,9 +1,12 @@
 plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -11,6 +14,33 @@ repositories {
     maven {
         name = 'JitPack'
         url = 'https://jitpack.io'
+    }
+    maven {
+        name = "KordEx (Snapshots, R2)"
+        url = uri("https://snapshots-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Releases, R2)"
+        url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Snapshots + Mirror, Reposilite)"
+        url = uri("https://repo.kordex.dev/snapshots")
+    }
+    maven {
+        name = "KordEx (Mirror, R2)"
+        url = uri("https://mirror-repo.kordex.dev")
+    }
+    maven {
+        name = "QuiltMC (Releases)"
+        url = uri("https://maven.quiltmc.org/repository/release/")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
+    }
+    flatDir {
+        dirs("${rootProject.projectDir}/.gradle/localLibs")
     }
 }
 
@@ -29,10 +59,12 @@ dependencies {
     implementation include("org.json:json:${project.json_version}")
     // Mclogs Java
     implementation include("gs.mclo:api:${project.mclogs_version}")
-    // Jankson
-    implementation include("blue.endless:jankson:${project.jankson_version}")
     // BlossomBridge
-    implementation include("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    api include("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    // Krafter
+    api include(project(":krafter"))
+    api include('io.github.oshai:kotlin-logging-jvm:7.0.3')
+    implementation include("dev.kord:kord-core:0.17.0-SNAPSHOT")
 }
 
 loom {

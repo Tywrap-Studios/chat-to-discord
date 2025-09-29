@@ -51,7 +51,7 @@ public class CTDCommand {
     }
 
     private static int forceGameMessage(CommandContext<CommandSourceStack> context) {
-        Handlers.handleGameMessage("Debug message");
+        Handlers.handleGameMessage(Component.literal("Debug message"));
         return 1;
     }
 
@@ -77,7 +77,7 @@ public class CTDCommand {
 
     private static int execute(CommandContext<CommandSourceStack> context) {
         CTDConfig config = CTDCommon.CONFIG_MANAGER.getConfig();
-        List<String> webhooks = config.discord_config.discord_webhooks;
+        List<String> webhooks = CTDCommon.WEBHOOKS;
 
         CommandSourceStack source = context.getSource();
         String whenDebug = config.util_config.debug_mode ? "\n> Debug Enabled" : "";

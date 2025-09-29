@@ -1,6 +1,8 @@
 plugins {
     id 'multiloader-common'
     id 'net.neoforged.moddev'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 neoForge {
@@ -17,9 +19,42 @@ neoForge {
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = 'JitPack'
         url = 'https://jitpack.io'
+    }
+    maven {
+        name = "Sonatype Snapshots"
+        url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
+    }
+    maven {
+        name = "KordEx (Snapshots, R2)"
+        url = uri("https://snapshots-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Releases, R2)"
+        url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Snapshots + Mirror, Reposilite)"
+        url = uri("https://repo.kordex.dev/snapshots")
+    }
+    maven {
+        name = "KordEx (Mirror, R2)"
+        url = uri("https://mirror-repo.kordex.dev")
+    }
+    maven {
+        name = "Fabric"
+        url = uri("https://maven.fabricmc.net")
+    }
+    maven {
+        name = "QuiltMC (Releases)"
+        url = uri("https://maven.quiltmc.org/repository/release/")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
     }
 }
 
@@ -36,10 +71,10 @@ dependencies {
     implementation("org.json:json:${project.json_version}")
     // Mclogs Java
     implementation("gs.mclo:api:${project.mclogs_version}")
-    // Jankson
-    implementation("blue.endless:jankson:${project.jankson_version}")
     // BlossomBridge
-    implementation("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    api("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
+    // Krafter
+    api(project(":krafter"))
 }
 
 configurations {

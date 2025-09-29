@@ -17,11 +17,11 @@ public abstract class ServerGamePacketListenerMixin {
 
     @Inject(method = "onDisconnect", at = @At("HEAD"))
     private void ctd$handleGameMessage$PLAYER_DISCONNECT(DisconnectionDetails details, CallbackInfo ci) {
-        if (!details.reason().getString().equals("Disconnected")) Handlers.handleGameMessage(String.format("%s lost connection: %s", this.player.getName().getString(), details.reason().getString()));
+        if (!details.reason().getString().equals("Disconnected")) Handlers.handleGameMessage(Component.literal(String.format("%s lost connection: %s", this.player.getName().getString(), details.reason().getString())));
     }
 
     @Inject(method = "removePlayerFromWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Z)V"))
     private void ctd$handleGameMessage$PLAYER_LEFT(CallbackInfo ci) {
-        Handlers.handleGameMessage(Component.translatable("multiplayer.player.left", this.player.getDisplayName()).getString());
+        Handlers.handleGameMessage(Component.translatable("multiplayer.player.left", this.player.getDisplayName()));
     }
 }

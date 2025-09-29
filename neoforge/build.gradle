@@ -1,9 +1,12 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
@@ -11,6 +14,34 @@ repositories {
     maven {
         name = 'JitPack'
         url = 'https://jitpack.io'
+    }
+    maven {
+        name = "KordEx (Snapshots, R2)"
+        url = uri("https://snapshots-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Releases, R2)"
+        url = uri("https://releases-repo.kordex.dev")
+    }
+    maven {
+        name = "KordEx (Snapshots + Mirror, Reposilite)"
+        url = uri("https://repo.kordex.dev/snapshots")
+    }
+    maven {
+        name = "KordEx (Mirror, R2)"
+        url = uri("https://mirror-repo.kordex.dev")
+    }
+    maven {
+        name = "Fabric"
+        url = uri("https://maven.fabricmc.net")
+    }
+    maven {
+        name = "QuiltMC (Releases)"
+        url = uri("https://maven.quiltmc.org/repository/release/")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
     }
 }
 
@@ -24,16 +55,31 @@ dependencies {
     jarJar (implementation (additionalRuntimeClasspath "gs.mclo:api:${project.mclogs_version}")) {
         exclude group: 'com.google.code.gson', module: 'gson'
     }
-    // Jankson
-    jarJar (implementation (additionalRuntimeClasspath "blue.endless:jankson:${project.jankson_version}"))
     // BlossomBridge
-    jarJar (implementation (additionalRuntimeClasspath "com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")) {
+    jarJar (api (additionalRuntimeClasspath "com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")) {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
-
-    // Explicit dependencies with compatible versions
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.slf4j:slf4j-api:2.0.9'
+    // Krafter
+    jarJar (api additionalRuntimeClasspath (project(":krafter"))) {
+        exclude module: 'slf4j-api'
+        exclude module: 'icu4j'
+        exclude module: 'oshi-core'
+        exclude module: 'commons-logging'
+        exclude group: 'dev.kord'
+    }
+    jarJar (api (additionalRuntimeClasspath("dev.kordex:kord-extensions:2.3.6-SNAPSHOT"))) {
+        exclude module: 'slf4j-api'
+        exclude module: 'icu4j'
+        exclude module: 'oshi-core'
+        exclude module: 'commons-logging'
+    }
+    jarJar (api additionalRuntimeClasspath('io.github.oshai:kotlin-logging-jvm:7.0.3'))
+    api("dev.kord:kord-core:0.17.0-SNAPSHOT") {
+        exclude module: 'slf4j-api'
+        exclude module: 'icu4j'
+        exclude module: 'oshi-core'
+        exclude module: 'commons-logging'
+    }
 }
 
 neoForge {

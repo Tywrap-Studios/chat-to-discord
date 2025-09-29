@@ -1,6 +1,8 @@
 package org.tywrapstudios.ctd.platform.services;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public interface IPlatformHelper {
 
@@ -17,6 +19,15 @@ public interface IPlatformHelper {
      * @return The version of a mod.
      */
     String getModVersion(String modId);
+
+    /**
+     * Gets the path to the world directory.
+     *
+     * @return The path to the world directory.
+     */
+    default Path getGamePath() {
+        return Paths.get("").toAbsolutePath();
+    }
 
     /**
      * Checks if a mod with the given id is loaded.

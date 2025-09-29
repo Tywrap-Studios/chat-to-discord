@@ -64,6 +64,7 @@ public class WebhookClient {
         URI uri = new URI(webhookUrl);
 
         // Open a connection to the webhook URL
+        CTDCommon.LOGGING.debug(String.format("[Webhook Client] connecting to: %s", uri));
         HttpsURLConnection connection = (HttpsURLConnection) uri.toURL().openConnection();
         connection.setRequestProperty("Content-Type", "application/json");
         Properties p = System.getProperties();

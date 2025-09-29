@@ -1,0 +1,73 @@
+[versions]
+detekt = "1.23.8"
+kotlin = "2.1.21"
+ksp = "2.1.21-2.0.1"
+
+bbapi = "2.1.0"
+cozy-modules = "1.1.0-SNAPSHOT"
+excelkt = "1.0.2"
+exposed = "0.58.0" # Trying to match this as closely to Quiltservertool's Ledger Exposed version to retain compatibility
+groovy = "3.0.23"
+jansi = "2.4.1"
+kx-ser = "1.8.1"
+logback = "1.5.18"
+logback-groovy = "1.14.5"
+logging = "7.0.7"
+kordex-gradle = "1.7.4"
+kordex = "2.3.6-SNAPSHOT"
+rcon = "1.2.0"
+sqlite-jdbc = "3.47.2.0"
+
+[libraries]
+bbapi = { module = "com.github.Tywrap-Studios:BlossomBridge", version.ref = "bbapi" }
+cozy-ama = {  module = "org.quiltmc.community:module-ama", version.ref = "cozy-modules" }
+cozy-log-parser = { module = "org.quiltmc.community:module-log-parser", version.ref = "cozy-modules" }
+cozy-moderation = { module = "org.quiltmc.community:module-moderation", version.ref = "cozy-modules" }
+cozy-tags = { module = "org.quiltmc.community:module-tags", version.ref = "cozy-modules" }
+cozy-user-cleanup = { module = "org.quiltmc.community:module-user-cleanup", version.ref = "cozy-modules" }
+cozy-welcome = { module = "org.quiltmc.community:module-welcome", version.ref = "cozy-modules" }
+detekt = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+excelkt = { module = "io.github.evanrupert:excelkt", version.ref = "excelkt" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-migration = { module = "org.jetbrains.exposed:exposed-migration", version.ref = "exposed" }
+groovy = { module = "org.codehaus.groovy:groovy", version.ref = "groovy" }
+jansi = { module = "org.fusesource.jansi:jansi", version.ref = "jansi" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
+kx-ser = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kx-ser" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logback-groovy = { module = "io.github.virtualdogbert:logback-groovy-config", version.ref = "logback-groovy" }
+logging = { module = "io.github.oshai:kotlin-logging", version.ref = "logging" }
+kord-extensions-core = { group = "dev.kordex", name = "kord-extensions", version.ref = "kordex" }
+kord-extensions-ap = { module = "dev.kordex:annotation-processor", version.ref = "kordex" }
+rcon = { module = "nl.vv32.rcon:rcon", version.ref = "rcon" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+kordex-plugin = { id = "dev.kordex.gradle.kordex", version.ref = "kordex-gradle" }
+ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+cozy-modules = [
+#    "cozy-ama",
+#    "cozy-log-parser",
+#    "cozy-moderation",
+#    "cozy-tags",
+#    "cozy-user-cleanup",
+#    "cozy-welcome"
+]
+database = [
+    "exposed-core",
+    "exposed-dao",
+    "exposed-java-time",
+    "exposed-jdbc",
+    "exposed-migration",
+    "sqlite-jdbc"
+]

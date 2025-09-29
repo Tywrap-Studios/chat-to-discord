@@ -4,6 +4,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import org.tywrapstudios.ctd.platform.services.IPlatformHelper;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class FabricPlatformHelper implements IPlatformHelper {
 
@@ -18,13 +19,17 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
+    public Path getGamePath() {
+        return FabricLoader.getInstance().getGameDir();
+    }
+
+    @Override
     public boolean isModLoaded(String modId) {
         return FabricLoader.getInstance().isModLoaded(modId);
     }
 
     @Override
     public boolean isDevelopmentEnvironment() {
-
         return FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 

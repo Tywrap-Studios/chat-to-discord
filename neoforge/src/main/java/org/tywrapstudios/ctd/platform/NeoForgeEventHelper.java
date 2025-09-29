@@ -1,18 +1,24 @@
 package org.tywrapstudios.ctd.platform;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.ServerChatEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import org.tywrapstudios.ctd.command.CTDCommand;
+import org.tywrapstudios.ctd.compat.krafter.command.CTDKrafterCommandImpl;
 import org.tywrapstudios.ctd.handlers.Handlers;
+import org.tywrapstudios.ctd.platform.impl.MinecraftServerConnection;
 import org.tywrapstudios.ctd.platform.services.IEventHelper;
 
 public class NeoForgeEventHelper implements IEventHelper {
     @Override
     public void registerServerStarted() {
         NeoForge.EVENT_BUS.addListener((ServerStartedEvent event) -> {
+            MinecraftServerConnection.init(event.getServer());
             Handlers.handleChatMessage("Server started.","console","Console");
         });
     }
@@ -35,8 +41,8 @@ public class NeoForgeEventHelper implements IEventHelper {
         });
     }
 
-    // TODO: Find a way to add both of these
-    //  NeoForge Events my beloathed
+    // NeoForge doesn't supply sufficient events for Game messages and Command messages.
+    // The handling for these is instead done by Mixins.
     @Override
     public void registerGameMessage() {
 
@@ -51,6 +57,19 @@ public class NeoForgeEventHelper implements IEventHelper {
     public void registerCommand() {
         NeoForge.EVENT_BUS.addListener((RegisterCommandsEvent event) -> {
             CTDCommand.register(event.getDispatcher());
+            CTDKrafterCommandImpl.register(event.getDispatcher());
+        });
+    }
+
+    @Override
+    public void registerPlayerJoin() {
+        NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent event) -> {
+            Player player = event.getEntity();
+            if (player instanceof ServerPlayer serverPlayer) {
+                if (serverPlayer.server.getPlayerList().isOp(serverPlayer.getGameProfile())) {
+                    Handlers.warnOperator(serverPlayer);
+                }
+            }
         });
     }
 }

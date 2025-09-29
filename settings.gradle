@@ -36,6 +36,15 @@ pluginManagement {
                 includeGroupAndSubgroups('net.minecraftforge')
             }
         }
+
+        maven {
+            name = 'KordEx Snapshots'
+            url = uri("https://snapshots-repo.kordex.dev")
+        }
+        maven {
+            name = 'KordEx Releases'
+            url = uri("https://releases-repo.kordex.dev")
+        }
     }
 }
 
@@ -48,3 +57,4 @@ rootProject.name = 'chat-to-discord'
 include('common')
 include('fabric')
 include('neoforge')
+include('krafter')
