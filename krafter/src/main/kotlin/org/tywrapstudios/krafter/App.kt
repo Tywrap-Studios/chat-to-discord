@@ -55,7 +55,9 @@ private suspend fun setup(token: String, manager: ConfigManager<BotConfig>, runP
     RUN_PATH = runPath
 
     CFG.loadConfig()
+    LOGGING.debug("Before db setup")
     DatabaseManager.setup(null)
+    LOGGING.debug("After db setup")
 
     LOGGING.debug("Current configuration:")
     LOGGING.debug(CFG.getConfigJsonAsString(comments = false, newlines = true))

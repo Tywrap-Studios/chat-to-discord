@@ -9,7 +9,9 @@ import dev.kord.core.entity.Guild
 import dev.kord.core.entity.channel.TextChannel
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.lastOrNull
+import kotlinx.coroutines.flow.toList
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Transaction
 import org.jetbrains.exposed.sql.addLogger
@@ -53,7 +55,15 @@ suspend fun getOrCreateChannel(
 
     val channels = guild
         .channels
-        .filter { (it.name == providedName || it.name == defaultName) }
+        .let { channels ->
+            val provided = channels.filter { it.name == providedName }
+            val default = channels.filter { it.name == defaultName }
+            if (provided.count() < 1) {
+                return@let default
+            } else {
+                return@let provided
+            }
+        }
     LOGGING.debug("$providedName [$defaultName]: ${channels.count()} channels found.")
 
     channel = channels.lastOrNull() as? TextChannel

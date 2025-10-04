@@ -111,7 +111,7 @@ suspend fun getMcPlayer(member: Snowflake): McPlayer? {
     }
 
     if (!link.verified) {
-        LOGGING.debug("Minecraft link for member $member is not verified, will not fetch player profile.")
+        LOGGING.debugWarning("Minecraft link for member $member is not verified, will not fetch player profile.")
         return null
     }
 
