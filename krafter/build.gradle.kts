@@ -27,6 +27,7 @@ repositories {
     maven {
         name = "QuiltMC (Snapshots)"
         url = uri("https://maven.quiltmc.org/repository/snapshot/")
+        // We need this because Quilt's Maven repo is... special I guess
         metadataSources {
             gradleMetadata()
             // Ignore gradle telling us to use the .module file, stick with the POM
