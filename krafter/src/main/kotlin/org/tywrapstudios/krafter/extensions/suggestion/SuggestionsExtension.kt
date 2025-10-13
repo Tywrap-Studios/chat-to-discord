@@ -1234,7 +1234,7 @@ class SuggestionsExtension : Extension() {
 
     @OptIn(NotTranslated::class)
     class SuggestionEditArguments : Arguments() {
-        val suggestion by suggestion {
+        val suggestion: Suggestion by suggestion {
             name = Translations.Commands.Suggestions.GeneralArgs.suggestion
             description = Translations.Commands.Suggestions.GeneralArgs.Suggestion.description
 
