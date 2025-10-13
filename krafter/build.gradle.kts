@@ -18,15 +18,20 @@ repositories {
     google()
 
     maven {
-        name = "QuiltMC (Snapshots)"
-        url = uri("https://maven.quiltmc.org/repository/snapshot/")
-    }
-    maven {
         name = "JitPack"
         url = uri("https://jitpack.io")
     }
     flatDir {
         dirs("${rootProject.projectDir}/.gradle/localLibs")
+    }
+    maven {
+        name = "QuiltMC (Snapshots)"
+        url = uri("https://maven.quiltmc.org/repository/snapshot/")
+        metadataSources {
+            gradleMetadata()
+            // Ignore gradle telling us to use the .module file, stick with the POM
+            ignoreGradleMetadataRedirection()
+        }
     }
 }
 

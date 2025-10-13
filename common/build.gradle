@@ -55,6 +55,11 @@ repositories {
     maven {
         name = "QuiltMC (Snapshots)"
         url = uri("https://maven.quiltmc.org/repository/snapshot/")
+        metadataSources {
+            gradleMetadata()
+            // Ignore gradle telling us to use the .module file, stick with the POM
+            ignoreGradleMetadataRedirection()
+        }
     }
 }
 
@@ -74,7 +79,9 @@ dependencies {
     // BlossomBridge
     api("com.github.Tywrap-Studios:BlossomBridge:${project.blossombridge_version}")
     // Krafter
-    api(project(":krafter"))
+    api(project(":krafter")) {
+//        exclude group: 'org.quiltmc.community'
+    }
 }
 
 configurations {

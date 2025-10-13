@@ -31,16 +31,17 @@ repositories {
         name = "KordEx (Mirror, R2)"
         url = uri("https://mirror-repo.kordex.dev")
     }
-    maven {
-        name = "QuiltMC (Releases)"
-        url = uri("https://maven.quiltmc.org/repository/release/")
+    flatDir {
+        dirs("${rootProject.projectDir}/.gradle/localLibs")
     }
     maven {
         name = "QuiltMC (Snapshots)"
         url = uri("https://maven.quiltmc.org/repository/snapshot/")
-    }
-    flatDir {
-        dirs("${rootProject.projectDir}/.gradle/localLibs")
+        metadataSources {
+            gradleMetadata()
+            // Ignore gradle telling us to use the .module file, stick with the POM
+            ignoreGradleMetadataRedirection()
+        }
     }
 }
 

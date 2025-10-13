@@ -1,8 +1,8 @@
 package org.tywrapstudios.krafter.database.tables
 
-//import org.jetbrains.exposed.sql.ResultRow
-//import org.quiltmc.community.cozy.modules.ama.data.AmaConfig
-//import org.quiltmc.community.cozy.modules.ama.data.AmaEmbedConfig
+import org.jetbrains.exposed.sql.ResultRow
+import org.quiltmc.community.cozy.modules.ama.data.AmaConfig
+import org.quiltmc.community.cozy.modules.ama.data.AmaEmbedConfig
 import org.tywrapstudios.krafter.database.sql.SnowflakeIdTable
 import org.tywrapstudios.krafter.database.sql.snowflake
 
@@ -24,24 +24,24 @@ object AmaConfigTable : SnowflakeIdTable() {
     val buttonId = text("button-id")
     val enabled = bool("enabled")
 
-//    fun fromRow(row: ResultRow) = AmaConfig(
-//        row[id].value,
-//        row[answerQueueChannel],
-//        row[liveChatChannel],
-//        row[buttonChannel],
-//        row[approvalQueueChannel],
-//        row[flaggedQuestionChannel],
-//
-//        embedConfigFromRow(row),
-//
-//        row[buttonMessage],
-//        row[buttonId],
-//        row[enabled],
-//    )
-//
-//    internal fun embedConfigFromRow(row: ResultRow) = AmaEmbedConfig(
-//        row[title],
-//        row[description],
-//        row[imageUrl],
-//    )
+    fun fromRow(row: ResultRow) = AmaConfig(
+        row[id].value,
+        row[answerQueueChannel],
+        row[liveChatChannel],
+        row[buttonChannel],
+        row[approvalQueueChannel],
+        row[flaggedQuestionChannel],
+
+        embedConfigFromRow(row),
+
+        row[buttonMessage],
+        row[buttonId],
+        row[enabled],
+    )
+
+    internal fun embedConfigFromRow(row: ResultRow) = AmaEmbedConfig(
+        row[title],
+        row[description],
+        row[imageUrl],
+    )
 }
