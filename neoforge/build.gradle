@@ -36,12 +36,13 @@ repositories {
         url = uri("https://maven.fabricmc.net")
     }
     maven {
-        name = "QuiltMC (Releases)"
-        url = uri("https://maven.quiltmc.org/repository/release/")
-    }
-    maven {
         name = "QuiltMC (Snapshots)"
         url = uri("https://maven.quiltmc.org/repository/snapshot/")
+        metadataSources {
+            gradleMetadata()
+            // Ignore gradle telling us to use the .module file, stick with the POM
+            ignoreGradleMetadataRedirection()
+        }
     }
 }
 
@@ -66,6 +67,7 @@ dependencies {
         exclude module: 'oshi-core'
         exclude module: 'commons-logging'
         exclude group: 'dev.kord'
+//        exclude group: 'org.quiltmc.community'
     }
     jarJar (api (additionalRuntimeClasspath("dev.kordex:kord-extensions:2.3.6-SNAPSHOT"))) {
         exclude module: 'slf4j-api'
