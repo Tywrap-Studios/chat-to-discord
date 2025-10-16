@@ -192,7 +192,7 @@ fun runAsync(
 ): CompletableFuture<Unit> = GlobalScope.future {
     INIT_LOGGER.info("Running the bot asynchronously using [CompletableFuture]!")
     run(token, manager, runPath)
-    INIT_LOGGER.info("[CompletableFuture] Post run method")
+    INIT_LOGGER.info("[CompletableFuture] Post run clarity")
 }
 
 /**

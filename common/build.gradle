@@ -1,8 +1,8 @@
 plugins {
     id 'multiloader-common'
     id 'net.neoforged.moddev'
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
+//    alias(libs.plugins.kotlin.jvm)
+//    alias(libs.plugins.kotlin.serialization)
 }
 
 neoForge {

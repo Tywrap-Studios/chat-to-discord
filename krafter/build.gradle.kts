@@ -57,7 +57,7 @@ dependencies {
     api(libs.bundles.database)
     api(libs.rcon)
     api(libs.excelkt)
-//    implementation(libs.ktor.client.cio)
+    api(libs.bundles.ktor.jvm)
 }
 
 // Configure distributions plugin

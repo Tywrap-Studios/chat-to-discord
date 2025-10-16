@@ -15,6 +15,8 @@ logback-groovy = "1.14.5"
 logging = "7.0.7"
 kordex-gradle = "1.7.4"
 kordex = "2.3.6-SNAPSHOT"
+ktor = "2.3.7"
+ktor-jvm = "3.2.3"
 rcon = "1.2.0"
 sqlite-jdbc = "3.47.2.0"
 
@@ -34,12 +36,14 @@ exposed-migration = { module = "org.jetbrains.exposed:exposed-migration", versio
 groovy = { module = "org.codehaus.groovy:groovy", version.ref = "groovy" }
 jansi = { module = "org.fusesource.jansi:jansi", version.ref = "jansi" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-cio-jvm = { module = "io.ktor:ktor-client-cio-jvm", version.ref = "ktor-jvm" }
+ktor-client-content-negotiation-jvm = { module = "io.ktor:ktor-client-content-negotiation-jvm", version.ref = "ktor-jvm" }
 kx-ser = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kx-ser" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logback-groovy = { module = "io.github.virtualdogbert:logback-groovy-config", version.ref = "logback-groovy" }
 logging = { module = "io.github.oshai:kotlin-logging", version.ref = "logging" }
-kord-extensions-core = { group = "dev.kordex", name = "kord-extensions", version.ref = "kordex" }
-kord-extensions-ap = { module = "dev.kordex:annotation-processor", version.ref = "kordex" }
 rcon = { module = "nl.vv32.rcon:rcon", version.ref = "rcon" }
 sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
 
@@ -66,4 +70,8 @@ database = [
     "exposed-jdbc",
     "exposed-migration",
     "sqlite-jdbc"
+]
+ktor-jvm = [
+    "ktor-client-cio-jvm",
+    "ktor-client-content-negotiation-jvm",
 ]
